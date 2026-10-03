@@ -18,6 +18,8 @@ import pathlib
 import re
 import sys
 
+from site_photos import PHOTOS  # підписи фото в каруселі
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "index.html"
 DST = ROOT / "en" / "index.html"
@@ -84,12 +86,6 @@ PAGE = [
     ("Київ, про який <em>мовчали</em><br>поколіннями.", "The Kyiv that was <em>kept silent</em><br>for generations."),
     ("Десятиліттями історія Києва була спотвореною, згладженою або зведеною до кількох відомих назв. Архіви горіли, кам'яниці зносили, а про двори, у яких жили поколіннями — ніхто так і не розповів.",
      "For decades, Kyiv's history was distorted, smoothed over or reduced to a handful of famous names. Archives burned, old townhouses were torn down, and nobody ever told the story of the courtyards where families lived for generations."),
-    ('<span class="tag">Поділ</span>', '<span class="tag">Podil</span>'),
-    ('<span class="tag">Хрещатик</span>', '<span class="tag">Khreshchatyk</span>'),
-    ('<span class="tag">Андріївський узвіз</span>', '<span class="tag">Andriivskyi Descent</span>'),
-    ('<span class="tag">Ярославів Вал · 1902</span>', '<span class="tag">Yaroslaviv Val · 1902</span>'),
-    ('<span class="tag">Прорізна</span>', '<span class="tag">Prorizna</span>'),
-    ('<span class="tag">Саксаганського</span>', '<span class="tag">Saksahanskoho</span>'),
     # 02 solution
     ("02 · Рішення", "02 · The solution"),
     ("Місто стає <em>інтерфейсом.</em>", "The city becomes <em>the interface.</em>"),
@@ -133,26 +129,10 @@ PAGE = [
     # 04 gallery
     ("04 · Архів", "04 · The archive"),
     ("Сотні <em>фасадів</em><br>— одне місто.", "Hundreds of <em>facades</em><br>— one city."),
-    ('data-title="Ярославів Вал"', 'data-title="Yaroslaviv Val"'),
-    ('data-title="Хрещатик"', 'data-title="Khreshchatyk"'),
-    ('data-title="Андріївський"', 'data-title="Andriivskyi"'),
-    ('data-title="Прорізна"', 'data-title="Prorizna"'),
-    ('data-title="Саксаганського"', 'data-title="Saksahanskoho"'),
-    ('data-title="Центр"', 'data-title="City centre"'),
-    ('data-title="Старе місто"', 'data-title="Old Town"'),
-    ('data-title="Поділ"', 'data-title="Podil"'),
-    ('data-title="Прибутковий дім"', 'data-title="Apartment house"'),
-    ('data-title="Готель Салют"', 'data-title="Hotel Salut"'),
-    ('data-title="Палацовий будинок"', 'data-title="Palace house"'),
-    ("<span>Ярославів Вал</span>", "<span>Yaroslaviv Val</span>"),
-    ("<span>Хрещатик</span>", "<span>Khreshchatyk</span>"),
-    ("<span>Андріївський</span>", "<span>Andriivskyi</span>"),
-    ("<span>Прорізна</span>", "<span>Prorizna</span>"),
-    ("<span>Саксаганського</span>", "<span>Saksahanskoho</span>"),
-    ("<span>Центр</span>", "<span>City centre</span>"),
-    ("<span>Старе місто</span>", "<span>Old Town</span>"),
-    ("<span>Поділ</span>", "<span>Podil</span>"),
-    ("<span>Печерськ</span>", "<span>Pechersk</span>"),
+    # 04 archive: carousel captions come from tools/site_photos.py
+    *[(f'data-title="{uk}"', f'data-title="{en}"') for _, _, uk, en in PHOTOS],
+    ('alt="Фото: ', 'alt="Photo: '),
+    ('>Фото: ', '>Photo: '),
     ('aria-label="Попереднє"', 'aria-label="Previous"'),
     ('aria-label="Пауза"', 'aria-label="Pause"'),
     ('aria-label="Наступне"', 'aria-label="Next"'),
