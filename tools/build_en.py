@@ -45,7 +45,6 @@ HREFLANG = ('<link rel="alternate" hreflang="uk" href="https://bruk.city/">\n'
 SHELL = [
     ("<!DOCTYPE html>\n<html>", '<!DOCTYPE html>\n<html lang="en">'),
     ("<title>BRUK — Історія Києва, яка оживає</title>", "<title>BRUK — Kyiv's history, coming alive</title>"),
-    ('aria-label="Завантаження BRUK"', 'aria-label="Loading BRUK"'),
     ("'помилка: бракує даних'", "'error: missing data'"),
     ("'розпаковуємо ' + uuids.length + ' артефактів'", "'unpacking ' + uuids.length + ' assets'"),
     ("'монтуємо сцену'", "'building the page'"),
