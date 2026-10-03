@@ -36,6 +36,8 @@ const state = {
 };
 
 const $ = (id) => document.getElementById(id);
+// /map/?embed=1 — мапа вбудована в головну сторінку bruk.city.
+const EMBED = document.documentElement.classList.contains('embed');
 
 // MARK: - Дані
 
@@ -182,6 +184,8 @@ function setupMap() {
     pitch: CONFIG.pitch,
     attributionControl: true,
     language: 'uk',
+    // У вбудованій мапі коліщатко гортає сторінку, а мапу масштабують з Ctrl/⌘.
+    cooperativeGestures: EMBED,
   });
   map.on('error', (e) => {
     const status = e && e.error && e.error.status;
@@ -719,7 +723,7 @@ function storage(key, value) {
   return null;
 }
 function setupHint() {
-  if (storage('bruk.hasSeenTapHint')) return;
+  if (EMBED || storage('bruk.hasSeenTapHint')) return;
   $('hint').hidden = false;
   $('hint-close').addEventListener('click', hideHint);
 }
