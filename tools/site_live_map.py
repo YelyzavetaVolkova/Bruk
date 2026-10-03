@@ -40,12 +40,50 @@ def block(html):
     return m
 
 
+CSS_LINKS = """
+/* Live map links (tools/site_live_map.py) */
+.phone { position: relative; }
+.phone-open { position: absolute; inset: 0; z-index: 20; border-radius: inherit; cursor: pointer; }
+.live-map-full { position: absolute; top: 14px; right: 14px; z-index: 2; padding: 9px 14px;
+  border-radius: 999px; background: #fff; color: #111; font-size: 14px; font-weight: 600;
+  text-decoration: none; box-shadow: 0 6px 13px rgba(0,0,0,.12), 0 .5px 4px rgba(0,0,0,.12); }
+.live-map-full:hover { background: #A20E00; color: #fff; }
+"""
+
+PHONE_LINK = '<a class="phone-open" href="/map/" aria-label="Відкрити мапу на весь екран"></a>'
+FULL_LINK = '<a class="live-map-full" href="/map/">На весь екран ↗</a>'
+
+
+def add_links(tpl):
+    """Телефон-прототип і вбудована мапа ведуть на повноекранну bruk.city/map."""
+    if "phone-open" in tpl:
+        return tpl
+    old = '<div class="phone" id="phone">'
+    if old not in tpl:
+        raise SystemExit("не знайшла телефон-прототип")
+    tpl = tpl.replace(old, old + PHONE_LINK, 1)
+    old = '<div class="live-map"><iframe'
+    tpl = tpl.replace(old, '<div class="live-map">' + FULL_LINK + '<iframe', 1)
+    i = tpl.rfind("</style>")
+    return tpl[:i] + CSS_LINKS + tpl[i:]
+
+
+def save(html, m, tpl):
+    dumped = json.dumps(tpl, ensure_ascii=False).replace("</", "<\\/")
+    SRC.write_text(html[:m.start(2)] + dumped + html[m.end(2):], encoding="utf-8")
+
+
 def main():
     html = SRC.read_text(encoding="utf-8")
     m = block(html)
     tpl = json.loads(m.group(2))
     if "live-map" in tpl:
-        print("index.html: жива мапа вже є")
+        new = add_links(tpl)
+        if new != tpl:
+            save(html, m, new)
+            print("index.html: посилання на повну мапу додано")
+        else:
+            print("index.html: жива мапа вже є")
         return
 
     def swap(old, new):
@@ -66,10 +104,7 @@ def main():
     tpl = tpl[:end] + BUTTON + tpl[end:]
     i = tpl.rfind("</style>")
     tpl = tpl[:i] + CSS + tpl[i:]
-
-    dumped = json.dumps(tpl, ensure_ascii=False).replace("</", "<\\/")
-    html = html[:m.start(2)] + dumped + html[m.end(2):]
-    SRC.write_text(html, encoding="utf-8")
+    save(html, m, add_links(tpl))
     print("index.html: живу мапу додано")
 
 
