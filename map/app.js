@@ -759,6 +759,22 @@ function showError(text) {
   errorTimer = setTimeout(() => { box.hidden = true; }, 6000);
 }
 
+// MARK: - Заставка
+
+// Як у застосунку: літери складаються (4 × 110 мс), пауза 1100 мс — і заставка зникає.
+const SPLASH_MIN_MS = 4 * 110 + 1100;
+const splashStart = performance.now();
+
+function hideSplash() {
+  const sp = $('bruk-splash');
+  if (!sp) return;
+  const wait = Math.max(0, SPLASH_MIN_MS - (performance.now() - splashStart));
+  setTimeout(() => {
+    sp.classList.add('out');
+    setTimeout(() => sp.remove(), 500);
+  }, wait);
+}
+
 // MARK: - Старт
 
 async function main() {
@@ -767,6 +783,7 @@ async function main() {
   try {
     await loadData();
   } catch (e) {
+    hideSplash();
     showError('Не вдалося завантажити будинки. Перевір інтернет і онови сторінку.');
     return;
   }
@@ -781,6 +798,7 @@ async function main() {
   const m = location.hash.match(/^#b=(.+)$/);
   const b = m && state.byId.get(decodeURIComponent(m[1]));
   if (b) showBuilding(b, { fly: true });
+  hideSplash();
 }
 
 main();
