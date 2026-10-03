@@ -113,6 +113,8 @@ PAGE = [
     ("03 · Мапа", "03 · The map"),
     (">Відкрити мапу →<", ">Open the map →<"),
     ('title="Жива мапа BRUK"', 'title="BRUK live map"'),
+    ('aria-label="Відкрити мапу на весь екран"', 'aria-label="Open the full-screen map"'),
+    (">На весь екран ↗<", ">Full screen ↗<"),
     ("У кишені, <em>як компас.</em>", "In your pocket, <em>like a compass.</em>"),
     ("Відкрий мапу — і місто стане інтерактивним. Натисни на підсвічений будинок, щоб прочитати його історію. Усе на одному екрані, без реєстрації.",
      "Open the map and the city becomes interactive. Tap a highlighted building to read its story. All on one screen, no sign-up."),
