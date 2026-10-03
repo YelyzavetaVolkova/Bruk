@@ -152,6 +152,11 @@ a { color: #0a64d6; }
 @keyframes pulse { to { opacity: .55; } }
 .photos figcaption { margin-top: 4px; font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .photos figcaption a { color: inherit; text-decoration: none; }
+.panel-body > .photos + .photo-cta { margin-top: 10px; }
+.photo-cta { display: grid; grid-template-columns: 20px 1fr; gap: 4px 10px; align-items: start; color: var(--muted); }
+.photo-cta svg { margin-top: 1px; }
+.photo-cta p { margin: 0; font-size: 13px; line-height: 1.4; }
+.photo-cta .btn { grid-column: 2; justify-self: start; margin-top: 6px; padding: 7px 14px; font-size: 13px; }
 
 .eyebrow { font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); padding-right: 36px; }
 h1.title { margin: 6px 0 0; font-size: 22px; line-height: 1.25; padding-right: 20px; }

@@ -65,6 +65,7 @@
   textarea::placeholder, .line input::placeholder { color: rgba(60,60,67,.35); }
   .row { display: flex; justify-content: space-between; gap: 16px; }
   .check { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; cursor: pointer; }
+  .check[hidden] { display: none; }
   .check input { appearance: none; width: 22px; height: 22px; flex: none; border-radius: 6px; border: 1.5px solid var(--line);
                  display: grid; place-items: center; margin-top: 1px; cursor: pointer; }
   .check input:checked { background: var(--red); border-color: var(--red); }
@@ -99,8 +100,8 @@
 
 <main class="wrap" id="main">
   <section class="intro">
-    <h1>Розкажи історію будинку</h1>
-    <p class="lede">Спогад, сімейна історія чи старе фото. Ми перевіримо факти й, якщо все підтвердиться, додамо історію до картки на мапі з твоїм підписом.</p>
+    <h1 id="heading">Розкажи історію будинку</h1>
+    <p class="lede" id="lede">Спогад, сімейна історія чи старе фото. Ми перевіримо факти й, якщо все підтвердиться, додамо історію до картки на мапі з твоїм підписом.</p>
     <ol class="steps" aria-label="Що далі">
       <li class="now"><span class="n">1</span><div><b>Надсилаєш історію</b><span>Листом на bruk.kyiv@gmail.com</span></div></li>
       <li class="next"><span class="n">2</span><div><b>Перевіряємо факти</b><span>Можемо перепитати у відповідь</span></div></li>
@@ -127,7 +128,7 @@
       </fieldset>
 
       <div class="field">
-        <label class="label" for="text">Твоя історія</label>
+        <label class="label" for="text" id="text-label">Твоя історія</label>
         <textarea id="text" name="text" maxlength="2000" required placeholder="Хто тут жив чи працював, коли, що сталося. Наприклад: «Моя бабуся в 1950-х працювала в аптеці на першому поверсі й розповідала, що…»"></textarea>
         <div class="row hint"><span>Без вигадок: якщо це переказ, так і напиши.</span><span id="count">0 / 2000</span></div>
       </div>
@@ -147,7 +148,7 @@
 
       <div class="field">
         <span class="label">Фото</span>
-        <p class="hint">Прикріпи фото до листа, який відкриється після натискання кнопки. Лише твої фото або ті, на які маєш дозвіл автора.</p>
+        <p class="hint">Прикріпи фото до листа, який відкриється після натискання кнопки. Лише твої фото або ті, на які маєш дозвіл автора. Найкраще — сучасний знімок фасаду при денному світлі або старе фото з родинного архіву.</p>
       </div>
 
       <div class="field">
@@ -158,6 +159,7 @@
       <div class="checks">
         <label class="check"><input type="checkbox" id="agree"> Погоджуюсь, що редакція BRUK перевірить факти, може уточнити деталі й скоротити текст.</label>
         <label class="check"><input type="checkbox" id="sign" checked> Можна підписати історію моїм ім'ям у картці будинку.</label>
+        <label class="check" id="rights-row" hidden><input type="checkbox" id="rights"> Це моє фото або я маю дозвіл автора. BRUK може опублікувати його в картці будинку з підписом автора.</label>
       </div>
 
 
@@ -188,16 +190,30 @@
   const form = $('story'), main = $('main');
   const params = new URLSearchParams(location.search);
   if (params.get('place')) $('address').value = params.get('place');
+  // ?kind=photo — з кнопки «Надіслати фото» в картці будинку на мапі.
+  const TEXT_PH = $('text').placeholder;
+  if (params.get('kind') === 'photo') {
+    $('k4').checked = true;
+    $('heading').textContent = 'Поділися фото будинку';
+    $('lede').textContent = 'Маєш краще фото цього будинку? Надішли його нам, щоб усім було приємніше. Ми додамо фото до картки на мапі з підписом автора.';
+  }
+  const isPhoto = () => value('kind') === 'Фото';
+  const syncKind = () => {
+    $('rights-row').hidden = !isPhoto();
+    $('text-label').textContent = isPhoto() ? 'Про фото (необов\'язково)' : 'Твоя історія';
+    $('text').placeholder = isPhoto() ? 'Коли й ким знято, що на фото. Наприклад: «Фасад у вересні 2026, після реставрації»' : TEXT_PH;
+  };
   const lat = parseFloat(params.get('lat')), lng = parseFloat(params.get('lng'));
 
   const value = (name) => (form.elements[name].value || '').trim();
-  const ready = () => value('address') && value('text') && $('agree').checked;
+  const ready = () => value('address') && $('agree').checked && (isPhoto() ? $('rights').checked : value('text'));
   const update = () => {
     $('send').disabled = !ready();
     $('count').textContent = `${$('text').value.length} / 2000`;
   };
   form.addEventListener('input', update);
-  form.addEventListener('change', update);
+  form.addEventListener('change', () => { syncKind(); update(); });
+  syncKind();
   update();
 
   form.addEventListener('submit', (e) => {
@@ -213,16 +229,17 @@
     lines.push('', value('text'), '');
     lines.push(`Підпис: ${$('sign').checked && name ? name : 'без підпису'}`);
     lines.push('Згода на перевірку фактів і редагування: так');
-    lines.push('(фото — у вкладенні, якщо є)');
+    if (isPhoto()) lines.push('Права на фото: моє фото або маю дозвіл автора, можна публікувати з підписом автора');
+    lines.push(isPhoto() ? '(фото — у вкладенні)' : '(фото — у вкладенні, якщо є)');
     if (!isNaN(lat) && !isNaN(lng)) lines.push('—', `${lat.toFixed(6)}, ${lng.toFixed(6)}`);
-    const subject = `BRUK: історія — ${value('address')}`;
+    const subject = `BRUK: ${isPhoto() ? 'фото' : 'історія'} — ${value('address')}`;
     location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
     main.classList.add('is-sent');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   $('again').addEventListener('click', () => {
-    $('text').value = ''; $('ref').value = ''; $('agree').checked = false;
+    $('text').value = ''; $('ref').value = ''; $('agree').checked = false; $('rights').checked = false;
     main.classList.remove('is-sent');
     update();
   });
