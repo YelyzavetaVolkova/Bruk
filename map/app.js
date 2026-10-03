@@ -348,9 +348,22 @@ function displayDate(d) {
 }
 
 // Форма «Розкажи історію будинку» на сайті (/story.html) з підставленою адресою.
-function storyLink(place, lat, lng) {
+function storyLink(place, lat, lng, kind = '') {
   const q = new URLSearchParams({ place, lat: lat.toFixed(6), lng: lng.toFixed(6) });
+  if (kind) q.set('kind', kind);
   return `/story.html?${q}`;
+}
+
+// «Маєш краще фото?» під фото будинку — веде на ту саму форму в режимі фото.
+function photoCta(b, hasPhotos) {
+  const text = hasPhotos
+    ? 'Маєш краще фото цього будинку? Поділися з нами, щоб усім було приємніше.'
+    : 'У цього будинку ще немає фото. Маєш власне? Поділися з нами, щоб усім було приємніше.';
+  return `<div class="photo-cta">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.5" stroke="currentColor" stroke-width="1.75"/></svg>
+    <p>${text}</p>
+    <a class="btn ghost" href="${storyLink(b.address, b.latitude, b.longitude, 'photo')}">Надіслати фото</a>
+  </div>`;
 }
 
 function researchBlock(place, lat, lng) {
@@ -368,7 +381,7 @@ function section(title, body, cls = '') {
 function renderBuilding(b) {
   const parts = [];
   const hasPhotos = !!(b.commonsCategory || (b.commonsFiles && b.commonsFiles.length));
-  if (hasPhotos) parts.push('<div class="photo-skeleton" id="photos" aria-label="Завантажуємо фото"></div>');
+  if (hasPhotos) parts.push('<div class="photo-skeleton" id="photos" aria-label="Завантажуємо фото"></div>', photoCta(b, true));
 
   const badges = [];
   const surv = SURVIVED[b.survived1941];
@@ -422,6 +435,7 @@ function renderBuilding(b) {
     if (b.currentFunction) rows.push(`<dt>Сьогодні</dt><dd>${esc(b.currentFunction)}</dd>`);
     parts.push(`<div class="section"><h3>Функції</h3><dl class="facts-dl">${rows.join('')}</dl></div>`);
   }
+  if (!hasPhotos) parts.push(photoCta(b, false));
   if (b.sources) parts.push(section('Джерела', richText(b.sources), 'sources small'));
 
   return parts.join('');
@@ -529,7 +543,17 @@ async function loadPhotos(b) {
   }
   // Поки вантажилось, могли відкрити інший будинок.
   if (state.selectedId !== b.id || !document.body.contains(slot)) return;
-  if (!photos.length) { slot.remove(); return; }
+  if (!photos.length) {
+    slot.remove();
+    // Фото не знайшлося — переносимо заклик униз, де він стоїть у будинків без фото.
+    const cta = document.querySelector('.photo-cta');
+    if (cta) {
+      cta.querySelector('p').textContent = 'У цього будинку ще немає фото. Маєш власне? Поділися з нами, щоб усім було приємніше.';
+      const sources = document.querySelector('#panel-body > .sources');
+      if (sources) sources.before(cta); else $('panel-body').append(cta);
+    }
+    return;
+  }
   const strip = document.createElement('div');
   strip.className = 'photos';
   // Автор і ліцензія обов'язкові за ліцензіями Commons.
