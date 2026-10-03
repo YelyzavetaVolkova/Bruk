@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BRUK — розкажи історію будинку</title>
+<meta name="description" content="Спогад, сімейна історія чи старе фото київського будинку. Редакція BRUK перевірить факти й додасть історію до картки.">
+<meta name="theme-color" content="#A20E00">
+<link rel="icon" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400..800&display=swap" rel="stylesheet">
+<style>
+  /* Форма з Figma «14 Розповісти про будинок — форма» і «15 Історію отримали»,
+     у стилі сайту: Montserrat, білий, чорний і червоний бренду. */
+  :root {
+    --bg: #ffffff; --bg-soft: #f2f2f7; --ink: #0e0e0e; --muted: rgba(60,60,67,.6);
+    --line: rgba(14,14,14,.3); --red: #A20E00; --r-card: 20px;
+    --f: "Montserrat", -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--ink); font: 400 16px/1.5 var(--f); -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  button, input, textarea { font: inherit; color: inherit; }
+
+  .top { display: flex; align-items: center; justify-content: space-between; padding: 20px clamp(16px, 4vw, 56px); }
+  .brand { font-weight: 700; letter-spacing: .18em; color: var(--red); text-decoration: none; font-size: 18px; }
+  .close { width: 36px; height: 36px; border-radius: 50%; background: var(--bg-soft); display: grid; place-items: center; text-decoration: none; font-size: 18px; }
+
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 56px) 80px;
+          display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+  .intro { position: sticky; top: 32px; }
+  h1 { font-weight: 700; font-size: clamp(32px, 4.2vw, 56px); line-height: 1.05; letter-spacing: 0; }
+  .lede { margin-top: 18px; font-size: 17px; color: var(--muted); max-width: 46ch; }
+  .steps { margin-top: 32px; background: var(--bg-soft); border-radius: var(--r-card); padding: 6px 18px; list-style: none; }
+  .steps li { display: flex; gap: 14px; align-items: center; padding: 14px 0; }
+  .steps li + li { border-top: 1px solid rgba(14,14,14,.08); }
+  .steps .n { width: 28px; height: 28px; flex: none; border-radius: 50%; display: grid; place-items: center;
+              font-size: 13px; font-weight: 600; border: 1.5px solid rgba(14,14,14,.2); color: var(--muted); background: #fff; }
+  .steps .done .n { background: var(--red); border-color: var(--red); color: #fff; }
+  .steps .now .n { border-color: var(--red); color: var(--red); }
+  .steps b { display: block; font-weight: 600; font-size: 16px; }
+  .steps span { display: block; font-size: 13px; color: var(--muted); }
+  .steps .next b { color: var(--muted); }
+
+  form { display: grid; gap: 28px; }
+  .field { display: grid; gap: 10px; }
+  .label { font-size: 12px; font-weight: 600; letter-spacing: .04em; color: var(--muted); text-transform: uppercase; }
+  .line { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--line); padding: 10px 0; transition: border-color .2s; }
+  .line:focus-within { border-color: var(--red); }
+  .line input { border: 0; outline: 0; background: none; width: 100%; font-size: 17px; }
+  .line input.big { font-size: 22px; font-weight: 600; }
+  .line svg { flex: none; }
+  .hint { font-size: 13px; color: var(--muted); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; border: 0; }
+  .chips legend { margin-bottom: 10px; }
+  .chips input { position: absolute; opacity: 0; pointer-events: none; }
+  .chips label { padding: 9px 14px; border-radius: 999px; border: 1px solid var(--ink); font-size: 13px; font-weight: 500;
+                 letter-spacing: .05em; text-transform: uppercase; cursor: pointer; user-select: none; transition: background .15s, color .15s; }
+  .chips input:checked + label { background: var(--red); border-color: var(--red); color: #fff; }
+  .chips input:focus-visible + label { outline: 2px solid var(--red); outline-offset: 2px; }
+  textarea { width: 100%; min-height: 200px; resize: vertical; border: 0; outline: 0; border-radius: 16px;
+             background: var(--bg-soft); padding: 14px 16px; font-size: 16px; line-height: 1.55; }
+  textarea:focus { box-shadow: 0 0 0 1.5px var(--red); }
+  textarea::placeholder, .line input::placeholder { color: rgba(60,60,67,.35); }
+  .row { display: flex; justify-content: space-between; gap: 16px; }
+  .check { display: flex; gap: 12px; align-items: flex-start; font-size: 14px; cursor: pointer; }
+  .check input { appearance: none; width: 22px; height: 22px; flex: none; border-radius: 6px; border: 1.5px solid var(--line);
+                 display: grid; place-items: center; margin-top: 1px; cursor: pointer; }
+  .check input:checked { background: var(--red); border-color: var(--red); }
+  .check input:checked::after { content: ""; width: 10px; height: 6px; border: solid #fff; border-width: 0 0 2.5px 2.5px; transform: translate(0, -1px) rotate(-45deg); }
+  .check input:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+  .checks { display: grid; gap: 14px; }
+  .btn { display: block; width: 100%; height: 56px; border: 0; border-radius: 999px; background: var(--ink); color: #fff;
+         font-weight: 600; font-size: 17px; cursor: pointer; text-align: center; line-height: 56px; text-decoration: none; transition: opacity .2s; }
+  .btn:disabled { background: #c7c7cc; cursor: not-allowed; }
+  .btn.ghost { background: none; color: var(--ink); border: 1px solid var(--ink); line-height: 54px; }
+
+  .sent { display: none; }
+  .is-sent .sent { display: grid; gap: 28px; }
+  .is-sent form { display: none; }
+  .badge { width: 88px; height: 88px; border-radius: 50%; background: var(--red); display: grid; place-items: center; }
+  .sent h2 { font-weight: 700; font-size: clamp(28px, 3vw, 40px); line-height: 1.1; }
+  .sent p { color: var(--muted); font-size: 17px; }
+  .buttons { display: grid; gap: 12px; }
+
+  @media (max-width: 860px) {
+    .wrap { grid-template-columns: 1fr; padding-top: 8px; }
+    .intro { position: static; }
+    .intro .steps { display: none; }
+  }
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="/">BRUK</a>
+  <a class="close" href="/" aria-label="Закрити">×</a>
+</header>
+
+<main class="wrap" id="main">
+  <section class="intro">
+    <h1>Розкажи історію будинку</h1>
+    <p class="lede">Спогад, сімейна історія чи старе фото. Ми перевіримо факти й, якщо все підтвердиться, додамо історію до картки на мапі з твоїм підписом.</p>
+    <ol class="steps" aria-label="Що далі">
+      <li class="now"><span class="n">1</span><div><b>Надсилаєш історію</b><span>Листом на bruk.kyiv@gmail.com</span></div></li>
+      <li class="next"><span class="n">2</span><div><b>Перевіряємо факти</b><span>Можемо перепитати у відповідь</span></div></li>
+      <li class="next"><span class="n">3</span><div><b>Додаємо до картки</b><span>У застосунку й на мапі сайту</span></div></li>
+    </ol>
+  </section>
+
+  <section>
+    <form id="story" novalidate>
+      <div class="field">
+        <label class="label" for="address">Про який будинок</label>
+        <div class="line">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" stroke="#A20E00" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.5" stroke="#A20E00" stroke-width="2"/></svg>
+          <input class="big" id="address" name="address" placeholder="Вулиця і номер будинку" autocomplete="off" required>
+        </div>
+      </div>
+
+      <fieldset class="field chips" id="kind">
+        <legend class="label">Що це за історія</legend>
+        <input type="radio" name="kind" id="k1" value="Спогад" checked><label for="k1">Спогад</label>
+        <input type="radio" name="kind" id="k2" value="Сімейна історія"><label for="k2">Сімейна історія</label>
+        <input type="radio" name="kind" id="k3" value="Документ з архіву"><label for="k3">Документ з архіву</label>
+        <input type="radio" name="kind" id="k4" value="Фото"><label for="k4">Фото</label>
+      </fieldset>
+
+      <div class="field">
+        <label class="label" for="text">Твоя історія</label>
+        <textarea id="text" name="text" maxlength="2000" required placeholder="Хто тут жив чи працював, коли, що сталося. Наприклад: «Моя бабуся в 1950-х працювала в аптеці на першому поверсі й розповідала, що…»"></textarea>
+        <div class="row hint"><span>Без вигадок: якщо це переказ, так і напиши.</span><span id="count">0 / 2000</span></div>
+      </div>
+
+      <fieldset class="field chips">
+        <legend class="label">Звідки ти це знаєш</legend>
+        <input type="radio" name="source" id="s1" value="Особисто" checked><label for="s1">Особисто</label>
+        <input type="radio" name="source" id="s2" value="Родина розповідала"><label for="s2">Родина розповідала</label>
+        <input type="radio" name="source" id="s3" value="Архів або документ"><label for="s3">Архів або документ</label>
+        <input type="radio" name="source" id="s4" value="Книга чи стаття"><label for="s4">Книга чи стаття</label>
+      </fieldset>
+
+      <div class="field">
+        <label class="label" for="ref">Джерело, якщо є</label>
+        <div class="line"><input id="ref" name="ref" placeholder="Книга, посилання, номер архівної справи"></div>
+      </div>
+
+      <div class="field">
+        <span class="label">Фото</span>
+        <p class="hint">Прикріпи фото до листа, який відкриється після натискання кнопки. Лише твої фото або ті, на які маєш дозвіл автора.</p>
+      </div>
+
+      <div class="field">
+        <label class="label" for="name">Як тебе підписати</label>
+        <div class="line"><input class="big" id="name" name="name" placeholder="Ім'я" autocomplete="name"></div>
+      </div>
+
+      <div class="checks">
+        <label class="check"><input type="checkbox" id="agree"> Погоджуюсь, що редакція BRUK перевірить факти, може уточнити деталі й скоротити текст.</label>
+        <label class="check"><input type="checkbox" id="sign" checked> Можна підписати історію моїм ім'ям у картці будинку.</label>
+      </div>
+
+
+      <div class="field">
+        <button class="btn" type="submit" id="send" disabled>Надіслати на перевірку</button>
+        <p class="hint">Відкриється твоя пошта з готовим листом. Без перевірки нічого не публікуємо, про результат напишемо у відповідь.</p>
+      </div>
+    </form>
+
+    <div class="sent" aria-live="polite">
+      <div class="badge"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div>
+        <h2>Лист готовий</h2>
+        <p style="margin-top:14px">Залишилось натиснути «Надіслати» в пошті. Фото можна прикріпити до того самого листа. Якщо пошта не відкрилась, напиши нам на <a href="mailto:bruk.kyiv@gmail.com">bruk.kyiv@gmail.com</a>.</p>
+      </div>
+      <div class="buttons">
+        <a class="btn" href="/map/">Повернутися до мапи</a>
+        <button class="btn ghost" type="button" id="again">Розповісти ще одну</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const EMAIL = 'bruk.kyiv@gmail.com';
+  const $ = (id) => document.getElementById(id);
+  const form = $('story'), main = $('main');
+  const params = new URLSearchParams(location.search);
+  if (params.get('place')) $('address').value = params.get('place');
+  const lat = parseFloat(params.get('lat')), lng = parseFloat(params.get('lng'));
+
+  const value = (name) => (form.elements[name].value || '').trim();
+  const ready = () => value('address') && value('text') && $('agree').checked;
+  const update = () => {
+    $('send').disabled = !ready();
+    $('count').textContent = `${$('text').value.length} / 2000`;
+  };
+  form.addEventListener('input', update);
+  form.addEventListener('change', update);
+  update();
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!ready()) return;
+    const name = value('name');
+    const lines = [
+      `Будинок: ${value('address')}`,
+      `Що це: ${value('kind')}`,
+      `Звідки відомо: ${value('source')}`,
+    ];
+    if (value('ref')) lines.push(`Джерело: ${value('ref')}`);
+    lines.push('', value('text'), '');
+    lines.push(`Підпис: ${$('sign').checked && name ? name : 'без підпису'}`);
+    lines.push('Згода на перевірку фактів і редагування: так');
+    lines.push('(фото — у вкладенні, якщо є)');
+    if (!isNaN(lat) && !isNaN(lng)) lines.push('—', `${lat.toFixed(6)}, ${lng.toFixed(6)}`);
+    const subject = `BRUK: історія — ${value('address')}`;
+    location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
+    main.classList.add('is-sent');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  $('again').addEventListener('click', () => {
+    $('text').value = ''; $('ref').value = ''; $('agree').checked = false;
+    main.classList.remove('is-sent');
+    update();
+  });
+})();
+</script>
+</body>
+</html>
