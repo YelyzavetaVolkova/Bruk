@@ -347,16 +347,17 @@ function displayDate(d) {
   return p.length === 3 ? `${p[2]}.${p[1]}.${p[0]}` : d;
 }
 
-function mailLink(place, lat, lng) {
-  const body = `Що я знаю про цей будинок:\n\n\n(Звідки це відомо — книжка, архів, родинна історія?)\n\n—\n${place} · ${lat.toFixed(6)}, ${lng.toFixed(6)}`;
-  return `mailto:${CONFIG.email}?subject=${encodeURIComponent(`BRUK: ${place}`)}&body=${encodeURIComponent(body)}`;
+// Форма «Розкажи історію будинку» на сайті (/story.html) з підставленою адресою.
+function storyLink(place, lat, lng) {
+  const q = new URLSearchParams({ place, lat: lat.toFixed(6), lng: lng.toFixed(6) });
+  return `/story.html?${q}`;
 }
 
 function researchBlock(place, lat, lng) {
   return `<div class="research">
     <h3>Ще досліджуємо</h3>
-    <p>Знаєш щось про цей будинок? Хто його звів, хто тут жив, що тут було до війни? Напиши нам! Найкращі історії з'являються саме так.</p>
-    <a class="btn primary" href="${mailLink(place, lat, lng)}">Написати нам</a>
+    <p>Знаєш щось про цей будинок? Хто його звів, хто тут жив, що тут було до війни? Розкажи нам! Найкращі історії з'являються саме так.</p>
+    <a class="btn primary" href="${storyLink(place, lat, lng)}">Розповісти історію</a>
   </div>`;
 }
 
@@ -408,6 +409,10 @@ function renderBuilding(b) {
       ? `<div class="section" id="extended"><button class="link-btn" id="more">Читати більше</button></div>`
       : `<div class="section"><div class="text">${esc(b.extendedText)}</div></div>`);
   }
+  // Хто писав і редагував тексти (поле credits, tools/import_edits.py у bruk-app).
+  if (b.credits && b.credits.length) {
+    parts.push(`<div class="credits small">${b.credits.map((c) => `${esc(c.role)}: ${esc(c.name)}`).join(' · ')}</div>`);
+  }
   if (b.notablePeople) parts.push(section('Відомі особистості', esc(b.notablePeople)));
   if (needsResearch(b)) parts.push(researchBlock(b.address, b.latitude, b.longitude));
 
@@ -453,7 +458,7 @@ function showUnmapped(featureId, lngLat) {
       <div class="eyebrow">Будинок без картки</div>
       <h1 class="title" id="panel-title">Його історію ще ніхто не розповів</h1>
     </div>
-    ${researchBlock('будинок без адреси в BRUK', lngLat.lat, lngLat.lng)}`);
+    ${researchBlock('', lngLat.lat, lngLat.lng)}`);
   history.replaceState(null, '', location.pathname);
 }
 

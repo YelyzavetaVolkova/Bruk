@@ -162,6 +162,8 @@ PAGE = [
     ('<div class="name">Ненудна освіта</div>', '<div class="name">Learning that isn’t boring</div>'),
     ('<div class="name">Малі історії мають значення</div>', '<div class="name">Small stories matter</div>'),
     ('<div class="name">Нове українське бачення</div>', '<div class="name">A new Ukrainian vision</div>'),
+    # Посилання на форму історії (story.html — українською)
+    ('href="/story.html">Розповісти історію<', 'href="/story.html" hreflang="uk">Share a story<'),
     # footer
     ("<p>Місто, що говорить через будинки.</p>", "<p>A city that speaks through its buildings.</p>"),
     ("<h5>Проєкт</h5>", "<h5>Project</h5>"),
