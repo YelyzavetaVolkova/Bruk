@@ -11,6 +11,8 @@
   <link rel="apple-touch-icon" href="icons/icon-180.png">
   <link rel="stylesheet" href="vendor/mapbox-gl.css">
   <link rel="stylesheet" href="app.css">
+  <!-- Вбудована мапа на головній сторінці (/map/?embed=1): без заставки. -->
+  <script>if (/[?&]embed\b/.test(location.search)) document.documentElement.classList.add('embed');</script>
   <style>
 /* bruk-splash: tools/splash.py */
 .bruk-splash { position: fixed; inset: 0; z-index: 99990; background: #A20E00;

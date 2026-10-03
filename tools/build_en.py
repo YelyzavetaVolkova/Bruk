@@ -110,7 +110,9 @@ PAGE = [
      "Developers, history researchers, copywriters, photographers, architects: if Kyiv matters to you, we'll find something to work on together."),
     (">Написати нам в Instagram →<", ">Message us on Instagram →<"),
     # 03 app
-    ("03 · Прототип додатку", "03 · App prototype"),
+    ("03 · Мапа", "03 · The map"),
+    (">Відкрити мапу →<", ">Open the map →<"),
+    ('title="Жива мапа BRUK"', 'title="BRUK live map"'),
     ("У кишені, <em>як компас.</em>", "In your pocket, <em>like a compass.</em>"),
     ("Відкрий мапу — і місто стане інтерактивним. Натисни на підсвічений будинок, щоб прочитати його історію. Усе на одному екрані, без реєстрації.",
      "Open the map and the city becomes interactive. Tap a highlighted building to read its story. All on one screen, no sign-up."),
