@@ -108,6 +108,18 @@ a { color: #0a64d6; }
   background: var(--red); border: 2px solid #fff;
 }
 
+/* Плашка «нагороди — в застосунку»: напівпрозора, над бігучим рядком ліворуч від кнопок. */
+.app-promo {
+  position: absolute; left: 16px; bottom: calc(88px + var(--safe-b));
+  max-width: calc(100% - 96px); pointer-events: auto;
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 6px 6px 14px; border-radius: 16px; font-size: 13px; line-height: 1.3;
+  background: rgba(255,255,255,.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
+.app-promo::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; background: var(--red); }
+.app-promo span { flex: 1; }
+
 .ticker {
   pointer-events: auto; position: relative; overflow: hidden;
   height: 48px; background: var(--bg); padding-bottom: var(--safe-b);

@@ -859,6 +859,18 @@ function hideHint() {
   storage('bruk.hasSeenTapHint', '1');
 }
 
+// MARK: - Плашка «нагороди й рівні — в застосунку»
+// Акаунт і нагороди є лише в iOS-застосунку (рішення авторки 5.10.2026).
+
+function setupAppPromo() {
+  if (EMBED || storage('bruk.hasClosedAppPromo')) return;
+  $('app-promo').hidden = false;
+  $('app-promo-close').addEventListener('click', () => {
+    $('app-promo').hidden = true;
+    storage('bruk.hasClosedAppPromo', '1');
+  });
+}
+
 // MARK: - Встановлення як застосунок
 
 function setupInstall() {
@@ -923,6 +935,7 @@ async function main() {
   setupTicker();
   setupLocate();
   setupHint();
+  setupAppPromo();
   try { setupMap(); } catch (e) { showError('Мапа не завантажилась. Онови сторінку.'); }
 
   // Посилання на будинок: bruk.city/map/#b=<id>
