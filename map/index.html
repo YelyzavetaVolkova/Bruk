@@ -37,10 +37,15 @@
   <div id="map" aria-label="Мапа Києва"></div>
 
   <header class="top">
+    <div class="top-row">
+    <a id="back-site" class="fab back" href="../" aria-label="Повернутися на сайт BRUK" title="На сайт BRUK">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    </a>
     <div class="search" role="search">
       <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <input id="search" type="search" autocomplete="off" placeholder="Адреса, будинок, людина" aria-label="Пошук будинку">
       <button id="search-clear" class="icon-btn small" hidden aria-label="Очистити пошук">✕</button>
+    </div>
     </div>
     <ul id="results" class="results" role="listbox" hidden></ul>
     <div id="filter-pill" class="pill" hidden>
