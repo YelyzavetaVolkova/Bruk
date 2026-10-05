@@ -5,6 +5,8 @@
     python3 tools/sync_map_data.py ../bruk-app
 
 Береться buildings.json, facts.json і filters.json з bruk-app/Bruk.
+Заодно пишеться home-facts.json — факти для бігучого рядка на головній
+(українською й англійською, з id будинку для посилання на мапу).
 Дані сайт завжди бере з мережі, кеш — лише запас на випадок без інтернету.
 """
 import json
@@ -23,6 +25,27 @@ def main() -> None:
         data = json.loads(src.read_text(encoding="utf-8"))  # заодно перевіряємо, що JSON цілий
         shutil.copyfile(src, target / name)
         print(f"{name}: {len(data)} записів")
+    write_home_facts(app, target)
+
+
+def write_home_facts(app: Path, target: Path) -> None:
+    read = lambda name: json.loads((app / name).read_text(encoding="utf-8"))
+    ids = {b["address"]: b["id"] for b in read("buildings.json")}
+    en = read("buildings_en.json")
+    out = []
+    for f in read("facts.json"):
+        bid = ids.get(f["address"])
+        if not bid:
+            print(f"home-facts: нема будинку «{f['address']}», пропускаю")
+            continue
+        out.append({
+            "id": bid,
+            "uk": {"address": f["address"], "text": f["text"]},
+            "en": {"address": en.get(bid, {}).get("address") or f["address"],
+                   "text": f.get("textEn") or f["text"]},
+        })
+    (target / "home-facts.json").write_text(json.dumps(out, ensure_ascii=False, indent=1) + "\n", encoding="utf-8")
+    print(f"home-facts.json: {len(out)} фактів")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,596 @@
+[
+ {
+  "id": "147322969",
+  "uk": {
+   "address": "Хрещатик, 2",
+   "text": "Перший у Києві театр був дерев'яним і стояв на початку Хрещатика — вулиця тоді навіть звалася Театральною."
+  },
+  "en": {
+   "address": "Khreshchatyk, 2",
+   "text": "Kyiv’s first theatre was a wooden one at the top of Khreshchatyk — back then the street was even called Teatralna (Theatre Street)."
+  }
+ },
+ {
+  "id": "33632802",
+  "uk": {
+   "address": "Хрещатик, 6",
+   "text": "Будинок Закса з ліфтом і квартирами по 250 квадратних метрів був одним із найвищих на Хрещатику."
+  },
+  "en": {
+   "address": "Khreshchatyk, 6",
+   "text": "With a lift and 250-square-metre apartments, the Zaks House was one of the tallest buildings on Khreshchatyk."
+  }
+ },
+ {
+  "id": "27829825",
+  "uk": {
+   "address": "Хрещатик, 12",
+   "text": "Усередині Хрещатика, 12 сховане двоповерхове ядро 1840-х — єдиний уцілілий зразок ранньої забудови вулиці."
+  },
+  "en": {
+   "address": "Khreshchatyk, 12",
+   "text": "Hidden inside Khreshchatyk, 12 is a two-storey core from the 1840s — the only surviving example of the street’s early buildings."
+  }
+ },
+ {
+  "id": "osm:way/260794544",
+  "uk": {
+   "address": "Хрещатик, 18/2",
+   "text": "Вежу Міської думи на Думській площі вінчав архангел Михаїл — покровитель Києва."
+  },
+  "en": {
+   "address": "Khreshchatyk, 18/2",
+   "text": "The City Duma tower on Dumska Square was crowned by Archangel Michael, the patron saint of Kyiv."
+  }
+ },
+ {
+  "id": "osm:way/147322969",
+  "uk": {
+   "address": "Хрещатик, 24",
+   "text": "24 вересня 1941 року на розі Хрещатика й Прорізної пролунав перший вибух, з якого почалося знищення вулиці."
+  },
+  "en": {
+   "address": "Khreshchatyk, 24",
+   "text": "On 24 September 1941, the first explosion went off at the corner of Khreshchatyk and Prorizna Street, starting the destruction of the street."
+  }
+ },
+ {
+  "id": "35155240",
+  "uk": {
+   "address": "Хрещатик, 36",
+   "text": "24 липня 1990 року перед Хрещатиком, 36 уперше в Києві офіційно підняли синьо-жовтий прапор."
+  },
+  "en": {
+   "address": "Khreshchatyk, 36",
+   "text": "On 24 July 1990, the blue-and-yellow flag was officially raised for the first time in Kyiv, in front of Khreshchatyk, 36."
+  }
+ },
+ {
+  "id": "160904915",
+  "uk": {
+   "address": "Хрещатик, 38/2",
+   "text": "У 1960 році за гранчастими еркерами універмагу на Хрещатику поставили перші в Києві ескалатори."
+  },
+  "en": {
+   "address": "Khreshchatyk, 38/2",
+   "text": "In 1960, Kyiv’s first escalators were installed behind the faceted bay windows of the department store on Khreshchatyk."
+  }
+ },
+ {
+  "id": "osm:way/62805181",
+  "uk": {
+   "address": "Хрещатик, 1",
+   "text": "У лютому 1914 року чемпіон світу Капабланка грав тут одночасні партії з київськими шахістами."
+  },
+  "en": {
+   "address": "Khreshchatyk, 1",
+   "text": "In February 1914, world champion Capablanca played simultaneous games here against Kyiv chess players."
+  }
+ },
+ {
+  "id": "osm:way/47172525",
+  "uk": {
+   "address": "Хрещатик, 13/2",
+   "text": "На фотовиставці 1908 року в Біржі нагороду взяла Анна Шлейфер — за знімки, зроблені Х-променями."
+  },
+  "en": {
+   "address": "Khreshchatyk, 13/2",
+   "text": "At the 1908 photo exhibition in the Exchange, the award went to Anna Shleifer — for pictures taken with X-rays."
+  }
+ },
+ {
+  "id": "osm:way/114572891",
+  "uk": {
+   "address": "Хрещатик, 15",
+   "text": "Страхова компанія «Росія» задумала на Хрещатику, 15 вулицю під скляним дахом. Даху так і не зробили, а амури, сови й Нептун на стінах лишилися."
+  },
+  "en": {
+   "address": "Khreshchatyk, 15",
+   "text": "The insurance company “Rossiya” planned a glass-roofed street at Khreshchatyk, 15. The roof never happened, but the cupids, owls and Neptune on the walls stayed."
+  }
+ },
+ {
+  "id": "osm:way/32036760",
+  "uk": {
+   "address": "Хрещатик, 29/1",
+   "text": "Навесні 1846 року на розі Хрещатика й Прорізної, у готелі Беретті, зупинявся Тарас Шевченко."
+  },
+  "en": {
+   "address": "Khreshchatyk, 29/1",
+   "text": "In spring 1846, Taras Shevchenko stayed at the Hotel Beretti, on the corner of Khreshchatyk and Prorizna Street."
+  }
+ },
+ {
+  "id": "osm:way/31823032",
+  "uk": {
+   "address": "Городецького, 7",
+   "text": "29 квітня 1918 року в цирку Крутикова Павла Скоропадського обрали гетьманом України."
+  },
+  "en": {
+   "address": "Horodetskoho, 7",
+   "text": "On 29 April 1918, Pavlo Skoropadskyi was elected Hetman of Ukraine in Krutikov’s circus."
+  }
+ },
+ {
+  "id": "osm:way/47172551",
+  "uk": {
+   "address": "Городецького, 13",
+   "text": "З капітелей колон меблевого магазину Кімаєра визирають голови Меркурія, бога торгівлі."
+  },
+  "en": {
+   "address": "Horodetskoho, 13",
+   "text": "Heads of Mercury, god of trade, peer out from the column capitals of Kimaier’s furniture shop."
+  }
+ },
+ {
+  "id": "osm:way/47172520",
+  "uk": {
+   "address": "Заньковецької, 7",
+   "text": "Семиповерховий будинок на Заньковецької, 7 з жіночими маскаронами на початку 1900-х був одним із найвищих у центрі Києва."
+  },
+  "en": {
+   "address": "Zankovetskoi, 7",
+   "text": "In the early 1900s, the seven-storey building with female mascarons at Zankovetskoi, 7 was one of the tallest in central Kyiv."
+  }
+ },
+ {
+  "id": "osm:way/30643028",
+  "uk": {
+   "address": "Інститутська, 4",
+   "text": "До війни на Інститутській стояв 12-поверховий хмарочос Гінзбурга — найвищий будинок дорадянського Києва."
+  },
+  "en": {
+   "address": "Instytutska, 4",
+   "text": "Before the war, Ginzburg’s 12-storey skyscraper stood on Instytutska Street — the tallest building of pre-Soviet Kyiv."
+  }
+ },
+ {
+  "id": "osm:way/62805188",
+  "uk": {
+   "address": "Інститутська, 7",
+   "text": "Айвазовський виставляв картини в залі старої біржі й віддав 300 рублів з виставки на будівництво нової."
+  },
+  "en": {
+   "address": "Instytutska, 7",
+   "text": "Aivazovsky exhibited paintings in the hall of the old exchange and gave 300 roubles from the show towards building a new one."
+  }
+ },
+ {
+  "id": "osm:way/62805198",
+  "uk": {
+   "address": "Інститутська, 9-а",
+   "text": "На наріжжях банку на Інститутській сидять бетонні дракони, а в операційній залі б'є мармуровий фонтан."
+  },
+  "en": {
+   "address": "Instytutska, 9-A",
+   "text": "Concrete dragons sit on the corners of the bank on Instytutska Street, and a marble fountain plays in its banking hall."
+  }
+ },
+ {
+  "id": "osm:relation/2530104",
+  "uk": {
+   "address": "Грушевського, 5",
+   "text": "24 серпня 1991 року під скляним куполом Верховної Ради проголосили незалежність України."
+  },
+  "en": {
+   "address": "Hrushevskoho, 5",
+   "text": "On 24 August 1991, Ukraine’s independence was proclaimed under the glass dome of the Verkhovna Rada."
+  }
+ },
+ {
+  "id": "osm:way/32554424",
+  "uk": {
+   "address": "Грушевського, 20",
+   "text": "У напівпідвалі особняка цукрозаводчика Зайцева були дві кухні: панська і людська, для прислуги."
+  },
+  "en": {
+   "address": "Hrushevskoho, 20",
+   "text": "The semi-basement of sugar manufacturer Zaitsev’s mansion had two kitchens: one for the masters and one for the servants."
+  }
+ },
+ {
+  "id": "osm:way/71517810",
+  "uk": {
+   "address": "Богдана Хмельницького, 5",
+   "text": "Театр Лесі Українки почався як цирк: 1875 року француз Огюст Бергоньє відкрив тут перший у Києві стаціонарний театр-цирк."
+  },
+  "en": {
+   "address": "Bohdana Khmelnytskoho, 5",
+   "text": "The Lesya Ukrainka Theatre began as a circus: in 1875 the Frenchman Auguste Bergonier opened Kyiv’s first permanent theatre-circus here."
+  }
+ },
+ {
+  "id": "osm:way/876564483",
+  "uk": {
+   "address": "Богдана Хмельницького, 9",
+   "text": "1886 року в домовій церкві колегії Галагана вінчався Іван Франко."
+  },
+  "en": {
+   "address": "Bohdana Khmelnytskoho, 9",
+   "text": "In 1886, Ivan Franko was married in the house church of the Halahan College."
+  }
+ },
+ {
+  "id": "osm:way/136994763",
+  "uk": {
+   "address": "Богдана Хмельницького, 26",
+   "text": "Будинок готелю «Ермітаж» на Богдана Хмельницького, 26 звели в 1902–1904 роках за проєктом Андрія-Фрідріха Краусса."
+  },
+  "en": {
+   "address": "Bohdana Khmelnytskoho, 26",
+   "text": "The Hotel “Ermitazh” (Hermitage) building at Bohdana Khmelnytskoho, 26 was built in 1902–1904 to a design by Andrii-Friedrich Krauss."
+  }
+ },
+ {
+  "id": "osm:way/34107527",
+  "uk": {
+   "address": "Богдана Хмельницького, 50",
+   "text": "1911 року Федір Андерс здійснив на дирижаблі «Київ» близько 160 польотів і перевіз 200 пасажирів."
+  },
+  "en": {
+   "address": "Bohdana Khmelnytskoho, 50",
+   "text": "In 1911, Fedir Anders made about 160 flights in the airship “Kyiv” and carried 200 passengers."
+  }
+ },
+ {
+  "id": "osm:way/133789062",
+  "uk": {
+   "address": "бульвар Шевченка, 7/29",
+   "text": "У грудні 1918 року в готелі «Палас» гетьман Павло Скоропадський підписав зречення від влади."
+  },
+  "en": {
+   "address": "Shevchenka Blvd, 7/29",
+   "text": "In December 1918, Hetman Pavlo Skoropadskyi signed his abdication at the Hotel “Palace”."
+  }
+ },
+ {
+  "id": "osm:way/864497830",
+  "uk": {
+   "address": "бульвар Шевченка, 27",
+   "text": "У колишній тюрмі на бульварі Шевченка 1918 року друкували перші українські гроші."
+  },
+  "en": {
+   "address": "Shevchenka Blvd, 27",
+   "text": "In 1918, the first Ukrainian money was printed in a former prison on Shevchenka Boulevard."
+  }
+ },
+ {
+  "id": "osm:way/32665748",
+  "uk": {
+   "address": "бульвар Шевченка, 34",
+   "text": "У листопаді 1918 року в садибі Терещенків на бульварі Шевченка обрали Директорію УНР."
+  },
+  "en": {
+   "address": "Shevchenka Blvd, 34",
+   "text": "In November 1918, the Directorate of the UNR was elected at the Tereshchenko estate on Shevchenka Boulevard."
+  }
+ },
+ {
+  "id": "osm:way/46994910",
+  "uk": {
+   "address": "Прорізна, 9",
+   "text": "Будинок Шіле на Прорізній, 9 — один із двох будинків нижньої Прорізної, що пережили пожежу 1941 року."
+  },
+  "en": {
+   "address": "Prorizna, 9",
+   "text": "The Shile House at Prorizna, 9 is one of two buildings on lower Prorizna Street that survived the 1941 fire."
+  }
+ },
+ {
+  "id": "osm:way/46994893",
+  "uk": {
+   "address": "Прорізна, 17",
+   "text": "У 1918–1919 роках на Прорізній, 17 працював Молодий театр Леся Курбаса, з якого почався український театральний авангард."
+  },
+  "en": {
+   "address": "Prorizna, 17",
+   "text": "In 1918–1919, Les Kurbas’s Young Theatre worked at Prorizna, 17 — the starting point of the Ukrainian theatre avant-garde."
+  }
+ },
+ {
+  "id": "osm:way/46988003",
+  "uk": {
+   "address": "Костьольна, 9",
+   "text": "У 1924–1925 роках у квартирі дядька на Костьольній жив студент політехніки Сергій Корольов."
+  },
+  "en": {
+   "address": "Kostolna, 9",
+   "text": "In 1924–1925, polytechnic student Serhii Korolov lived in his uncle’s apartment on Kostolna Street."
+  }
+ },
+ {
+  "id": "osm:way/31823034",
+  "uk": {
+   "address": "Банкова, 2",
+   "text": "Цукровий магнат Ліберман зробив у своєму палаці кімнату з розсувною стелею — щоб на Суккот милуватися зоряним небом."
+  },
+  "en": {
+   "address": "Bankova, 2",
+   "text": "Sugar magnate Liberman built a room with a sliding ceiling in his palace — to admire the starry sky during Sukkot."
+  }
+ },
+ {
+  "id": "osm:way/23708614",
+  "uk": {
+   "address": "Банкова, 10",
+   "text": "Щоб утримати Будинок з химерами на схилі, інженер Страус забив понад 50 бетонних паль."
+  },
+  "en": {
+   "address": "Bankova, 10",
+   "text": "To hold the House with Chimaeras on its slope, engineer Straus drove in more than 50 concrete piles."
+  }
+ },
+ {
+  "id": "osm:way/38922509",
+  "uk": {
+   "address": "Мала Житомирська, 11",
+   "text": "На Малій Житомирській, 11 жив терапевт Феофіл Яновський, один із засновників київської терапевтичної школи."
+  },
+  "en": {
+   "address": "Mala Zhytomyrska, 11",
+   "text": "Physician Feofil Yanovskyi, one of the founders of the Kyiv school of internal medicine, lived at Mala Zhytomyrska, 11."
+  }
+ },
+ {
+  "id": "osm:way/152028455",
+  "uk": {
+   "address": "Бессарабська площа, 2",
+   "text": "Критий Бессарабський ринок звели в 1908–1912 роках — і він стоїть на тому самому місці досі."
+  },
+  "en": {
+   "address": "Bessarabska Sq, 2",
+   "text": "The covered Bessarabka Market was built in 1908–1912 — and it still stands on the very same spot."
+  }
+ },
+ {
+  "id": "osm:way/33632080",
+  "uk": {
+   "address": "Євгена Чикаленка, 11",
+   "text": "Лев'ячі морди на кронштейнах дали будинку на Чикаленка, 11 прізвисько «Будинок із левами»."
+  },
+  "en": {
+   "address": "Yevhena Chykalenka, 11",
+   "text": "Lion faces on the brackets gave the building at Chykalenka, 11 its nickname, “the House with Lions”."
+  }
+ },
+ {
+  "id": "osm:way/71517799",
+  "uk": {
+   "address": "Євгена Чикаленка, 17",
+   "text": "Іван Нечуй-Левицький прожив на теперішній Чикаленка понад двадцять років — з 1889 по 1910-й."
+  },
+  "en": {
+   "address": "Yevhena Chykalenka, 17",
+   "text": "Ivan Nechui-Levytskyi lived on what is now Chykalenka Street for more than twenty years — from 1889 to 1910."
+  }
+ },
+ {
+  "id": "osm:way/45895479",
+  "uk": {
+   "address": "Євгена Чикаленка, 36",
+   "text": "1878 року Віра Ващенко-Захарченко відкрила в Києві першу в імперії приватну жіночу гімназію загального типу."
+  },
+  "en": {
+   "address": "Yevhena Chykalenka, 36",
+   "text": "In 1878, Vira Vashchenko-Zakharchenko opened in Kyiv the empire’s first private general-education gymnasium for girls."
+  }
+ },
+ {
+  "id": "osm:way/62805180",
+  "uk": {
+   "address": "Інститутська, 9",
+   "text": "1839 року в будинку зборів київського дворянства на Інститутській відкрили першу контору Державного комерційного банку."
+  },
+  "en": {
+   "address": "Instytutska, 9",
+   "text": "In 1839, the first office of the State Commercial Bank opened in the Kyiv Nobility Assembly building on Instytutska Street."
+  }
+ },
+ {
+  "id": "osm:way/34107529",
+  "uk": {
+   "address": "Богдана Хмельницького, 52",
+   "text": "У 1944–1947 роках у будинку на Хмельницького, 52 починав роботу Державний музей Тараса Шевченка."
+  },
+  "en": {
+   "address": "Bohdana Khmelnytskoho, 52",
+   "text": "In 1944–1947, the Taras Shevchenko State Museum began its work in the building at Khmelnytskoho, 52."
+  }
+ },
+ {
+  "id": "osm:way/27829755",
+  "uk": {
+   "address": "бульвар Шевченка, 8/26",
+   "text": "У 1917–1918 роках на бульварі Шевченка, 8/26 працював Український генеральний військовий штаб."
+  },
+  "en": {
+   "address": "Shevchenka Blvd, 8/26",
+   "text": "In 1917–1918, the Ukrainian General Military Staff worked at Shevchenka Boulevard, 8/26."
+  }
+ },
+ {
+  "id": "osm:relation/31532",
+  "uk": {
+   "address": "бульвар Шевченка, 14",
+   "text": "Забудова бульвару Шевченка почалася з Першої гімназії, яку Олександр Беретті звів у 1847–1850 роках."
+  },
+  "en": {
+   "address": "Shevchenka Blvd, 14",
+   "text": "Building on Shevchenka Boulevard began with the First Gymnasium, built by Oleksandr Beretti in 1847–1850."
+  }
+ },
+ {
+  "id": "osm:way/36917690",
+  "uk": {
+   "address": "Михайлівська, 22-А",
+   "text": "На Михайлівській, 22-А жив лікар Й. Дейч, чия водолікарня була широко відома в місті."
+  },
+  "en": {
+   "address": "Mykhailivska, 22-A",
+   "text": "Doctor Y. Deich, whose hydrotherapy clinic was widely known in the city, lived at Mykhailivska, 22-A."
+  }
+ },
+ {
+  "id": "osm:way/43383147",
+  "uk": {
+   "address": "бульвар Шевченка, 20",
+   "text": "Володимирський собор будували 34 роки — з 1862 по 1896-й."
+  },
+  "en": {
+   "address": "Shevchenka Blvd, 20",
+   "text": "St Volodymyr’s Cathedral took 34 years to build — from 1862 to 1896."
+  }
+ },
+ {
+  "id": "osm:relation/15053407",
+  "uk": {
+   "address": "Грушевського, 5-а",
+   "text": "Царський, нині Маріїнський, палац звели в середині XVIII століття за проєктом Бартоломео Растреллі."
+  },
+  "en": {
+   "address": "Hrushevskoho, 5-A",
+   "text": "The Tsar’s Palace, now the Mariinskyi Palace, was built in the mid-18th century to a design by Bartolomeo Rastrelli."
+  }
+ },
+ {
+  "id": "osm:way/133789059",
+  "uk": {
+   "address": "бульвар Шевченка, 5/7",
+   "text": "1918 року на бульварі Шевченка, 5/7 працювала редакція ілюстрованого українського часопису «Око»."
+  },
+  "en": {
+   "address": "Shevchenka Blvd, 5/7",
+   "text": "In 1918, the editorial office of the illustrated Ukrainian magazine “Oko” (Eye) worked at Shevchenka Boulevard, 5/7."
+  }
+ },
+ {
+  "id": "pending_reytarska_20-24",
+  "uk": {
+   "address": "Рейтарська, 20/24",
+   "text": "Будинок із вежею на Рейтарській, 20/24 ще 1913 року мав центральний пилосос, а в 1917–1918 роках тут сиділа редакція сатиричного «Ґедза»."
+  },
+  "en": {
+   "address": "Reitarska, 20/24",
+   "text": "The tower house at Reitarska, 20/24 had central vacuum cleaning as early as 1913, and in 1917–1918 it housed the satirical magazine “Gedz” (Gadfly)."
+  }
+ },
+ {
+  "id": "pending_reytarska_19-б",
+  "uk": {
+   "address": "Рейтарська, 19-Б",
+   "text": "У невеликому особняку на Рейтарській, 19-Б Микола Лисенко працював над «Тарасом Бульбою», а за участі Лесі Українки тут поставили його «Козу-дерезу»."
+  },
+  "en": {
+   "address": "Reitarska, 19-B",
+   "text": "In a small mansion at Reitarska, 19-B, Mykola Lysenko worked on “Taras Bulba”, and his “Koza-Dereza” was staged here with Lesia Ukrainka taking part."
+  }
+ },
+ {
+  "id": "pending_reytarska_22",
+  "uk": {
+   "address": "Рейтарська, 22",
+   "text": "Будинок швидкої допомоги на Рейтарській, 22 звели у формах венеціанської готики, а 1918 року тут працювало Міністерство народного здоров'я."
+  },
+  "en": {
+   "address": "Reitarska, 22",
+   "text": "The ambulance station at Reitarska, 22 was built in the Venetian Gothic manner, and in 1918 it housed the Ministry of Public Health."
+  }
+ },
+ {
+  "id": "osm:way/71517785",
+  "uk": {
+   "address": "бульвар Шевченка, 18",
+   "text": "Будинок на бульварі Шевченка, 18 звели 1856 року для Другої гімназії на 200 учнів, а 1896-го їх тут навчалося 738."
+  },
+  "en": {
+   "address": "Shevchenka Blvd, 18",
+   "text": "The building at Shevchenka Boulevard, 18 was built in 1856 for the Second Gymnasium with 200 pupils; by 1896 it had 738."
+  }
+ },
+ {
+  "id": "osm:relation/1846058",
+  "uk": {
+   "address": "Богдана Хмельницького, 32",
+   "text": "Архітектор Кароль Іваницький сам оселився у своєму будинку на Богдана Хмельницького, 32 — у квартирі № 10 на шостому поверсі."
+  },
+  "en": {
+   "address": "Bohdana Khmelnytskoho, 32",
+   "text": "Architect Karol Ivanytskyi moved into his own building at Bohdana Khmelnytskoho, 32 himself — apartment No. 10 on the sixth floor."
+  }
+ },
+ {
+  "id": "pending_reytarska_29",
+  "uk": {
+   "address": "Рейтарська, 29",
+   "text": "На Рейтарській, 29 з 1922 року жив єпископ УАПЦ Григорій Стороженко, розстріляний 1937 року."
+  },
+  "en": {
+   "address": "Reitarska, 29",
+   "text": "From 1922, UAOC bishop Hryhorii Storozhenko, shot in 1937, lived at Reitarska, 29."
+  }
+ },
+ {
+  "id": "pending_yaroslaviv-val_36",
+  "uk": {
+   "address": "Ярославів Вал, 36",
+   "text": "27 листопада 1918 року на Ярославовому Валу, 36 відбулося перше, установче зібрання Української академії наук."
+  },
+  "en": {
+   "address": "Yaroslaviv Val, 36",
+   "text": "On 27 November 1918, the first, founding meeting of the Ukrainian Academy of Sciences took place at Yaroslaviv Val, 36."
+  }
+ },
+ {
+  "id": "pending_yaroslaviv-val_6",
+  "uk": {
+   "address": "Ярославів Вал, 6",
+   "text": "На Ярославовому Валу, 6 сиділа редакція газети «Рада» Євгена Чикаленка, секретарем якої до 1909 року був Симон Петлюра."
+  },
+  "en": {
+   "address": "Yaroslaviv Val, 6",
+   "text": "Yaroslaviv Val, 6 housed the editorial office of Yevhen Chykalenko’s newspaper “Rada”, where Symon Petliura was secretary until 1909."
+  }
+ },
+ {
+  "id": "pending_yaroslaviv-val_18",
+  "uk": {
+   "address": "Ярославів Вал, 18",
+   "text": "Професор Фердинанд Льош, який першим у світі описав збудника амебіазу, жив на Ярославовому Валу, 18."
+  },
+  "en": {
+   "address": "Yaroslaviv Val, 18",
+   "text": "Professor Ferdinand Lösch, the first in the world to describe the cause of amoebiasis, lived at Yaroslaviv Val, 18."
+  }
+ },
+ {
+  "id": "pending_yaroslaviv-val_32",
+  "uk": {
+   "address": "Ярославів Вал, 32",
+   "text": "Після весілля 1907 року Леся Українка і Климент Квітка два тижні жили у флігелі на Ярославовому Валу, 32."
+  },
+  "en": {
+   "address": "Yaroslaviv Val, 32",
+   "text": "After their wedding in 1907, Lesia Ukrainka and Klyment Kvitka lived for two weeks in the outbuilding at Yaroslaviv Val, 32."
+  }
+ }
+]
