@@ -2,7 +2,7 @@
 // і щоб оболонка з даними відкривалась навіть зі слабким інтернетом.
 // Дані будинків завжди беремо з мережі, кеш — лише запас без інтернету.
 // Змінюючи app.js, app.css чи mapbox-gl, підніми номер версії.
-const CACHE = 'bruk-map-v5';
+const CACHE = 'bruk-map-v6';
 const SHELL = [
   './', 'index.html', 'app.css', 'app.js', 'manifest.webmanifest',
   'config.js', 'vendor/mapbox-gl.js', 'vendor/mapbox-gl.css', 'icons/icon-192.png',

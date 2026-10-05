@@ -33,6 +33,7 @@ const state = {
   watchId: null,
   youMarker: null,
   installPrompt: null,
+  resolved: loadResolved(), // id картки → ID будівлі Mapbox, знайдений за контуром
 };
 
 const $ = (id) => document.getElementById(id);
@@ -48,6 +49,99 @@ const needsResearch = (b) => {
   return words < CONFIG.shortStoryWordLimit;
 };
 const wayId = (b) => (b.osmID && b.osmID.startsWith('way/') ? b.osmID.slice(4) : null);
+
+// MARK: - ID будівель, знайдені на мапі (як resolveFeatureIDs у застосунку)
+//
+// ID будівель у Mapbox Standard — це ID ways з OSM. Але в частини карток osmID
+// немає (координати з Visicom) або це relation, а буває, що Mapbox ріже будинок
+// інакше, ніж OSM. Такі картки не підсвічувались. Тож коли мапа зупиняється,
+// беремо будівлі на екрані й шукаємо ту, в контурі якої лежить точка картки
+// (або край якої ближче ніж за 8 м — адреса часто стоїть на фасаді).
+// Знайдене зберігаємо в браузері — наступного разу підсвітка є одразу.
+
+const RESOLVE_KEY = 'bruk.resolvedFeatureIDs.v1';
+const RESOLVE_TOLERANCE_M = 8;
+const settledIds = new Set();
+
+function loadResolved() {
+  try { return JSON.parse(localStorage.getItem(RESOLVE_KEY)) || {}; } catch (_) { return {}; }
+}
+function saveResolved() {
+  try { localStorage.setItem(RESOLVE_KEY, JSON.stringify(state.resolved)); } catch (_) { /* приватний режим */ }
+}
+
+/** ID будівлі Mapbox для картки: знайдений на мапі, інакше way з OSM. */
+const featureIdFor = (b) => (b && state.resolved[b.id]) || wayId(b);
+
+/** Відстань у метрах від точки до найближчого краю контуру. */
+function distanceToGeometry(geometry, [lng, lat]) {
+  let rings;
+  if (geometry.type === 'Polygon') rings = geometry.coordinates;
+  else if (geometry.type === 'MultiPolygon') rings = geometry.coordinates.flat();
+  else return Infinity;
+  const mLat = 111320;
+  const mLng = mLat * Math.cos((lat * Math.PI) / 180);
+  let best = Infinity;
+  for (const ring of rings) {
+    for (let i = 0; i + 1 < ring.length; i += 1) {
+      const px = (ring[i][0] - lng) * mLng; const py = (ring[i][1] - lat) * mLat;
+      const qx = (ring[i + 1][0] - lng) * mLng; const qy = (ring[i + 1][1] - lat) * mLat;
+      const dx = qx - px; const dy = qy - py;
+      const len2 = dx * dx + dy * dy;
+      const t = len2 > 0 ? Math.max(0, Math.min(1, -(px * dx + py * dy) / len2)) : 0;
+      const x = px + t * dx; const y = py + t * dy;
+      best = Math.min(best, Math.hypot(x, y));
+    }
+  }
+  return best;
+}
+
+function resolveFeatureIds() {
+  if (!map || !state.buildingsTarget) return;
+  // Нижче 15-го зуму Standard ще не малює окремих будинків.
+  const zoom = map.getZoom();
+  if (zoom < 15) return;
+  const bounds = map.getBounds();
+  const candidates = state.buildings.filter((b) => !settledIds.has(b.id) && !state.resolved[b.id]
+    && bounds.contains([b.longitude, b.latitude]));
+  if (!candidates.length) return;
+
+  let features;
+  try { features = map.queryRenderedFeatures({ target: state.buildingsTarget }); } catch (_) { return; }
+  const footprints = features.filter((f) => f.id != null && f.geometry)
+    .map((f) => ({ id: String(f.id), geometry: f.geometry }));
+  const rendered = new Set(footprints.map((f) => f.id));
+  // Будівлі, які вже належать карткам за osmID: їх не віддаємо сусідам.
+  const claimed = new Set(state.buildings.map(wayId).filter(Boolean));
+
+  let changed = false;
+  for (const b of candidates) {
+    const way = wayId(b);
+    if (way && rendered.has(way)) { settledIds.add(b.id); continue; }
+    const point = [b.longitude, b.latitude];
+    const free = footprints.filter((f) => f.id === way || !claimed.has(f.id));
+    let found = free.find((f) => geometryContains(f.geometry, point));
+    if (!found) {
+      let bestD = RESOLVE_TOLERANCE_M;
+      for (const f of free) {
+        const d = distanceToGeometry(f.geometry, point);
+        if (d <= bestD) { bestD = d; found = f; }
+      }
+    }
+    if (found) {
+      state.resolved[b.id] = found.id;
+      settledIds.add(b.id);
+      changed = true;
+    } else if (zoom >= 16.5) {
+      // Зблизька будинок мав би бути на екрані: далі не шукаємо.
+      settledIds.add(b.id);
+    }
+  }
+  if (changed) {
+    saveResolved();
+    refreshHighlights();
+  }
+}
 
 /** Усі тексти картки одним рядком у нижньому регістрі — по ньому шукають фільтри. */
 function filterHaystack(b) {
@@ -219,6 +313,7 @@ function onStyleLoad() {
   }
   refreshHighlights();
   if (state.selectedId) markSelected(state.byId.get(state.selectedId));
+  if (state.buildingsTarget) map.on('idle', resolveFeatureIds);
 }
 
 /** Featureset будинків Mapbox Standard: у корені стилю або в одному з імпортів. */
@@ -235,12 +330,12 @@ function featureTarget(id) {
   return { id, target: state.buildingsTarget };
 }
 
-/** Будинки з історією (і під вибраний фільтр) — теракотові, як у застосунку. */
+/** Усі будинки з картками (і під вибраний фільтр) — теракотові, як у застосунку. */
 function refreshHighlights() {
   if (!map || !map.isStyleLoaded()) return;
   const wanted = new Set(state.buildings
-    .filter((b) => hasStory(b) && matchesFilters(b))
-    .map(wayId).filter(Boolean));
+    .filter((b) => matchesFilters(b))
+    .map(featureIdFor).filter(Boolean));
   if (state.buildingsTarget) {
     for (const id of state.highlighted) {
       if (!wanted.has(id)) map.setFeatureState(featureTarget(id), { highlight: false });
@@ -257,7 +352,7 @@ function refreshHighlights() {
 function markSelected(b) {
   if (!state.buildingsTarget) return;
   if (state.selectedFeatureId) map.setFeatureState(featureTarget(state.selectedFeatureId), { select: false });
-  state.selectedFeatureId = b ? wayId(b) : null;
+  state.selectedFeatureId = b ? featureIdFor(b) : null;
   if (state.selectedFeatureId) map.setFeatureState(featureTarget(state.selectedFeatureId), { select: true });
 }
 
@@ -265,7 +360,7 @@ function markSelected(b) {
 function markerData() {
   return {
     type: 'FeatureCollection',
-    features: state.buildings.filter((b) => hasStory(b) && matchesFilters(b)).map((b) => ({
+    features: state.buildings.filter((b) => matchesFilters(b)).map((b) => ({
       type: 'Feature', properties: { id: b.id },
       geometry: { type: 'Point', coordinates: [b.longitude, b.latitude] },
     })),
@@ -294,7 +389,10 @@ function addMarkerLayer() {
 
 function onBuildingTap(feature, lngLat) {
   const featureId = feature.id != null ? String(feature.id) : null;
-  let b = featureId ? state.buildings.find((x) => x.osmID === `way/${featureId}`) : null;
+  let b = featureId
+    ? (state.buildings.find((x) => state.resolved[x.id] === featureId)
+      || state.buildings.find((x) => x.osmID === `way/${featureId}`))
+    : null;
   // Запасний шлях для записів без osmID або з relation: чи лежить точка будинку
   // всередині тапнутого контуру. Сусіда за відстанню навмисно не беремо.
   if (!b && feature.geometry) {
