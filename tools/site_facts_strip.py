@@ -38,6 +38,7 @@ SCRIPT = """<script>/* facts-strip */
   fetch('/map/data/home-facts.json').then(function (r) { return r.json(); }).then(function (list) {
     if (!list.length) return;
     list.sort(function () { return Math.random() - 0.5; });
+    list = list.slice(0, 10);
     var html = list.map(function (f) {
       var t = en ? f.en : f.uk;
       return '<a class="fact" href="/map/#b=' + encodeURIComponent(f.id) + '"><b>' + esc(t.address) +
