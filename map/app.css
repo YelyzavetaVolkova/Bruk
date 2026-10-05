@@ -37,6 +37,10 @@ a { color: #0a64d6; }
   max-width: 480px;
   display: flex; flex-direction: column; gap: 10px;
 }
+.top-row { display: flex; align-items: center; gap: 8px; }
+.top-row .search { flex: 1; min-width: 0; }
+.fab.back { flex: none; text-decoration: none; }
+.embed .fab.back { display: none; }
 .search {
   display: flex; align-items: center; gap: 8px;
   height: 48px; padding: 0 8px 0 16px;
