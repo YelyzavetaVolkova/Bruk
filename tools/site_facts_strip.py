@@ -7,7 +7,7 @@
 відкривається мапа з цим будинком. Слова лишаються запасом, якщо факти не
 завантажились.
 
-Повторний запуск нічого не дублює. Після нього: python3 tools/build_en.py
+Повторний запуск замінює попередню версію, нічого не дублює. Після нього: python3 tools/build_en.py
 """
 import json
 import pathlib
@@ -19,37 +19,61 @@ MARK = "home-facts.json"
 
 CSS = """
 /* Facts strip (tools/site_facts_strip.py) */
-.strip-track.facts { font-size: clamp(16px, 1.5vw, 22px); font-weight: 500; }
+.strip-track.facts { font-size: clamp(16px, 1.5vw, 22px); font-weight: 500; animation: none; will-change: transform; }
 .strip-track .fact { color: inherit; text-decoration: none; }
 .strip-track .fact b { color: #A20E00; font-weight: 700; margin-right: .5em; }
 .strip-track .fact:hover { color: #A20E00; }
-.strip:hover .strip-track { animation-play-state: paused; }
-@media (prefers-reduced-motion: reduce) {
-  .strip { overflow-x: auto; }
-  .strip-track { animation: none; }
-}
+/* /Facts strip */
 """
 
 # Без кирилиці: build_en.py вимагає, щоб в англійській сторінці її не лишалось.
-SCRIPT = """<script>
+# Рух — скриптом, а не CSS-анімацією: доріжка з 54 фактів завширшки ~170 000 px,
+# і Safari таку не анімує. У доріжці тримаємо лише факти, що видно на екрані.
+SCRIPT = """<script>/* facts-strip */
 (function () {
   var track = document.querySelector('.strip .strip-track');
-  if (!track || !window.fetch) return;
+  if (!track || !window.fetch || !window.requestAnimationFrame) return;
   var en = location.pathname.indexOf('/en') === 0 || document.documentElement.lang === 'en';
   var esc = function (s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
   fetch('/map/data/home-facts.json').then(function (r) { return r.json(); }).then(function (list) {
     if (!list.length) return;
     list.sort(function () { return Math.random() - 0.5; });
-    var row = list.map(function (f) {
+    var html = list.map(function (f) {
       var t = en ? f.en : f.uk;
       return '<a class="fact" href="/map/#b=' + encodeURIComponent(f.id) + '"><b>' + esc(t.address) +
         '</b>' + esc(t.text) + '</a><span class="dot"></span>';
-    }).join('');
+    });
+    var next = 0, offset = 0, last = 0, paused = false;
     track.classList.add('facts');
-    track.innerHTML = '<span>' + row + '</span><span>' + row + '</span>';
-    // Same speed whatever the number of facts: half the track width / px per second.
-    var speed = window.innerWidth > 900 ? 70 : 45;
-    track.style.animationDuration = Math.round(track.scrollWidth / 2 / speed) + 's';
+    track.innerHTML = '';
+    var gap = function () { return parseFloat(getComputedStyle(track).columnGap) || 0; };
+    var add = function () {
+      var s = document.createElement('span');
+      s.innerHTML = html[next % html.length];
+      next += 1;
+      track.appendChild(s);
+    };
+    var fill = function () {
+      var w = track.parentNode.clientWidth;
+      while (!track.lastChild || track.lastChild.getBoundingClientRect().right < w + 400) add();
+    };
+    var slow = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var speed = slow ? 20 : (window.innerWidth > 900 ? 70 : 45);
+    track.parentNode.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') paused = true; });
+    track.parentNode.addEventListener('pointerleave', function () { paused = false; });
+    fill();
+    var tick = function (now) {
+      var dt = last ? Math.min(now - last, 100) / 1000 : 0;
+      last = now;
+      if (!paused) offset -= speed * dt;
+      var first = track.firstChild;
+      var w = first.getBoundingClientRect().width + gap();
+      if (-offset > w) { track.removeChild(first); offset += w; }
+      track.style.transform = 'translate3d(' + offset.toFixed(1) + 'px,0,0)';
+      fill();
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
   }).catch(function () {});
 })();
 </script>
@@ -62,9 +86,11 @@ def main():
     if not m:
         raise SystemExit("нема блоку __bundler/template")
     tpl = json.loads(m.group(2))
+    # Попередню версію прибираємо, щоб оновлення не дублювались.
+    tpl = re.sub(r"\n/\* Facts strip \(tools/site_facts_strip\.py\) \*/\n.*?(?=</style>)", "", tpl, flags=re.S)
+    tpl = re.sub(r"<script>(?:/\* facts-strip \*/)?\n\(function \(\) \{\n  var track = document\.querySelector\('\.strip \.strip-track'\).*?</script>\n", "", tpl, flags=re.S)
     if MARK in tpl:
-        print("index.html: рядок з фактами вже є")
-        return
+        raise SystemExit("не вдалося прибрати попередню версію рядка")
     if '<div class="strip-track">' not in tpl:
         raise SystemExit("не знайшла бігучий рядок")
     i = tpl.rfind("</style>")
