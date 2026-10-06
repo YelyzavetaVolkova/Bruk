@@ -19,6 +19,7 @@ import re
 import sys
 
 from site_photos import PHOTOS  # підписи фото в каруселі
+from site_typo import typo_html, uk_apos, untypo  # типографіка (tools/site_typo.py)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "index.html"
@@ -64,8 +65,6 @@ PAGE = [
     ('href="#values">Цінності<', 'href="#values">Values<'),
     # hero
     ("Історія Києва,<br>яка оживає.", "Kyiv's history,<br>coming alive."),
-    ("Інтерактивна мапа міста, де кожен будинок — початок історії. Без підручників. Без туристичних кліше.",
-     "An interactive map of the city where every building is the start of a story. No textbooks. No tourist clichés."),
     (">Долучитись до запуску<", ">Join the launch<"),
     (">Подивитись мапу<", ">See the map<"),
     ("<div>Живий архів Києва</div>", "<div>A living archive of Kyiv</div>"),
@@ -84,7 +83,7 @@ PAGE = [
     # 01 problem
     ("01 · Проблема", "01 · The problem"),
     ("Київ, про який <em>мовчали</em><br>поколіннями.", "The Kyiv that was <em>kept silent</em><br>for generations."),
-    ("Десятиліттями історія Києва була спотвореною, згладженою або зведеною до кількох відомих назв. Архіви горіли, кам'яниці зносили, а про двори, у яких жили поколіннями — ніхто так і не розповів.",
+    ("Десятиліттями історія Києва була спотвореною, згладженою або зведеною до кількох відомих назв. Архіви горіли, кам'яниці зносили, а про двори, у яких жили поколіннями, — ніхто так і не розповів.",
      "For decades, Kyiv's history was distorted, smoothed over or reduced to a handful of famous names. Archives burned, old townhouses were torn down, and nobody ever told the story of the courtyards where families lived for generations."),
     # 02 solution
     ("02 · Рішення", "02 · The solution"),
@@ -125,7 +124,7 @@ PAGE = [
     ('<div class="cta">Читати історію →</div>', '<div class="cta">Read the story →</div>'),
     # 04 gallery
     ("04 · Архів", "04 · The archive"),
-    ("Сотні <em>фасадів</em><br>— одне місто.", "Hundreds of <em>facades</em><br>— one city."),
+    ("Сотні <em>фасадів</em> —<br>одне місто.", "Hundreds of <em>facades</em> —<br>one city."),
     # 04 archive: carousel captions come from tools/site_photos.py
     *[(f'data-title="{uk}"', f'data-title="{en}"') for _, _, uk, en in PHOTOS],
     ('alt="Фото: ', 'alt="Photo: '),
@@ -173,6 +172,8 @@ def fail(msg):
 
 def translate(text, pairs, where):
     for uk, en in pairs:
+        if uk not in text and uk_apos(uk) in text:
+            uk = uk_apos(uk)  # site_typo.py міняє ' на ’
         if uk not in text:
             fail(f"у {where} не знайдено рядка (змінився український текст?):\n  {uk[:120]}")
         text = text.replace(uk, en)
@@ -219,8 +220,10 @@ def main():
         print("index.html: додано перемикач EN")
 
     # 2. Англійська версія.
-    tpl_en = tpl_uk.replace(LANG_UK, LANG_EN)
+    tpl_en = untypo(tpl_uk).replace(LANG_UK, LANG_EN)
     tpl_en = translate(tpl_en, PAGE, "сторінці")
+    i = tpl_en.find("<body")
+    tpl_en = tpl_en[:i] + typo_html(tpl_en[i:])
     rest = CYRILLIC.findall(tpl_en.replace(LANG_EN, ""))
     if rest:
         i = CYRILLIC.search(tpl_en.replace(LANG_EN, "")).start()
