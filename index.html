@@ -157,6 +157,14 @@ document.addEventListener('DOMContentLoaded', async function() {
     var __brukWait = 1540 - (Date.now() - __brukSplashStart);
     if (__brukWait > 0) await new Promise(function(r) { setTimeout(r, __brukWait); });
     document.documentElement.replaceWith(doc.documentElement);
+    /* bruk-favicon */ (function() {
+      document.querySelectorAll('link[rel~="icon"]').forEach(function(l) { l.remove(); });
+      [['icon', '/favicon.png', 'image/png'], ['icon', '/favicon.ico', '']].forEach(function(a) {
+        var l = document.createElement('link'); l.rel = a[0]; l.href = a[1];
+        if (a[2]) l.type = a[2];
+        document.head.appendChild(l);
+      });
+    })();
     (function() {
       var st = document.createElement('style');
       st.textContent = '/* bruk-splash: tools/splash.py */\n.bruk-splash { position: fixed; inset: 0; z-index: 99990; background: #A20E00;\n  display: flex; align-items: center; justify-content: center; transition: opacity .35s ease-out; }\n.bruk-splash.out { opacity: 0; pointer-events: none; }\n.bruk-splash-logo { position: relative; width: 295px; height: 74px; }\n@media (min-width: 900px) { .bruk-splash-logo { transform: scale(1.25); } }\n.bruk-splash-logo svg { position: absolute; opacity: 0; transform-origin: 50% 100%;\n  transform: translateY(18px) scale(.92); filter: blur(6px);\n  animation: bruk-letter .5s cubic-bezier(.3,1.35,.6,1) forwards; }\n.bruk-splash.shown .bruk-splash-logo svg { animation: none; opacity: 1; transform: none; filter: none; }\n@keyframes bruk-letter { to { opacity: 1; transform: none; filter: blur(0); } }\n@media (prefers-reduced-motion: reduce) {\n  .bruk-splash-logo svg { transform: none; filter: none; animation: bruk-fade .3s ease-out forwards; }\n  @keyframes bruk-fade { to { opacity: 1; } }\n}\n/* /bruk-splash */';
