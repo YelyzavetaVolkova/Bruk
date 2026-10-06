@@ -6,4 +6,4 @@
 
 ## Шрифт і типографіка
 
-Увесь сайт набраний Montserrat (з кирилицею, файли в `tools/fonts/`). Шрифт і інтервали вшиває `python3 tools/site_typography.py`; після чужих змін `index.html` запусти його, а потім `python3 tools/build_en.py`.
+Увесь сайт набраний українським шрифтом Fixel (MacPaw, OFL; файли в `fonts/`, для story.html і privacy.html — `fonts/fixel.css`). Шрифт і інтервали вшиває `python3 tools/site_typography.py`; після чужих змін `index.html` запусти його, а потім `python3 tools/build_en.py`.

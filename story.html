@@ -7,16 +7,14 @@
 <meta name="description" content="Спогад, сімейна історія чи старе фото київського будинку. Редакція BRUK перевірить факти й додасть історію до картки.">
 <meta name="theme-color" content="#A20E00">
 <link rel="icon" href="/favicon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fixel.css">
 <style>
   /* Форма з Figma «14 Розповісти про будинок — форма» і «15 Історію отримали»,
-     у стилі сайту: Montserrat, білий, чорний і червоний бренду. */
+     у стилі сайту: Fixel, білий, чорний і червоний бренду. */
   :root {
     --bg: #ffffff; --bg-soft: #f2f2f7; --ink: #0e0e0e; --muted: rgba(60,60,67,.6);
     --line: rgba(14,14,14,.3); --red: #A20E00; --r-card: 20px;
-    --f: "Montserrat", -apple-system, BlinkMacSystemFont, sans-serif;
+    --f: "Fixel", -apple-system, BlinkMacSystemFont, sans-serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--ink); font: 400 16px/1.5 var(--f); -webkit-font-smoothing: antialiased; }
@@ -30,7 +28,7 @@
   .wrap { max-width: 1200px; margin: 0 auto; padding: 24px clamp(16px, 4vw, 56px) 80px;
           display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
   .intro { position: sticky; top: 32px; }
-  h1 { font-weight: 700; font-size: clamp(32px, 4.2vw, 56px); line-height: 1.05; letter-spacing: 0; }
+  h1 { font-family: "Fixel Display", var(--f); font-weight: 700; font-size: clamp(32px, 4.2vw, 56px); line-height: 1.05; letter-spacing: 0; }
   .lede { margin-top: 18px; font-size: 17px; color: var(--muted); max-width: 46ch; }
   .steps { margin-top: 32px; background: var(--bg-soft); border-radius: var(--r-card); padding: 6px 18px; list-style: none; }
   .steps li { display: flex; gap: 14px; align-items: center; padding: 14px 0; }

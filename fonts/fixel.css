@@ -1,0 +1,8 @@
+/* Fixel — MacPaw (Київ), SIL OFL 1.1, див. fonts/OFL.txt. Для окремих сторінок (story, privacy). */
+@font-face { font-family: 'Fixel'; font-weight: 400; font-display: swap; src: url('/fonts/FixelText-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Fixel'; font-weight: 500; font-display: swap; src: url('/fonts/FixelText-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Fixel'; font-weight: 600; font-display: swap; src: url('/fonts/FixelText-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Fixel'; font-weight: 700; font-display: swap; src: url('/fonts/FixelText-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Fixel'; font-weight: 800; font-display: swap; src: url('/fonts/FixelText-ExtraBold.woff2') format('woff2'); }
+@font-face { font-family: 'Fixel Display'; font-weight: 700; font-display: swap; src: url('/fonts/FixelDisplay-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Fixel Display'; font-weight: 800; font-display: swap; src: url('/fonts/FixelDisplay-ExtraBold.woff2') format('woff2'); }
