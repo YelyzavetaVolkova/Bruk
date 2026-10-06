@@ -27,6 +27,17 @@ MARK = "/* Typography (tools/site_typography.py) */"
 FONT_MARK = "/* One font (tools/site_typography.py) */"
 FIXEL_MARK = "/* Fixel (tools/site_typography.py) */"
 FIXEL_END = "/* /Fixel */"
+BREAKS_MARK = "/* Headline breaks (tools/site_typography.py) */"
+# «У кишені, / як компас.» — рівно два рядки: виділена частина завжди з нового
+# рядка й не розривається, а на комп'ютері (колонка поруч із мапою) кегль
+# підібрано під ширину колонки.
+BREAKS_CSS = BREAKS_MARK + """
+.phone-section h2.display-l em { display: block; white-space: nowrap; }
+@media (min-width: 901px) {
+  .phone-section h2.display-l { font-size: clamp(40px, 4.6vw, 84px) !important; white-space: nowrap; }
+  html[lang="en"] .phone-section h2.display-l { font-size: clamp(32px, 3.6vw, 72px) !important; }
+}
+"""
 DROP_FAMILIES = ("Poppins", "JetBrains Mono", "Montserrat")
 
 CSS = MARK + """
@@ -118,11 +129,12 @@ def main():
     if not m:
         raise SystemExit("нема блоку __bundler/template")
     tpl = json.loads(m.group(2))
-    if MARK in tpl and FIXEL_MARK in tpl:
+    if MARK in tpl and FIXEL_MARK in tpl and BREAKS_MARK in tpl:
         print("index.html: типографіка вже оновлена")
         return
     tpl, old_ids = drop_old_fonts(tpl)
     add = ("" if MARK in tpl else CSS) + ("" if FIXEL_MARK in tpl else fixel_block())
+    add += "" if BREAKS_MARK in tpl else BREAKS_CSS
     i = tpl.rfind("</style>")
     tpl = tpl[:i] + add + tpl[i:]
     dumped = json.dumps(tpl, ensure_ascii=False).replace("</", "<\\/")
@@ -135,13 +147,13 @@ def main():
     for fid in set(old_ids):
         if fid not in tpl:
             man.pop(fid, None)
-    for _, f, _ in FACES:
+    for _, f, _ in (FACES if FIXEL_MARK not in json.loads(m.group(2)) else []):
         data = (FONTS / f"{f}.woff2").read_bytes()
         man[font_id(f)] = {"mime": "font/woff2", "compressed": False,
                            "data": base64.b64encode(data).decode("ascii")}
     html = html[:mm.start(2)] + json.dumps(man) + html[mm.end(2):]
     SRC.write_text(html, encoding="utf-8")
-    print(f"index.html: шрифт Fixel, прибрано старих файлів шрифтів: {len(set(old_ids))}")
+    print(f"index.html: типографіку оновлено (прибрано старих файлів шрифтів: {len(set(old_ids))})")
 
 
 if __name__ == "__main__":
