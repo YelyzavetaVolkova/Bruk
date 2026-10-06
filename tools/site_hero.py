@@ -2,7 +2,7 @@
 """Виразніший хедер (перший екран) і кнопки капсом на головній.
 
   • прибирає підзаголовок «Інтерактивна мапа міста…» з першого екрана;
-  • заголовок більший, кнопки під ним, низ фото темніший, навігація щільніша;
+  • заголовок звичного розміру, кнопки під ним, низ фото темніший, навігація щільніша;
   • усі кнопки сайту — капсом, з розрядкою й однаковими відступами;
   • переноси в заголовках: тире не починає рядок.
 Повторний запуск нічого не дублює. Після нього: python3 tools/site_typo.py && python3 tools/build_en.py
@@ -13,6 +13,7 @@ import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 MARK = "/* bruk-hero: tools/site_hero.py */"
+END = "/* /bruk-hero */\n"
 
 TEXT = [
     ("          <p>Інтерактивна мапа міста, де кожен будинок — початок історії. Без підручників. Без туристичних кліше.</p>\n", ""),
@@ -21,7 +22,7 @@ TEXT = [
 ]
 
 CSS = MARK + """
-/* Hero: bigger headline, buttons below */
+/* Hero: buttons below the headline */
 .nav.on-dark { background: rgba(14,14,14,0.72); border-color: rgba(255,255,255,0.18); }
 .hero-media::after {
   background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.12) 24%, rgba(0,0,0,0.18) 42%,
@@ -29,19 +30,11 @@ CSS = MARK + """
 }
 .hero-topline { padding-top: 72px; }
 .hero-headline-wrap { grid-template-columns: 1fr; gap: 36px; }
-.hero-headline {
-  font-size: clamp(56px, 10vw, 184px);
-  line-height: 0.92;
-  letter-spacing: -0.045em;
-  max-width: none;
-}
 .hero-side { padding-bottom: 0; }
 @media (max-width: 860px) {
   .hero-topline { padding-top: 0; }
-  .hero-headline { font-size: clamp(40px, 14.2vw, 72px) !important; line-height: 0.95 !important; }
   .hero-headline-wrap { gap: 28px; }
 }
-@media (max-width: 380px) { .hero-headline { font-size: 40px !important; } }
 
 /* Buttons: caps, tracking, consistent padding */
 .btn, .volunteer-cta, .waitlist button[type=submit], .nav-cta {
@@ -62,6 +55,7 @@ CSS = MARK + """
   .btn, .volunteer-cta, .waitlist button[type=submit] { min-height: 52px; padding: 0 24px !important; }
   .nav-cta { padding: 9px 13px !important; font-size: 10.5px !important; letter-spacing: 0.06em !important; }
 }
+/* /bruk-hero */
 """
 
 STORY_CSS = """  /* bruk-hero: кнопки капсом (tools/site_hero.py) */
@@ -76,9 +70,11 @@ def main():
     tpl = json.loads(m.group(2))
     for old, new in TEXT:
         tpl = tpl.replace(old, new)
-    if MARK not in tpl:
-        i = tpl.rfind("</style>")
-        tpl = tpl[:i] + CSS + tpl[i:]
+    if MARK in tpl:  # старий блок — геть, щоб правки CSS застосувались
+        i = tpl.index(MARK)
+        tpl = tpl[:i] + tpl[tpl.index(END, i) + len(END):] if END in tpl[i:] else tpl[:i] + tpl[tpl.index("</style>", i):]
+    i = tpl.rfind("</style>")
+    tpl = tpl[:i] + CSS + tpl[i:]
     data = json.dumps(tpl, ensure_ascii=False).replace("</", "<\\/")
     p.write_text(html[:m.start(2)] + data + html[m.end(2):])
 
