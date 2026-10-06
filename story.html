@@ -87,6 +87,8 @@
     .intro { position: static; }
     .intro .steps { display: none; }
   }
+  /* bruk-hero: кнопки капсом (tools/site_hero.py) */
+  .btn { text-transform: uppercase; letter-spacing: .08em; font-size: 13px; font-weight: 600; }
 </style>
 <!-- bruk-favicon -->
 <link rel="icon" type="image/png" sizes="256x256" href="/favicon.png">
@@ -102,18 +104,18 @@
 <main class="wrap" id="main">
   <section class="intro">
     <h1 id="heading">Розкажи історію будинку</h1>
-    <p class="lede" id="lede">Спогад, сімейна історія чи старе фото. Ми перевіримо факти й, якщо все підтвердиться, додамо історію до картки на мапі з твоїм підписом.</p>
+    <p class="lede" id="lede">Спогад, сімейна історія чи старе фото. Ми перевіримо факти й, якщо все підтвердиться, додамо історію до картки на мапі з твоїм підписом.</p>
     <ol class="steps" aria-label="Що далі">
-      <li class="now"><span class="n">1</span><div><b>Надсилаєш історію</b><span>Листом на bruk.kyiv@gmail.com</span></div></li>
-      <li class="next"><span class="n">2</span><div><b>Перевіряємо факти</b><span>Можемо перепитати у відповідь</span></div></li>
-      <li class="next"><span class="n">3</span><div><b>Додаємо до картки</b><span>У застосунку й на мапі сайту</span></div></li>
+      <li class="now"><span class="n">1</span><div><b>Надсилаєш історію</b><span>Листом на bruk.kyiv@gmail.com</span></div></li>
+      <li class="next"><span class="n">2</span><div><b>Перевіряємо факти</b><span>Можемо перепитати у відповідь</span></div></li>
+      <li class="next"><span class="n">3</span><div><b>Додаємо до картки</b><span>У застосунку й на мапі сайту</span></div></li>
     </ol>
   </section>
 
   <section>
     <form id="story" novalidate>
       <div class="field">
-        <label class="label" for="address">Про який будинок</label>
+        <label class="label" for="address">Про який будинок</label>
         <div class="line">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z" stroke="#A20E00" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.5" stroke="#A20E00" stroke-width="2"/></svg>
           <input class="big" id="address" name="address" placeholder="Вулиця і номер будинку" autocomplete="off" required>
@@ -121,17 +123,17 @@
       </div>
 
       <fieldset class="field chips" id="kind">
-        <legend class="label">Що це за історія</legend>
+        <legend class="label">Що це за історія</legend>
         <input type="radio" name="kind" id="k1" value="Спогад" checked><label for="k1">Спогад</label>
         <input type="radio" name="kind" id="k2" value="Сімейна історія"><label for="k2">Сімейна історія</label>
-        <input type="radio" name="kind" id="k3" value="Документ з архіву"><label for="k3">Документ з архіву</label>
+        <input type="radio" name="kind" id="k3" value="Документ з архіву"><label for="k3">Документ з архіву</label>
         <input type="radio" name="kind" id="k4" value="Фото"><label for="k4">Фото</label>
       </fieldset>
 
       <div class="field">
         <label class="label" for="text" id="text-label">Твоя історія</label>
         <textarea id="text" name="text" maxlength="2000" required placeholder="Хто тут жив чи працював, коли, що сталося. Наприклад: «Моя бабуся в 1950-х працювала в аптеці на першому поверсі й розповідала, що…»"></textarea>
-        <div class="row hint"><span>Без вигадок: якщо це переказ, так і напиши.</span><span id="count">0 / 2000</span></div>
+        <div class="row hint"><span>Без вигадок: якщо це переказ, так і напиши.</span><span id="count">0 / 2000</span></div>
       </div>
 
       <fieldset class="field chips">
@@ -139,7 +141,7 @@
         <input type="radio" name="source" id="s1" value="Особисто" checked><label for="s1">Особисто</label>
         <input type="radio" name="source" id="s2" value="Родина розповідала"><label for="s2">Родина розповідала</label>
         <input type="radio" name="source" id="s3" value="Архів або документ"><label for="s3">Архів або документ</label>
-        <input type="radio" name="source" id="s4" value="Книга чи стаття"><label for="s4">Книга чи стаття</label>
+        <input type="radio" name="source" id="s4" value="Книга чи стаття"><label for="s4">Книга чи стаття</label>
       </fieldset>
 
       <div class="field">
@@ -149,24 +151,24 @@
 
       <div class="field">
         <span class="label">Фото</span>
-        <p class="hint">Прикріпи фото до листа, який відкриється після натискання кнопки. Лише твої фото або ті, на які маєш дозвіл автора. Найкраще — сучасний знімок фасаду при денному світлі або старе фото з родинного архіву.</p>
+        <p class="hint">Прикріпи фото до листа, який відкриється після натискання кнопки. Лише твої фото або ті, на які маєш дозвіл автора. Найкраще — сучасний знімок фасаду при денному світлі або старе фото з родинного архіву.</p>
       </div>
 
       <div class="field">
-        <label class="label" for="name">Як тебе підписати</label>
+        <label class="label" for="name">Як тебе підписати</label>
         <div class="line"><input class="big" id="name" name="name" placeholder="Ім'я" autocomplete="name"></div>
       </div>
 
       <div class="checks">
-        <label class="check"><input type="checkbox" id="agree"> Погоджуюсь, що редакція BRUK перевірить факти, може уточнити деталі й скоротити текст.</label>
-        <label class="check"><input type="checkbox" id="sign" checked> Можна підписати історію моїм ім'ям у картці будинку.</label>
-        <label class="check" id="rights-row" hidden><input type="checkbox" id="rights"> Це моє фото або я маю дозвіл автора. BRUK може опублікувати його в картці будинку з підписом автора.</label>
+        <label class="check"><input type="checkbox" id="agree"> Погоджуюсь, що редакція BRUK перевірить факти, може уточнити деталі й скоротити текст.</label>
+        <label class="check"><input type="checkbox" id="sign" checked> Можна підписати історію моїм ім’ям у картці будинку.</label>
+        <label class="check" id="rights-row" hidden><input type="checkbox" id="rights"> Це моє фото або я маю дозвіл автора. BRUK може опублікувати його в картці будинку з підписом автора.</label>
       </div>
 
 
       <div class="field">
-        <button class="btn" type="submit" id="send" disabled>Надіслати на перевірку</button>
-        <p class="hint">Відкриється твоя пошта з готовим листом. Без перевірки нічого не публікуємо, про результат напишемо у відповідь.</p>
+        <button class="btn" type="submit" id="send" disabled>Надіслати на перевірку</button>
+        <p class="hint">Відкриється твоя пошта з готовим листом. Без перевірки нічого не публікуємо, про результат напишемо у відповідь.</p>
       </div>
     </form>
 
@@ -174,10 +176,10 @@
       <div class="badge"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div>
         <h2>Лист готовий</h2>
-        <p style="margin-top:14px">Залишилось натиснути «Надіслати» в пошті. Фото можна прикріпити до того самого листа. Якщо пошта не відкрилась, напиши нам на <a href="mailto:bruk.kyiv@gmail.com">bruk.kyiv@gmail.com</a>.</p>
+        <p style="margin-top:14px">Залишилось натиснути «Надіслати» в пошті. Фото можна прикріпити до того самого листа. Якщо пошта не відкрилась, напиши нам на <a href="mailto:bruk.kyiv@gmail.com">bruk.kyiv@gmail.com</a>.</p>
       </div>
       <div class="buttons">
-        <a class="btn" href="/map/">Повернутися до мапи</a>
+        <a class="btn" href="/map/">Повернутися до мапи</a>
         <button class="btn ghost" type="button" id="again">Розповісти ще одну</button>
       </div>
     </div>
