@@ -55,6 +55,8 @@ CSS = MARK + """
   .btn, .volunteer-cta, .waitlist button[type=submit] { min-height: 52px; padding: 0 24px !important; }
   .nav-cta { padding: 9px 13px !important; font-size: 10.5px !important; letter-spacing: 0.06em !important; }
 }
+/* Centered paragraphs: even lines, centered */
+.volunteer-desc, .waitlist p, .orbit-caption { text-align: center; text-wrap: balance; margin-inline: auto; }
 /* /bruk-hero */
 """
 
