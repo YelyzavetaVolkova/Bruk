@@ -6,7 +6,8 @@
     і № не лишаються в кінці рядка — після них нерозривний пробіл; апостроф ' → ’; "лапки" → «лапки»;
   • англійське: a, an, the, of, to… (EN_WORDS) так само тримаються наступного слова;
     апостроф ' → ’; "quotes" → “quotes”;
-  • тире — й стрілка → не починають рядок (нерозривний пробіл перед ними); ... → ….
+  • тире — й стрілка → не починають рядок (нерозривний пробіл перед ними); ... → …;
+  • останнє слово абзацу, заголовка чи пункту списку не лишається на рядку саме.
 Мова визначається для кожного шматка тексту: є кирилиця — українські правила.
 
 Обробляє index.html (шаблон бандла), story.html, privacy.html; en/index.html —
@@ -29,6 +30,8 @@ EN_SHORT = re.compile(r"(?<![\w’'-])(%s)[ \t]+(?=[\w“(\d]|\Z)" % "|".join(EN
 UK_APOS = re.compile(r"(?<=[%s])'(?=[%s])" % (CYR, CYR))
 EN_APOS = re.compile(r"(?<=[A-Za-z])'(?=[A-Za-z])")
 DASH = re.compile(r"[ \t]+(—|→|↗)")
+END_TAG = re.compile(r"</(p|h[1-6]|li)>", re.I)
+LAST_SPACE = re.compile(r"[ \t]+(?=\S+\s*\Z)")
 
 
 def typo_text(s):
@@ -49,7 +52,10 @@ def typo_text(s):
 def typo_html(html):
     out, pos = [], 0
     for m in SKIP.finditer(html):
-        out.append(typo_text(html[pos:m.start()]))
+        seg = typo_text(html[pos:m.start()])
+        if END_TAG.match(m.group(0)) and len(seg.split()) >= 3:
+            seg = LAST_SPACE.sub(NBSP, seg)  # останнє слово абзацу не висить саме
+        out.append(seg)
         out.append(m.group(0))
         pos = m.end()
     out.append(typo_text(html[pos:]))
