@@ -37,9 +37,29 @@ def fix_template(html):
     return html
 
 
+SWAP = "document.documentElement.replaceWith(doc.documentElement);"
+# Після підміни всього <html> браузери (Chrome, Safari) гублять іконку й
+# не перечитують нові <link>, тож вставляємо їх наново вже в новий документ.
+REFRESH = SWAP + """
+    /* bruk-favicon */ (function() {
+      document.querySelectorAll('link[rel~="icon"]').forEach(function(l) { l.remove(); });
+      [['icon', '/favicon.png', 'image/png'], ['icon', '/favicon.ico', '']].forEach(function(a) {
+        var l = document.createElement('link'); l.rel = a[0]; l.href = a[1];
+        if (a[2]) l.type = a[2];
+        document.head.appendChild(l);
+      });
+    })();"""
+
+
+def refresh_after_swap(html):
+    if "/* bruk-favicon */" in html:
+        return html
+    return html.replace(SWAP, REFRESH, 1)
+
+
 def main():
     p = ROOT / "index.html"
-    p.write_text(fix_template(add_head_links(p.read_text())))
+    p.write_text(refresh_after_swap(fix_template(add_head_links(p.read_text()))))
     for name in ("story.html", "privacy.html"):
         p = ROOT / name
         html = p.read_text().replace('<link rel="icon" href="/favicon.png">\n', "")
