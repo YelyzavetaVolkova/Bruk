@@ -48,6 +48,13 @@ HREFLANG = ('<link rel="alternate" hreflang="uk" href="https://bruk.city/">\n'
 SHELL = [
     ("<!DOCTYPE html>\n<html>", '<!DOCTYPE html>\n<html lang="en">'),
     ("<title>BRUK — Історія Києва, яка оживає</title>", "<title>BRUK — Kyiv's history, coming alive</title>"),
+    # опис і canonical для пошуковиків (tools/site_seo.py)
+    ('content="BRUK — мапа центру Києва, де кожен будинок розповідає свою історію: хто його звів, хто в ньому жив і що з ним сталося. Коротко, тепло і з джерелами."',
+     'content="BRUK is a map of central Kyiv where every building tells its story: who built it, who lived there and what happened to it. Short, warm and with sources."'),
+    ('<link rel="canonical" href="https://bruk.city/">', '<link rel="canonical" href="https://bruk.city/en/">'),
+    ('content="BRUK — Історія Києва, яка оживає"', 'content="BRUK — Kyiv\'s history, coming alive"'),
+    ('content="Мапа центру Києва, де кожен будинок розповідає свою історію."', 'content="A map of central Kyiv where every building tells its story."'),
+    ('<meta property="og:url" content="https://bruk.city/">', '<meta property="og:url" content="https://bruk.city/en/">'),
     ("'помилка: бракує даних'", "'error: missing data'"),
     ("'розпаковуємо ' + uuids.length + ' артефактів'", "'unpacking ' + uuids.length + ' assets'"),
     ("'монтуємо сцену'", "'building the page'"),

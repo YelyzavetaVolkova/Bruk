@@ -7,6 +7,7 @@
 Береться buildings.json, facts.json і filters.json з bruk-app/Bruk.
 Заодно пишеться home-facts.json — факти для бігучого рядка на головній
 (українською й англійською, з id будинку для посилання на мапу).
+Наприкінці перегенеровуються сторінки будинків budynky/… і sitemap.xml (tools/site_seo.py).
 Дані сайт завжди бере з мережі, кеш — лише запас на випадок без інтернету.
 """
 import json
@@ -26,6 +27,8 @@ def main() -> None:
         shutil.copyfile(src, target / name)
         print(f"{name}: {len(data)} записів")
     write_home_facts(app, target)
+    import site_seo  # сторінки будинків для пошуковиків і sitemap — з тих самих даних
+    site_seo.main()
 
 
 def write_home_facts(app: Path, target: Path) -> None:
