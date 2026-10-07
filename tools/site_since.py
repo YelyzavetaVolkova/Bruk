@@ -17,9 +17,9 @@ NEW = ('<div class="eyebrow on-dark">BRUK ·\xa0Cultural Platform</div>'
 CSS = """/* bruk-since: tools/site_since.py */
 .hero-topline { align-items: center; gap: 14px; flex-wrap: wrap; }
 .since-badge { display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px;
-  background: #A20E00; color: #fff; font-size: 13px; font-weight: 600; letter-spacing: .1em;
+  background: #fff; color: #0e0e0e; font-size: 13px; font-weight: 600; letter-spacing: .1em;
   text-transform: uppercase; line-height: 1; white-space: nowrap; transition: background .2s; }
-.since-badge:hover { background: #c01200; }
+.since-badge:hover { background: rgba(255,255,255,.85); }
 @media (max-width: 640px) { .since-badge { font-size: 11.5px; padding: 7px 12px; } }
 /* /bruk-since */
 """
