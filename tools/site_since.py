@@ -20,6 +20,10 @@ CSS = """/* bruk-since: tools/site_since.py */
   background: #fff; color: #0e0e0e; font-size: 13px; font-weight: 600; letter-spacing: .1em;
   text-transform: uppercase; line-height: 1; white-space: nowrap; transition: background .2s; }
 .since-badge:hover { background: rgba(255,255,255,.85); }
+/* eyebrow next to the badge: more visible */
+.hero-topline .eyebrow.on-dark { font-size: 13px !important; letter-spacing: .1em !important;
+  color: #fff !important; opacity: 1 !important; font-weight: 600; text-shadow: 0 1px 8px rgba(0,0,0,.45); }
+@media (max-width: 640px) { .hero-topline .eyebrow.on-dark { font-size: 11px !important; } }
 @media (max-width: 640px) { .since-badge { font-size: 11.5px; padding: 7px 12px; } }
 /* /bruk-since */
 """
