@@ -9,13 +9,15 @@ import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 ANCHOR = "Живий архів, який прокидається від\xa0дотику.</p>\n"
-LINE = ('      <p class="since reveal d3"><span class="since-year">Від 2025</span>'
-        'BRUK почався з\xa0перемоги на\xa0Hathaton 6.0.</p>\n')
+LINE = ('      <p class="since reveal d3"><span class="since-year">Від 2025</span><span>'
+        'BRUK почався з\xa0першого місця на\xa0<a href="https://hatathon.houseofeurope.org.ua/en-2025" target="_blank" rel="noopener noreferrer">Hatathon 6.0</a> від House of Europe.</span>'
+        '</p>\n')
 CSS = """/* bruk-since: tools/site_since.py */
 .since { margin-top: 20px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
   font-size: 14px; color: var(--muted); max-width: 44ch; }
 .since-year { color: #A20E00; font-weight: 600; font-size: 12px;
   letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
+.since a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
 /* /bruk-since */
 """
 
