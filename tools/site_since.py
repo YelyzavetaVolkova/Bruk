@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Рядок «з 2025 року» в розділі «02 · Рішення»: скільки існує проєкт.
+"""Перший екран: «Since 2025» замість «Est. 2026» — помітна червона плашка,
+веде на результати Hatathon 6.0 (House of Europe), з якого почався BRUK.
 
 Повторний запуск нічого не дублює. Після нього: python3 tools/site_typo.py && python3 tools/build_en.py
 """
@@ -8,16 +9,18 @@ import pathlib
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-ANCHOR = "Живий архів, який прокидається від\xa0дотику.</p>\n"
-LINE = ('      <p class="since reveal d3"><span class="since-year">Від 2025</span><span>'
-        'BRUK почався з\xa0першого місця на\xa0<a href="https://hatathon.houseofeurope.org.ua/en-2025" target="_blank" rel="noopener noreferrer">Hatathon 6.0</a> від House of Europe.</span>'
-        '</p>\n')
+URL = "https://hatathon.houseofeurope.org.ua/en-2025"
+OLD = re.compile(r'<div class="eyebrow on-dark">BRUK ·\s*Cultural\s*Platform ·\s*Est\.\s*2026</div>')
+NEW = ('<div class="eyebrow on-dark">BRUK ·\xa0Cultural Platform</div>'
+       f'<a class="since-badge" href="{URL}" target="_blank" rel="noopener noreferrer" '
+       'title="BRUK — 1 місце на Hatathon 6.0 (House of Europe), 2025">Since 2025</a>')
 CSS = """/* bruk-since: tools/site_since.py */
-.since { margin-top: 20px; display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;
-  font-size: 14px; color: var(--muted); max-width: 44ch; }
-.since-year { color: #A20E00; font-weight: 600; font-size: 12px;
-  letter-spacing: .08em; text-transform: uppercase; white-space: nowrap; }
-.since a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.hero-topline { align-items: center; gap: 14px; flex-wrap: wrap; }
+.since-badge { display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px;
+  background: #A20E00; color: #fff; font-size: 13px; font-weight: 600; letter-spacing: .1em;
+  text-transform: uppercase; line-height: 1; white-space: nowrap; transition: background .2s; }
+.since-badge:hover { background: #c01200; }
+@media (max-width: 640px) { .since-badge { font-size: 11.5px; padding: 7px 12px; } }
 /* /bruk-since */
 """
 
@@ -27,15 +30,15 @@ def main():
     html = p.read_text()
     m = re.search(r'(<script type="__bundler/template">)(.*?)(</script>)', html, re.S)
     tpl = json.loads(m.group(2))
-    if 'class="since ' not in tpl:
-        assert ANCHOR in tpl, "не знайшла абзац «Живий архів…»"
-        tpl = tpl.replace(ANCHOR, ANCHOR + LINE, 1)
+    if 'class="since-badge"' not in tpl:
+        tpl, n = OLD.subn(NEW, tpl, 1)
+        assert n, "не знайшла «Est. 2026» на першому екрані"
     if "bruk-since" not in tpl:
         i = tpl.rfind("</style>")
         tpl = tpl[:i] + CSS + tpl[i:]
     data = json.dumps(tpl, ensure_ascii=False).replace("</", "<\\/")
     p.write_text(html[:m.start(2)] + data + html[m.end(2):])
-    print("рядок «з 2025»: готово")
+    print("Since 2025: готово")
 
 
 if __name__ == "__main__":
