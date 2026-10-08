@@ -311,6 +311,7 @@ function onStyleLoad() {
   } else {
     addMarkerLayer();
   }
+  fog.add(!!state.buildingsTarget);
   refreshHighlights();
   if (state.selectedId) markSelected(state.byId.get(state.selectedId));
   if (state.buildingsTarget) map.on('idle', resolveFeatureIds);
@@ -385,9 +386,142 @@ function addMarkerLayer() {
   map.on('mouseleave', 'bruk-buildings', () => { map.getCanvas().style.cursor = ''; });
 }
 
+// MARK: - Туман над неописаним Києвом (як у застосунку, Bruk/StoryFog.swift)
+//
+// Як у відеогрі: відкрито лише довкола будинків, що вже є в BRUK, решта міста
+// під туманом. Нова вулиця в buildings.json сама розсіює туман над собою.
+// Межу шукаємо по сітці відстаней до найближчого будинку (marching squares
+// з інтерполяцією), тож край плавний. Туман лежить на землі під 3D-будинками,
+// а легка вуаль поверх будинків — лише далеко від описаного.
+
+const FOG_LEVELS = [[260, 0.2], [200, 0.2], [150, 0.3]];
+const FOG_VEIL = [380, 0.35];
+const FOG_OPEN_RADIUS = 200;
+const M_PER_LAT = 111320;
+
+const fog = (() => {
+  let centers = null;
+  let mPerLon = M_PER_LAT;
+  const init = () => {
+    if (centers) return;
+    const pts = state.buildings.filter((b) => b.latitude && b.longitude);
+    const lat0 = pts.length ? pts.reduce((s, b) => s + b.latitude, 0) / pts.length : 50.45;
+    mPerLon = M_PER_LAT * Math.cos(lat0 * Math.PI / 180);
+    centers = pts.map((b) => [b.longitude * mPerLon, b.latitude * M_PER_LAT]);
+  };
+  const nearest = (x, y) => centers.reduce((m, c) => Math.min(m, Math.hypot(c[0] - x, c[1] - y)), Infinity);
+
+  function openRings(radius) {
+    const step = 20, margin = radius + 3 * step;
+    const xs = centers.map((c) => c[0]), ys = centers.map((c) => c[1]);
+    const x0 = Math.min(...xs) - margin, x1 = Math.max(...xs) + margin;
+    const y0 = Math.min(...ys) - margin, y1 = Math.max(...ys) + margin;
+    const nx = Math.floor((x1 - x0) / step) + 1, ny = Math.floor((y1 - y0) / step) + 1;
+    const field = new Float64Array(nx * ny).fill(Infinity);
+    const reach = Math.floor(radius / step) + 3;
+    for (const [cx, cy] of centers) {
+      const ci = Math.floor((cx - x0) / step), cj = Math.floor((cy - y0) / step);
+      for (let j = Math.max(0, cj - reach); j <= Math.min(ny - 1, cj + reach); j++) {
+        for (let i = Math.max(0, ci - reach); i <= Math.min(nx - 1, ci + reach); i++) {
+          const d = Math.hypot(x0 + i * step - cx, y0 + j * step - cy);
+          if (d < field[j * nx + i]) field[j * nx + i] = d;
+        }
+      }
+    }
+    const value = (i, j) => field[j * nx + i];
+    // Ключ ребра сітки: горизонтальне (h) чи вертикальне (v), що починається у вузлі i, j.
+    const crossings = new Map();
+    const crossing = (key) => {
+      if (crossings.has(key)) return;
+      const [kind, i, j] = key.split(':');
+      const ai = +i, aj = +j, bi = kind === 'v' ? ai : ai + 1, bj = kind === 'v' ? aj + 1 : aj;
+      const fa = value(ai, aj), fb = value(bi, bj);
+      const t = isFinite(fa) && isFinite(fb) ? (radius - fa) / (fb - fa) : 0.5;
+      crossings.set(key, [x0 + (ai + (bi - ai) * t) * step, y0 + (aj + (bj - aj) * t) * step]);
+    };
+    const segments = [];
+    for (let j = 0; j < ny - 1; j++) {
+      for (let i = 0; i < nx - 1; i++) {
+        // Кути: низ-ліво, низ-право, верх-право, верх-ліво; ребро k — між кутами k і k+1.
+        const v = [value(i, j), value(i + 1, j), value(i + 1, j + 1), value(i, j + 1)];
+        const inside = v.map((x) => x < radius);
+        const edges = [`h:${i}:${j}`, `v:${i + 1}:${j}`, `h:${i}:${j + 1}`, `v:${i}:${j}`];
+        const crossed = [0, 1, 2, 3].filter((k) => inside[k] !== inside[(k + 1) % 4]);
+        crossed.forEach((k) => crossing(edges[k]));
+        if (crossed.length === 2) {
+          segments.push([edges[crossed[0]], edges[crossed[1]]]);
+        } else if (crossed.length === 4) {
+          const finite = v.filter(isFinite);
+          const centerInside = finite.length > 0 && finite.reduce((s, x) => s + x, 0) / finite.length < radius;
+          if (centerInside === inside[0]) segments.push([edges[0], edges[1]], [edges[2], edges[3]]);
+          else segments.push([edges[3], edges[0]], [edges[1], edges[2]]);
+        }
+      }
+    }
+    const byEdge = new Map();
+    segments.forEach(([a, b], n) => {
+      for (const k of [a, b]) { if (!byEdge.has(k)) byEdge.set(k, []); byEdge.get(k).push(n); }
+    });
+    const used = new Uint8Array(segments.length);
+    const rings = [];
+    for (let n = 0; n < segments.length; n++) {
+      if (used[n]) continue;
+      used[n] = 1;
+      const start = segments[n][0];
+      let current = segments[n][1];
+      const keys = [start, current];
+      while (current !== start) {
+        const next = (byEdge.get(current) || []).find((s) => !used[s]);
+        if (next === undefined) break;
+        used[next] = 1;
+        current = segments[next][0] === current ? segments[next][1] : segments[next][0];
+        keys.push(current);
+      }
+      if (keys.length <= 3 || current !== start) continue;
+      const ring = keys.map((k) => crossings.get(k));
+      // Острівці туману всередині відкритої зони пропускаємо — там теж відкрито.
+      const left = ring.reduce((a, b) => (b[0] < a[0] ? b : a));
+      if (nearest(left[0] + step / 2, left[1]) < radius) rings.push(ring);
+    }
+    return rings;
+  }
+
+  function feature(radius, opacity) {
+    const world = [[-180, -85], [180, -85], [180, 85], [-180, 85], [-180, -85]];
+    const holes = openRings(radius).map((ring) => ring.map(([x, y]) => [x / mPerLon, y / M_PER_LAT]));
+    return { type: 'Feature', properties: { opacity }, geometry: { type: 'Polygon', coordinates: [world, ...holes] } };
+  }
+
+  return {
+    isOpen(lngLat) {
+      init();
+      return !centers.length || nearest(lngLat.lng * mPerLon, lngLat.lat * M_PER_LAT) < FOG_OPEN_RADIUS;
+    },
+    add(standard) {
+      init();
+      if (!centers.length || map.getSource('bruk-fog')) return;
+      const layer = (id, slot) => ({
+        id, type: 'fill', source: id, ...(standard ? { slot } : {}),
+        paint: { 'fill-color': '#9C978F', 'fill-opacity': ['get', 'opacity'], 'fill-emissive-strength': 1 },
+      });
+      map.addSource('bruk-fog', {
+        type: 'geojson',
+        data: { type: 'FeatureCollection', features: FOG_LEVELS.map(([r, o]) => feature(r, o)) },
+      });
+      map.addLayer(layer('bruk-fog', 'middle'));
+      if (standard) {
+        map.addSource('bruk-fog-veil', { type: 'geojson', data: { type: 'FeatureCollection', features: [feature(...FOG_VEIL)] } });
+        map.addLayer(layer('bruk-fog-veil', 'top'));
+      }
+    },
+  };
+})();
+
 // MARK: - Тап по будинку (як Array.match у застосунку)
 
 function onBuildingTap(feature, lngLat) {
+  // Під туманом ще нічого не описано — тапи там нічого не відкривають.
+  if (lngLat && !fog.isOpen(lngLat)) return;
   const featureId = feature.id != null ? String(feature.id) : null;
   let b = featureId
     ? (state.buildings.find((x) => state.resolved[x.id] === featureId)
