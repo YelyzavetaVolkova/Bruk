@@ -99,6 +99,8 @@ PAGE = [
      "BRUK is an interactive map of Kyiv where every highlighted building opens up its story: when it was built, who lived there, what it remembers and why it is still standing."),
     ("Не енциклопедія. Не путівник. Живий архів, який прокидається від дотику.",
      "Not an encyclopedia. Not a guidebook. A living archive that wakes up at your touch."),
+    ('title="BRUK — 1 місце на Hatathon 6.0 (House of Europe), 2025"',
+     'title="BRUK — 1st place at Hatathon 6.0 (House of Europe), 2025"'),
     (">Подивитись у додатку<", ">See it in the app<"),
     (">Стежити в Instagram<", ">Follow on Instagram<"),
     ('<div class="map-chip tl">Київ · Центр</div>', '<div class="map-chip tl">Kyiv · City centre</div>'),
