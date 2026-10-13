@@ -580,10 +580,27 @@ function displayDate(d) {
 }
 
 // Форма «Розкажи історію будинку» на сайті (/story.html) з підставленою адресою.
-function storyLink(place, lat, lng, kind = '') {
+function storyLink(place, lat, lng, kind = '', id = '') {
   const q = new URLSearchParams({ place, lat: lat.toFixed(6), lng: lng.toFixed(6) });
   if (kind) q.set('kind', kind);
+  if (id) q.set('id', id); // id картки — у лист, щоб імпорт не гадав за адресою
   return `/story.html?${q}`;
+}
+
+// Будинок без фото (вибір авторки 13.10.2026, як у застосунку): київські парадні двері
+// лінією, на табличці справжній номер будинку. Ілюстрація й текст стовпчиком, без накладання.
+const DOOR_SVG = `<path d="M14 116V40a46 32 0 0 1 92 0v76M26 116V44a34 24 0 0 1 68 0v72M60 20v96M26 66h68M34 74h18v34H34zM68 74h18v34H68zM54 92h3M63 92h3M6 116h108"/>
+  <path d="M30 44a30 20 0 0 1 60 0M42 28l10 16M78 28l-10 16" opacity=".55"/>`;
+function firstPhotoSlot(b) {
+  const no = (b.address.split(',').pop() || '').trim().slice(0, 7);
+  const plate = no ? `<rect x="${122 - no.length * 3.2 - 4}" y="56" width="${no.length * 6.4 + 8}" height="14" rx="2" fill="var(--red, #A20E00)" stroke="none"/>
+    <text x="122" y="66.5" text-anchor="middle" font-size="10" font-weight="700" fill="#fff" stroke="none">${esc(no)}</text>` : '';
+  return `<div class="first-photo">
+    <svg viewBox="0 0 140 120" width="150" height="128" aria-hidden="true" fill="none" stroke="var(--red, #A20E00)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${DOOR_SVG}${plate}</svg>
+    <b>Тут буде перше фото</b>
+    <p>У цього будинку ще немає фото. Маєш власне? Поділися з нами, щоб усім було приємніше, а ми додамо його до картки з твоїм ім’ям.</p>
+    <a class="btn primary" href="${storyLink(b.address, b.latitude, b.longitude, 'photo', b.id)}">Надіслати фото</a>
+  </div>`;
 }
 
 // «Маєш краще фото?» під фото будинку — веде на ту саму форму в режимі фото.
@@ -594,7 +611,7 @@ function photoCta(b, hasPhotos) {
   return `<div class="photo-cta">
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z" stroke="currentColor" stroke-width="1.75" stroke-linejoin="round"/><circle cx="12" cy="13.5" r="3.5" stroke="currentColor" stroke-width="1.75"/></svg>
     <p>${text}</p>
-    <a class="btn ghost" href="${storyLink(b.address, b.latitude, b.longitude, 'photo')}">Надіслати фото</a>
+    <a class="btn ghost" href="${storyLink(b.address, b.latitude, b.longitude, 'photo', b.id)}">Надіслати фото</a>
   </div>`;
 }
 
@@ -612,8 +629,9 @@ function section(title, body, cls = '') {
 
 function renderBuilding(b) {
   const parts = [];
-  const hasPhotos = !!(b.commonsCategory || (b.commonsFiles && b.commonsFiles.length));
+  const hasPhotos = !!(b.commonsCategory || (b.commonsFiles && b.commonsFiles.length) || (b.userPhotos && b.userPhotos.length));
   if (hasPhotos) parts.push('<div class="photo-skeleton" id="photos" aria-label="Завантажуємо фото"></div>', photoCta(b, true));
+  else parts.push(firstPhotoSlot(b));
 
   const badges = [];
   const surv = SURVIVED[b.survived1941];
@@ -667,7 +685,6 @@ function renderBuilding(b) {
     if (b.currentFunction) rows.push(`<dt>Сьогодні</dt><dd>${esc(b.currentFunction)}</dd>`);
     parts.push(`<div class="section"><h3>Функції</h3><dl class="facts-dl">${rows.join('')}</dl></div>`);
   }
-  if (!hasPhotos) parts.push(photoCta(b, false));
   if (b.sources) parts.push(section('Джерела', richText(b.sources), 'sources small'));
 
   return parts.join('');
@@ -763,6 +780,11 @@ const categorySource = (category) => ({
 async function loadPhotos(b) {
   const slot = $('photos');
   if (!slot) return;
+  // Фото від людей (після модерації) лежать на цьому ж сайті, у photos/, і йдуть першими.
+  const own = (b.userPhotos || []).map((p) => {
+    const url = /^https?:/.test(p.file) ? p.file : `/${p.file}`;
+    return { url, page: url, title: p.file, credit: [p.author, p.license].filter(Boolean).join(' · ') };
+  });
   let photos = [];
   if (b.commonsCategory) {
     photos = await commonsQuery(categorySource(b.commonsCategory));
@@ -775,15 +797,12 @@ async function loadPhotos(b) {
   }
   // Поки вантажилось, могли відкрити інший будинок.
   if (state.selectedId !== b.id || !document.body.contains(slot)) return;
+  photos = own.concat(photos);
   if (!photos.length) {
-    slot.remove();
-    // Фото не знайшлося — переносимо заклик униз, де він стоїть у будинків без фото.
+    // Фото не знайшлося — показуємо рамку «Тут буде перше фото» замість заклику.
     const cta = document.querySelector('.photo-cta');
-    if (cta) {
-      cta.querySelector('p').textContent = 'У цього будинку ще немає фото. Маєш власне? Поділися з нами, щоб усім було приємніше.';
-      const sources = document.querySelector('#panel-body > .sources');
-      if (sources) sources.before(cta); else $('panel-body').append(cta);
-    }
+    if (cta) cta.remove();
+    slot.outerHTML = firstPhotoSlot(b);
     return;
   }
   const strip = document.createElement('div');
