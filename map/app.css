@@ -261,6 +261,7 @@ hr.div { border: 0; border-top: 1px solid var(--line); }
     width: 420px; max-height: none; border-radius: var(--radius);
     animation-name: slide;
   }
+  .filter-on .panel { top: calc(126px + var(--safe-t)); } /* під плашкою фільтра, а не поверх неї */
   @keyframes slide { from { transform: translateX(-20px); opacity: 0; } }
   .grabber { visibility: hidden; height: 0; margin: 14px 0 0; }
   .sheet { align-items: center; }
