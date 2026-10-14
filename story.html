@@ -151,7 +151,7 @@
 
       <div class="field">
         <span class="label">Фото</span>
-        <p class="hint">Прикріпи фото до листа, який відкриється після натискання кнопки. Лише твої фото або ті, на які маєш дозвіл автора. Найкраще — сучасний знімок фасаду при денному світлі або старе фото з родинного архіву.</p>
+        <p class="hint">Прикріпи фото до листа, який відкриється після натискання кнопки. Лише твої власні фото: ми публікуємо їх під вільною ліцензією CC BY-SA 4.0 з твоїм ім’ям. Найкраще — сучасний знімок фасаду при денному світлі. Старе фото з родинного архіву теж надсилай і напиши, чиє воно і з якого року.</p>
       </div>
 
       <div class="field">
@@ -162,7 +162,7 @@
       <div class="checks">
         <label class="check"><input type="checkbox" id="agree"> Погоджуюсь, що редакція BRUK перевірить факти, може уточнити деталі й скоротити текст.</label>
         <label class="check"><input type="checkbox" id="sign" checked> Можна підписати історію моїм ім’ям у картці будинку.</label>
-        <label class="check" id="rights-row" hidden><input type="checkbox" id="rights"> Це моє фото або я маю дозвіл автора. BRUK може опублікувати його в картці будинку з підписом автора.</label>
+        <label class="check" id="rights-row" hidden><input type="checkbox" id="rights"> Це моє фото. Дозволяю BRUK опублікувати його під вільною ліцензією CC BY-SA 4.0 з моїм ім’ям як автора.</label>
       </div>
 
 
@@ -209,7 +209,7 @@
   const lat = parseFloat(params.get('lat')), lng = parseFloat(params.get('lng'));
 
   const value = (name) => (form.elements[name].value || '').trim();
-  const ready = () => value('address') && $('agree').checked && (isPhoto() ? $('rights').checked : value('text'));
+  const ready = () => value('address') && $('agree').checked && (isPhoto() ? $('rights').checked && value('name') : value('text'));
   const update = () => {
     $('send').disabled = !ready();
     $('count').textContent = `${$('text').value.length} / 2000`;
@@ -232,7 +232,8 @@
     lines.push('', value('text'), '');
     lines.push(`Підпис: ${$('sign').checked && name ? name : 'без підпису'}`);
     lines.push('Згода на перевірку фактів і редагування: так');
-    if (isPhoto()) lines.push('Права на фото: моє фото або маю дозвіл автора, можна публікувати з підписом автора');
+    if (isPhoto()) lines.push(`Автор фото: ${name}`, 'Ліцензія фото: CC BY-SA 4.0 (моє фото)');
+    if (params.get('id')) lines.push(`Картка: ${params.get('id')}`);
     lines.push(isPhoto() ? '(фото — у вкладенні)' : '(фото — у вкладенні, якщо є)');
     if (!isNaN(lat) && !isNaN(lng)) lines.push('—', `${lat.toFixed(6)}, ${lng.toFixed(6)}`);
     const subject = `BRUK: ${isPhoto() ? 'фото' : 'історія'} — ${value('address')}`;

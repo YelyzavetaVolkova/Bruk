@@ -274,3 +274,10 @@ hr.div { border: 0; border-top: 1px solid var(--line); }
 
 /* Вбудована мапа на головній сторінці: без заставки й підказки */
 .embed .bruk-splash, .embed #hint { display: none !important; }
+
+/* Будинок без фото: рамка з дверима (firstPhotoSlot в app.js) */
+.first-photo { display: grid; justify-items: center; gap: 10px; text-align: center; padding: 24px 20px;
+  border: 1.5px dashed rgba(128,128,128,.6); border-radius: 16px; }
+.first-photo svg { display: block; max-width: 100%; height: auto; }
+.first-photo b { font-size: 17px; }
+.first-photo p { margin: 0; font-size: 14px; color: var(--muted, #6b6b73); max-width: 30ch; }
