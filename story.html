@@ -74,6 +74,12 @@
   .btn:disabled { background: #c7c7cc; cursor: not-allowed; }
   .btn.ghost { background: none; color: var(--ink); border: 1px solid var(--ink); line-height: 54px; }
 
+  .photos-pick { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .photos-pick img { width: 72px; height: 72px; object-fit: cover; border-radius: 12px; }
+  .photos-pick label.add { width: 72px; height: 72px; border-radius: 12px; background: var(--bg-soft); display: grid; place-items: center; font-size: 28px; color: var(--muted); cursor: pointer; }
+  .photos-pick input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .trap { position: absolute; left: -9999px; }
+  .err { color: var(--red); font-size: 14px; }
   .sent { display: none; }
   .is-sent .sent { display: grid; gap: 28px; }
   .is-sent form { display: none; }
@@ -106,8 +112,8 @@
     <h1 id="heading">Розкажи історію будинку</h1>
     <p class="lede" id="lede">Спогад, сімейна історія чи старе фото. Ми перевіримо факти й, якщо все підтвердиться, додамо історію до картки на мапі з твоїм підписом.</p>
     <ol class="steps" aria-label="Що далі">
-      <li class="now"><span class="n">1</span><div><b>Надсилаєш історію</b><span>Листом на bruk.kyiv@gmail.com</span></div></li>
-      <li class="next"><span class="n">2</span><div><b>Перевіряємо факти</b><span>Можемо перепитати у відповідь</span></div></li>
+      <li class="now"><span class="n">1</span><div><b>Надсилаєш історію</b><span>Прямо з цієї сторінки</span></div></li>
+      <li class="next"><span class="n">2</span><div><b>Перевіряємо факти</b><span>Можемо перепитати, якщо лишиш контакт</span></div></li>
       <li class="next"><span class="n">3</span><div><b>Додаємо до картки</b><span>У застосунку й на мапі сайту</span></div></li>
     </ol>
   </section>
@@ -151,13 +157,20 @@
 
       <div class="field">
         <span class="label">Фото</span>
-        <p class="hint">Прикріпи фото до листа, який відкриється після натискання кнопки. Лише твої власні фото: ми публікуємо їх під вільною ліцензією CC BY-SA 4.0 з твоїм ім’ям. Найкраще — сучасний знімок фасаду при денному світлі. Старе фото з родинного архіву теж надсилай і напиши, чиє воно і з якого року.</p>
+        <div class="photos-pick" id="thumbs"><label class="add" for="files" aria-label="Додати фото">+</label><input type="file" id="files" accept="image/*" multiple></div>
+        <p class="hint">До 5 фото. Лише твої власні: ми публікуємо їх під вільною ліцензією CC BY-SA 4.0 з твоїм ім’ям. Найкраще — сучасний знімок фасаду при денному світлі. Старе фото з родинного архіву теж надсилай і напиши, чиє воно і з якого року.</p>
       </div>
 
       <div class="field">
         <label class="label" for="name">Як тебе підписати</label>
         <div class="line"><input class="big" id="name" name="name" placeholder="Ім'я" autocomplete="name"></div>
       </div>
+
+      <div class="field">
+        <label class="label" for="contact">Як з тобою зв’язатися (необов’язково)</label>
+        <div class="line"><input id="contact" name="contact" placeholder="Пошта, телефон чи Telegram, щоб перепитати" autocomplete="email"></div>
+      </div>
+      <input class="trap" name="website" id="website" tabindex="-1" autocomplete="off" aria-hidden="true">
 
       <div class="checks">
         <label class="check"><input type="checkbox" id="agree"> Погоджуюсь, що редакція BRUK перевірить факти, може уточнити деталі й скоротити текст.</label>
@@ -168,15 +181,16 @@
 
       <div class="field">
         <button class="btn" type="submit" id="send" disabled>Надіслати на перевірку</button>
-        <p class="hint">Відкриється твоя пошта з готовим листом. Без перевірки нічого не публікуємо, про результат напишемо у відповідь.</p>
+        <p class="err" id="error" hidden></p>
+        <p class="hint">Без перевірки нічого не публікуємо.</p>
       </div>
     </form>
 
     <div class="sent" aria-live="polite">
       <div class="badge"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div>
-        <h2>Лист готовий</h2>
-        <p style="margin-top:14px">Залишилось натиснути «Надіслати» в пошті. Фото можна прикріпити до того самого листа. Якщо пошта не відкрилась, напиши нам на <a href="mailto:bruk.kyiv@gmail.com">bruk.kyiv@gmail.com</a>.</p>
+        <h2>Історію отримали</h2>
+        <p style="margin-top:14px">Дякуємо! Ми перевіримо факти, і якщо все підтвердиться, вона з’явиться в картці будинку з твоїм підписом.</p>
       </div>
       <div class="buttons">
         <a class="btn" href="/map/">Повернутися до мапи</a>
@@ -189,6 +203,8 @@
 <script>
 (() => {
   const EMAIL = 'bruk.kyiv@gmail.com';
+  // Приймач заявок: Apps Script у таблиці «BRUK — надходження» (bruk-app/tools/inbox/README.md).
+  const INBOX_URL = 'https://script.google.com/macros/s/AKfycbzKbGGelZ1LlunmEZi0vhvO_Z5_R3jNERiaELeRIXT-BD0z-Vj4I5-PRo_cEdmjGFP8/exec';
   const $ = (id) => document.getElementById(id);
   const form = $('story'), main = $('main');
   const params = new URLSearchParams(location.search);
@@ -219,31 +235,66 @@
   syncKind();
   update();
 
-  form.addEventListener('submit', (e) => {
+  // Фото стискаємо в браузері до 2000 px: так швидше, а з файлу зникають EXIF і геодані.
+  let picked = [];
+  const shrink = (file) => new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => {
+      const k = Math.min(1, 2000 / Math.max(img.naturalWidth, img.naturalHeight));
+      const c = document.createElement('canvas');
+      c.width = Math.round(img.naturalWidth * k); c.height = Math.round(img.naturalHeight * k);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(img.src);
+      resolve(c.toDataURL('image/jpeg', 0.85));
+    };
+    img.onerror = reject;
+    img.src = URL.createObjectURL(file);
+  });
+  $('files').addEventListener('change', async (e) => {
+    for (const file of [...e.target.files].slice(0, 5 - picked.length)) {
+      try { picked.push(await shrink(file)); } catch (_) { /* не картинка — пропускаємо */ }
+    }
+    e.target.value = '';
+    $('thumbs').querySelectorAll('img').forEach((el) => el.remove());
+    picked.forEach((src) => $('thumbs').insertAdjacentHTML('beforeend', `<img src="${src}" alt="">`));
+    update();
+  });
+
+  const showError = (text) => { $('error').textContent = text; $('error').hidden = !text; };
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!ready()) return;
+    if (!INBOX_URL.startsWith('https://')) { showError(`Форма тимчасово не працює. Напиши нам на ${EMAIL}.`); return; }
+    if (isPhoto() && !picked.length) { showError('Додай хоча б одне фото.'); return; }
     const name = value('name');
-    const lines = [
-      `Будинок: ${value('address')}`,
-      `Що це: ${value('kind')}`,
-      `Звідки відомо: ${value('source')}`,
-    ];
-    if (value('ref')) lines.push(`Джерело: ${value('ref')}`);
-    lines.push('', value('text'), '');
-    lines.push(`Підпис: ${$('sign').checked && name ? name : 'без підпису'}`);
-    lines.push('Згода на перевірку фактів і редагування: так');
-    if (isPhoto()) lines.push(`Автор фото: ${name}`, 'Ліцензія фото: CC BY-SA 4.0 (моє фото)');
-    if (params.get('id')) lines.push(`Картка: ${params.get('id')}`);
-    lines.push(isPhoto() ? '(фото — у вкладенні)' : '(фото — у вкладенні, якщо є)');
-    if (!isNaN(lat) && !isNaN(lng)) lines.push('—', `${lat.toFixed(6)}, ${lng.toFixed(6)}`);
-    const subject = `BRUK: ${isPhoto() ? 'фото' : 'історія'} — ${value('address')}`;
-    location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join('\n'))}`;
-    main.classList.add('is-sent');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const payload = {
+      client: 'web', website: $('website').value,
+      address: value('address'), card: params.get('id') || '', kind: value('kind'), source: value('source'),
+      ref: value('ref'), text: value('text'), contact: value('contact'),
+      signature: $('sign').checked ? name : '',
+      photoAuthor: isPhoto() ? name : '', license: isPhoto() ? 'CC BY-SA 4.0' : '',
+      lat: isNaN(lat) ? '' : lat, lng: isNaN(lng) ? '' : lng,
+      photos: picked.map((src) => ({ data: src.split(',')[1] })),
+    };
+    $('send').disabled = true; $('send').textContent = 'Надсилаємо…'; showError('');
+    try {
+      // text/plain — щоб браузер не робив попереднього CORS-запиту, який Apps Script не вміє.
+      const r = await fetch(INBOX_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
+      const res = await r.json();
+      if (!res.ok) throw new Error(res.error);
+      main.classList.add('is-sent');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch (_) {
+      showError(`Не вдалося надіслати. Перевір інтернет і спробуй ще раз або напиши нам на ${EMAIL}.`);
+    } finally {
+      $('send').textContent = 'Надіслати на перевірку'; update();
+    }
   });
 
   $('again').addEventListener('click', () => {
     $('text').value = ''; $('ref').value = ''; $('agree').checked = false; $('rights').checked = false;
+    picked = []; $('thumbs').querySelectorAll('img').forEach((el) => el.remove());
     main.classList.remove('is-sent');
     update();
   });
