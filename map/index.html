@@ -65,9 +65,6 @@
       <button id="app-promo-close" class="icon-btn small" aria-label="Закрити">✕</button>
     </div>
     <div class="toolbar">
-      <button id="btn-explore" class="fab" aria-label="Розділи: прогулянки, біля мене, пошкоджені війною" title="Прогулянки, біля мене, пошкоджені війною">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="2"/><rect x="13" y="4" width="7" height="7" rx="2"/><rect x="4" y="13" width="7" height="7" rx="2"/><rect x="13" y="13" width="7" height="7" rx="2"/></svg>
-      </button>
       <button id="btn-about" class="fab" aria-label="Про BRUK">
         <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7" r="1.3" class="fill"/><path d="M12 11v7"/></svg>
       </button>
@@ -120,45 +117,10 @@
     </div>
   </section>
 
-  <section id="sheet-explore" class="sheet explore" role="dialog" aria-labelledby="explore-title" hidden>
-    <div id="explore-card" class="sheet-card">
-      <div class="sheet-head">
-        <button id="explore-back" class="icon-btn back-btn" aria-label="Назад" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <h2 id="explore-title">Розділи</h2>
-        <button class="icon-btn" data-close aria-label="Закрити">✕</button>
-      </div>
-      <div id="explore-body"></div>
-    </div>
-  </section>
-
-  <div id="walk-ui" class="walk-ui" hidden>
-    <div class="walk-top">
-      <button id="walk-close" class="fab" aria-label="Завершити прогулянку"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
-      <div class="walk-progress">
-        <div id="walk-progress-title"></div>
-        <div class="bar"><span id="walk-progress-bar"></span></div>
-      </div>
-    </div>
-    <div class="walk-bottom">
-      <button id="walk-card" class="walk-stop" type="button">
-        <span id="walk-stop-label" class="label"></span>
-        <span id="walk-stop-title" class="title"></span>
-        <span id="walk-stop-teaser" class="teaser"></span>
-      </button>
-      <div class="walk-controls">
-        <button id="walk-prev" class="seg-icon" aria-label="Попередня зупинка"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
-        <button id="walk-overview" class="seg dark">Маршрут</button>
-        <button id="walk-open" class="seg">Картка</button>
-        <button id="walk-next" class="seg-icon" aria-label="Наступна зупинка"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
-      </div>
-    </div>
-  </div>
-
   <div id="error" class="error" hidden></div>
 
   <script src="vendor/mapbox-gl.js"></script>
   <script src="config.js"></script>
   <script src="app.js"></script>
-  <script src="explore.js"></script>
 </body>
 </html>

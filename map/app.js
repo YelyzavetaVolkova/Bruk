@@ -1115,8 +1115,6 @@ async function main() {
   setupHint();
   setupAppPromo();
   try { setupMap(); } catch (e) { showError('Мапа не завантажилась. Онови сторінку.'); }
-  // Розділи: прогулянки, «Біля мене», «Пошкоджені війною» (explore.js).
-  if (typeof setupExplore === 'function') setupExplore();
 
   // Посилання на будинок: bruk.city/map/#b=<id>
   const m = location.hash.match(/^#b=(.+)$/);
