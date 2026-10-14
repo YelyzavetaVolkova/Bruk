@@ -26,6 +26,7 @@ const state = {
   facts: [],
   haystacks: new Map(),
   activeFilters: new Set(),
+  noPhoto: false,          // фільтр «Без фото»: лише будинки, яким бракує фото
   selectedId: null,
   buildingsTarget: null,   // featureset будинків у стилі Mapbox Standard
   highlighted: new Set(),  // osm way id з highlight: true
@@ -43,6 +44,9 @@ const EMBED = document.documentElement.classList.contains('embed');
 // MARK: - Дані
 
 const hasStory = (b) => !!(b.shortText || b.keyFacts);
+const hasPhoto = (b) => !!(b.commonsCategory || (b.commonsFiles && b.commonsFiles.length)
+  || (b.userPhotos && b.userPhotos.length));
+const anyFilter = () => state.activeFilters.size > 0 || state.noPhoto;
 const needsResearch = (b) => {
   if (!hasStory(b)) return true;
   const words = (b.shortText || b.keyFacts || '').split(/\s+/).filter(Boolean).length;
@@ -150,6 +154,7 @@ function filterHaystack(b) {
 }
 
 function matchesFilters(b) {
+  if (state.noPhoto && hasPhoto(b)) return false;
   if (state.activeFilters.size === 0) return true;
   const text = state.haystacks.get(b.id) || '';
   return state.filters.some((f) => state.activeFilters.has(f.title) && f.words.some((w) => text.includes(w)));
@@ -312,6 +317,7 @@ function onStyleLoad() {
     addMarkerLayer();
   }
   fog.add(!!state.buildingsTarget);
+  addNoPhotoLayer();
   refreshHighlights();
   if (state.selectedId) markSelected(state.byId.get(state.selectedId));
   if (state.buildingsTarget) map.on('idle', resolveFeatureIds);
@@ -334,6 +340,7 @@ function featureTarget(id) {
 /** Усі будинки з картками (і під вибраний фільтр) — теракотові, як у застосунку. */
 function refreshHighlights() {
   if (!map || !map.isStyleLoaded()) return;
+  if (map.getSource('bruk-no-photo')) map.getSource('bruk-no-photo').setData(noPhotoData());
   const wanted = new Set(state.buildings
     .filter((b) => matchesFilters(b))
     .map(featureIdFor).filter(Boolean));
@@ -384,6 +391,41 @@ function addMarkerLayer() {
   });
   map.on('mouseenter', 'bruk-buildings', () => { map.getCanvas().style.cursor = 'pointer'; });
   map.on('mouseleave', 'bruk-buildings', () => { map.getCanvas().style.cursor = ''; });
+}
+
+// Будинки без фото (вибір авторки 14.10.2026): біле кільце з червоною обводкою поверх
+// будинку, щоб було видно, що тут чекають на перше фото. Тап відкриває картку з дверима.
+function noPhotoData() {
+  return {
+    type: 'FeatureCollection',
+    features: state.buildings.filter((b) => !hasPhoto(b) && matchesFilters(b)).map((b) => ({
+      type: 'Feature', properties: { id: b.id },
+      geometry: { type: 'Point', coordinates: [b.longitude, b.latitude] },
+    })),
+  };
+}
+
+function addNoPhotoLayer() {
+  if (map.getSource('bruk-no-photo')) return;
+  map.addSource('bruk-no-photo', { type: 'geojson', data: noPhotoData() });
+  const layer = {
+    id: 'bruk-no-photo', type: 'circle', source: 'bruk-no-photo', minzoom: 13,
+    paint: {
+      'circle-radius': ['interpolate', ['linear'], ['zoom'], 13, 2.5, 17, 6],
+      'circle-color': '#fff',
+      'circle-stroke-color': '#A20E00',
+      'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 13, 1.2, 17, 2.5],
+      'circle-pitch-alignment': 'viewport',
+      'circle-emissive-strength': 1,
+    },
+  };
+  try { map.addLayer({ ...layer, slot: 'top' }); } catch (_) { map.addLayer(layer); }
+  map.on('click', 'bruk-no-photo', (e) => {
+    const b = state.byId.get(e.features[0].properties.id);
+    if (b) showBuilding(b);
+  });
+  map.on('mouseenter', 'bruk-no-photo', () => { map.getCanvas().style.cursor = 'pointer'; });
+  map.on('mouseleave', 'bruk-no-photo', () => { map.getCanvas().style.cursor = ''; });
 }
 
 // MARK: - Туман над неописаним Києвом (як у застосунку, Bruk/StoryFog.swift)
@@ -629,7 +671,7 @@ function section(title, body, cls = '') {
 
 function renderBuilding(b) {
   const parts = [];
-  const hasPhotos = !!(b.commonsCategory || (b.commonsFiles && b.commonsFiles.length) || (b.userPhotos && b.userPhotos.length));
+  const hasPhotos = hasPhoto(b);
   if (hasPhotos) parts.push('<div class="photo-skeleton" id="photos" aria-label="Завантажуємо фото"></div>', photoCta(b, true));
   else parts.push(firstPhotoSlot(b));
 
@@ -885,7 +927,8 @@ function filterCounts() {
 }
 
 function filteredCount() {
-  return state.buildings.filter((b) => hasStory(b) && matchesFilters(b)).length;
+  // З «Без фото» рахуємо всі адреси: фото потрібне й тим, що ще без історії.
+  return state.buildings.filter((b) => (hasStory(b) || state.noPhoto) && matchesFilters(b)).length;
 }
 
 function setupFilters() {
@@ -898,19 +941,24 @@ function setupFilters() {
     g.filters.push(f);
   }
   const box = $('filter-groups');
-  box.innerHTML = groups.map((g) => `<div class="group-title">${esc(g.name)}</div>
+  const noPhotoCount = state.buildings.filter((b) => !hasPhoto(b)).length;
+  box.innerHTML = `<div class="group-title">Фото</div>
+    <div class="chips"><button class="chip" data-nophoto aria-pressed="false">Без фото<span class="n">${noPhotoCount}</span></button></div>`
+    + groups.map((g) => `<div class="group-title">${esc(g.name)}</div>
     <div class="chips">${g.filters.map((f) => `<button class="chip" data-title="${esc(f.title)}" aria-pressed="false">${esc(f.title)}<span class="n">${counts.get(f.title)}</span></button>`).join('')}</div>`).join('');
 
   const sync = () => {
-    box.querySelectorAll('.chip').forEach((c) => c.setAttribute('aria-pressed', state.activeFilters.has(c.dataset.title)));
+    box.querySelectorAll('.chip').forEach((c) => c.setAttribute('aria-pressed',
+      'nophoto' in c.dataset ? state.noPhoto : state.activeFilters.has(c.dataset.title)));
     const n = filteredCount();
-    $('filters-done').textContent = state.activeFilters.size ? `Показати ${n} ${buildingsWord(n)}` : 'Показати всі';
-    $('filter-dot').hidden = state.activeFilters.size === 0;
-    $('btn-filters').setAttribute('aria-label', state.activeFilters.size ? 'Фільтри, увімкнено' : 'Фільтри');
+    $('filters-done').textContent = anyFilter() ? `Показати ${n} ${buildingsWord(n)}` : 'Показати всі';
+    $('filter-dot').hidden = !anyFilter();
+    $('btn-filters').setAttribute('aria-label', anyFilter() ? 'Фільтри, увімкнено' : 'Фільтри');
     const pill = $('filter-pill');
-    pill.hidden = state.activeFilters.size === 0;
+    pill.hidden = !anyFilter();
     if (!pill.hidden) {
-      const titles = state.filters.map((f) => f.title).filter((t) => state.activeFilters.has(t)).join(', ');
+      const titles = (state.noPhoto ? ['Без фото'] : []).concat(
+        state.filters.map((f) => f.title).filter((t) => state.activeFilters.has(t))).join(', ');
       $('filter-pill-open').textContent = `${titles} · ${n} ${buildingsWord(n)}`;
     }
     refreshHighlights();
@@ -918,15 +966,16 @@ function setupFilters() {
   box.addEventListener('click', (e) => {
     const chip = e.target.closest('.chip');
     if (!chip) return;
+    if ('nophoto' in chip.dataset) { state.noPhoto = !state.noPhoto; sync(); return; }
     const t = chip.dataset.title;
     if (state.activeFilters.has(t)) state.activeFilters.delete(t); else state.activeFilters.add(t);
     sync();
   });
-  $('filters-reset').addEventListener('click', () => { state.activeFilters.clear(); sync(); });
+  $('filters-reset').addEventListener('click', () => { state.activeFilters.clear(); state.noPhoto = false; sync(); });
   $('filters-done').addEventListener('click', () => closeSheet('sheet-filters'));
   $('btn-filters').addEventListener('click', () => openSheet('sheet-filters'));
   $('filter-pill-open').addEventListener('click', () => openSheet('sheet-filters'));
-  $('filter-pill-clear').addEventListener('click', () => { state.activeFilters.clear(); sync(); });
+  $('filter-pill-clear').addEventListener('click', () => { state.activeFilters.clear(); state.noPhoto = false; sync(); });
   sync();
 }
 
