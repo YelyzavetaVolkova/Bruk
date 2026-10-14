@@ -317,7 +317,6 @@ function onStyleLoad() {
     addMarkerLayer();
   }
   fog.add(!!state.buildingsTarget);
-  addNoPhotoLayer();
   refreshHighlights();
   if (state.selectedId) markSelected(state.byId.get(state.selectedId));
   if (state.buildingsTarget) map.on('idle', resolveFeatureIds);
@@ -340,7 +339,6 @@ function featureTarget(id) {
 /** Усі будинки з картками (і під вибраний фільтр) — теракотові, як у застосунку. */
 function refreshHighlights() {
   if (!map || !map.isStyleLoaded()) return;
-  if (map.getSource('bruk-no-photo')) map.getSource('bruk-no-photo').setData(noPhotoData());
   const wanted = new Set(state.buildings
     .filter((b) => matchesFilters(b))
     .map(featureIdFor).filter(Boolean));
@@ -391,41 +389,6 @@ function addMarkerLayer() {
   });
   map.on('mouseenter', 'bruk-buildings', () => { map.getCanvas().style.cursor = 'pointer'; });
   map.on('mouseleave', 'bruk-buildings', () => { map.getCanvas().style.cursor = ''; });
-}
-
-// Будинки без фото (вибір авторки 14.10.2026): біле кільце з червоною обводкою поверх
-// будинку, щоб було видно, що тут чекають на перше фото. Тап відкриває картку з дверима.
-function noPhotoData() {
-  return {
-    type: 'FeatureCollection',
-    features: state.buildings.filter((b) => !hasPhoto(b) && matchesFilters(b)).map((b) => ({
-      type: 'Feature', properties: { id: b.id },
-      geometry: { type: 'Point', coordinates: [b.longitude, b.latitude] },
-    })),
-  };
-}
-
-function addNoPhotoLayer() {
-  if (map.getSource('bruk-no-photo')) return;
-  map.addSource('bruk-no-photo', { type: 'geojson', data: noPhotoData() });
-  const layer = {
-    id: 'bruk-no-photo', type: 'circle', source: 'bruk-no-photo', minzoom: 13,
-    paint: {
-      'circle-radius': ['interpolate', ['linear'], ['zoom'], 13, 2.5, 17, 6],
-      'circle-color': '#fff',
-      'circle-stroke-color': '#A20E00',
-      'circle-stroke-width': ['interpolate', ['linear'], ['zoom'], 13, 1.2, 17, 2.5],
-      'circle-pitch-alignment': 'viewport',
-      'circle-emissive-strength': 1,
-    },
-  };
-  try { map.addLayer({ ...layer, slot: 'top' }); } catch (_) { map.addLayer(layer); }
-  map.on('click', 'bruk-no-photo', (e) => {
-    const b = state.byId.get(e.features[0].properties.id);
-    if (b) showBuilding(b);
-  });
-  map.on('mouseenter', 'bruk-no-photo', () => { map.getCanvas().style.cursor = 'pointer'; });
-  map.on('mouseleave', 'bruk-no-photo', () => { map.getCanvas().style.cursor = ''; });
 }
 
 // MARK: - Туман над неописаним Києвом (як у застосунку, Bruk/StoryFog.swift)
