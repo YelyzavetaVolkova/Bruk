@@ -7,7 +7,8 @@
 Береться buildings.json, facts.json і filters.json з bruk-app/Bruk.
 Заодно пишеться home-facts.json — факти для бігучого рядка на головній
 (українською й англійською, з id будинку для посилання на мапу).
-Наприкінці перегенеровуються сторінки будинків budynky/… і sitemap.xml (tools/site_seo.py).
+Наприкінці перегенеровуються сторінки будинків budynky/… і sitemap.xml (tools/site_seo.py)
+і фільтр «Вікі любить пам'ятки» (tools/wlm_lists.py, потрібна uk.wikipedia.org).
 Дані сайт завжди бере з мережі, кеш — лише запас на випадок без інтернету.
 """
 import json
@@ -29,6 +30,11 @@ def main() -> None:
     write_home_facts(app, target)
     import site_seo  # сторінки будинків для пошуковиків і sitemap — з тих самих даних
     site_seo.main()
+    import wlm_lists  # які картки є у списках «Вікі любить пам'ятки»
+    try:
+        wlm_lists.main()
+    except OSError as e:
+        print(f"wlm.json не оновлено (нема доступу до Вікіпедії: {e}), лишається попередній")
 
 
 def write_home_facts(app: Path, target: Path) -> None:

@@ -27,6 +27,8 @@ const state = {
   haystacks: new Map(),
   activeFilters: new Set(),
   noPhoto: false,          // фільтр «Без фото»: лише будинки, яким бракує фото
+  wlm: new Set(),          // адреси карток, що є у списках «Вікі любить пам'ятки» (data/wlm.json)
+  wlmOnly: false,          // фільтр «Вікі любить пам'ятки»
   selectedId: null,
   buildingsTarget: null,   // featureset будинків у стилі Mapbox Standard
   highlighted: new Set(),  // osm way id з highlight: true
@@ -46,7 +48,7 @@ const EMBED = document.documentElement.classList.contains('embed');
 const hasStory = (b) => !!(b.shortText || b.keyFacts);
 const hasPhoto = (b) => !!(b.commonsCategory || (b.commonsFiles && b.commonsFiles.length)
   || (b.userPhotos && b.userPhotos.length));
-const anyFilter = () => state.activeFilters.size > 0 || state.noPhoto;
+const anyFilter = () => state.activeFilters.size > 0 || state.noPhoto || state.wlmOnly;
 const needsResearch = (b) => {
   if (!hasStory(b)) return true;
   const words = (b.shortText || b.keyFacts || '').split(/\s+/).filter(Boolean).length;
@@ -155,6 +157,7 @@ function filterHaystack(b) {
 
 function matchesFilters(b) {
   if (state.noPhoto && hasPhoto(b)) return false;
+  if (state.wlmOnly && !state.wlm.has(b.address)) return false;
   if (state.activeFilters.size === 0) return true;
   const text = state.haystacks.get(b.id) || '';
   return state.filters.some((f) => state.activeFilters.has(f.title) && f.words.some((w) => text.includes(w)));
@@ -169,6 +172,12 @@ async function loadData() {
   state.buildings = buildings;
   state.facts = facts;
   state.filters = filters;
+  // Списки «Вікі любить пам'ятки» (tools/wlm_lists.py). Без них мапа працює, лише без цього фільтра.
+  try {
+    state.wlm = new Set(Object.keys((await get('wlm')).buildings));
+  } catch (e) {
+    console.warn(e);
+  }
   for (const b of buildings) {
     state.byId.set(b.id, b);
     state.haystacks.set(b.id, filterHaystack(b));
@@ -890,8 +899,8 @@ function filterCounts() {
 }
 
 function filteredCount() {
-  // З «Без фото» рахуємо всі адреси: фото потрібне й тим, що ще без історії.
-  return state.buildings.filter((b) => (hasStory(b) || state.noPhoto) && matchesFilters(b)).length;
+  // З «Без фото» і «Вікі любить пам'ятки» рахуємо всі адреси, і ті, що ще без історії.
+  return state.buildings.filter((b) => (hasStory(b) || state.noPhoto || state.wlmOnly) && matchesFilters(b)).length;
 }
 
 function setupFilters() {
@@ -905,14 +914,16 @@ function setupFilters() {
   }
   const box = $('filter-groups');
   const noPhotoCount = state.buildings.filter((b) => !hasPhoto(b)).length;
+  const wlmCount = state.buildings.filter((b) => state.wlm.has(b.address)).length;
   box.innerHTML = `<div class="group-title">Фото</div>
-    <div class="chips"><button class="chip" data-nophoto aria-pressed="false">Без фото<span class="n">${noPhotoCount}</span></button></div>`
+    <div class="chips"><button class="chip" data-nophoto aria-pressed="false">Без фото<span class="n">${noPhotoCount}</span></button>${
+    wlmCount ? `<button class="chip" data-wlm aria-pressed="false">Вікі любить пам’ятки<span class="n">${wlmCount}</span></button>` : ''}</div>`
     + groups.map((g) => `<div class="group-title">${esc(g.name)}</div>
     <div class="chips">${g.filters.map((f) => `<button class="chip" data-title="${esc(f.title)}" aria-pressed="false">${esc(f.title)}<span class="n">${counts.get(f.title)}</span></button>`).join('')}</div>`).join('');
 
   const sync = () => {
     box.querySelectorAll('.chip').forEach((c) => c.setAttribute('aria-pressed',
-      'nophoto' in c.dataset ? state.noPhoto : state.activeFilters.has(c.dataset.title)));
+      'nophoto' in c.dataset ? state.noPhoto : 'wlm' in c.dataset ? state.wlmOnly : state.activeFilters.has(c.dataset.title)));
     const n = filteredCount();
     $('filters-done').textContent = anyFilter() ? `Показати ${n} ${buildingsWord(n)}` : 'Показати всі';
     $('filter-dot').hidden = !anyFilter();
@@ -920,7 +931,7 @@ function setupFilters() {
     const pill = $('filter-pill');
     pill.hidden = !anyFilter();
     if (!pill.hidden) {
-      const titles = (state.noPhoto ? ['Без фото'] : []).concat(
+      const titles = (state.noPhoto ? ['Без фото'] : []).concat(state.wlmOnly ? ['Вікі любить пам’ятки'] : [],
         state.filters.map((f) => f.title).filter((t) => state.activeFilters.has(t))).join(', ');
       $('filter-pill-open').textContent = `${titles} · ${n} ${buildingsWord(n)}`;
     }
@@ -930,15 +941,16 @@ function setupFilters() {
     const chip = e.target.closest('.chip');
     if (!chip) return;
     if ('nophoto' in chip.dataset) { state.noPhoto = !state.noPhoto; sync(); return; }
+    if ('wlm' in chip.dataset) { state.wlmOnly = !state.wlmOnly; sync(); return; }
     const t = chip.dataset.title;
     if (state.activeFilters.has(t)) state.activeFilters.delete(t); else state.activeFilters.add(t);
     sync();
   });
-  $('filters-reset').addEventListener('click', () => { state.activeFilters.clear(); state.noPhoto = false; sync(); });
+  $('filters-reset').addEventListener('click', () => { state.activeFilters.clear(); state.noPhoto = false; state.wlmOnly = false; sync(); });
   $('filters-done').addEventListener('click', () => closeSheet('sheet-filters'));
   $('btn-filters').addEventListener('click', () => openSheet('sheet-filters'));
   $('filter-pill-open').addEventListener('click', () => openSheet('sheet-filters'));
-  $('filter-pill-clear').addEventListener('click', () => { state.activeFilters.clear(); state.noPhoto = false; sync(); });
+  $('filter-pill-clear').addEventListener('click', () => { state.activeFilters.clear(); state.noPhoto = false; state.wlmOnly = false; sync(); });
   sync();
 }
 
