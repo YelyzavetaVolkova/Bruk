@@ -930,6 +930,7 @@ function setupFilters() {
     $('btn-filters').setAttribute('aria-label', anyFilter() ? 'Фільтри, увімкнено' : 'Фільтри');
     const pill = $('filter-pill');
     pill.hidden = !anyFilter();
+    document.body.classList.toggle('filter-on', anyFilter()); // на комп'ютері картка опускається під плашку
     if (!pill.hidden) {
       const titles = (state.noPhoto ? ['Без фото'] : []).concat(state.wlmOnly ? ['Вікі любить пам’ятки'] : [],
         state.filters.map((f) => f.title).filter((t) => state.activeFilters.has(t))).join(', ');
