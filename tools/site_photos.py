@@ -2,24 +2,20 @@
 """Фото в каруселі («галерея») і в колажі розділу «01 · Проблема».
 
 Усі фото — з Unsplash (вільна ліцензія Unsplash), автор підписаний на кожному кадрі.
-Стиснені копії лежать у tools/photos/ (довга сторона 1200 px, JPEG 74).
-Скрипт вшиває їх у бандл index.html і переписує картки каруселі та колажу;
-старі картинки, які більше ніде не використовуються, прибирає з маніфесту.
+Стиснені копії лежать в assets/photos/ (довга сторона 1200 px, JPEG 74), сайт бере їх звідти.
+Скрипт переписує в index.html картки каруселі та колажу.
 Повторний запуск нічого не дублює. Після нього: python3 tools/build_en.py
 
 Додати нові фото: python3 tools/site_photos.py --import <файли *-unsplash.jpg>
-(стисне їх у tools/photos/), потім допиши їх у PHOTOS нижче й запусти без аргументів.
+(стисне їх в assets/photos/), потім допиши їх у PHOTOS нижче й запусти без аргументів.
 """
-import base64
-import json
 import pathlib
 import re
 import sys
-import uuid
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "index.html"
-DIR = ROOT / "tools" / "photos"
+DIR = ROOT / "assets" / "photos"
 
 # файл, автор, підпис у каруселі (uk), підпис (en)
 PHOTOS = [
@@ -51,7 +47,7 @@ CSS = CSS_MARK + """
 
 
 def photo_id(name):
-    return str(uuid.uuid5(uuid.NAMESPACE_URL, "bruk.city/photos/" + name))
+    return "/assets/photos/" + name
 
 
 def import_photos(files):
@@ -70,15 +66,11 @@ def import_photos(files):
 def main():
     if sys.argv[1:2] == ["--import"]:
         return import_photos(sys.argv[2:])
-    html = SRC.read_text()
-    mm = re.search(r'(<script type="__bundler/manifest">)(.*?)(</script>)', html, re.S)
-    tm = re.search(r'(<script type="__bundler/template">)(.*?)(</script>)', html, re.S)
-    manifest = json.loads(mm.group(2))
-    tpl = json.loads(tm.group(2))
+    tpl = SRC.read_text(encoding="utf-8")
+    for f, *_ in PHOTOS:
+        if not (DIR / f).exists():
+            sys.exit(f"нема файлу {DIR / f}")
     by_file = {p[0]: p for p in PHOTOS}
-
-    old = set(re.findall(r'class="orbit-item"[^>]*><img src="([0-9a-f-]{36})"', tpl))
-    old |= set(re.findall(r'class="frag \w"><img src="([0-9a-f-]{36})"', tpl))
 
     items = []
     for i, (f, author, uk, _) in enumerate(PHOTOS, 1):
@@ -101,18 +93,7 @@ def main():
         i = tpl.rfind("</style>")
         tpl = tpl[:i] + CSS + tpl[i:]
 
-    for f, *_ in PHOTOS:
-        manifest[photo_id(f)] = {"mime": "image/jpeg", "compressed": False,
-                                 "data": base64.b64encode((DIR / f).read_bytes()).decode("ascii")}
-    for u in old:
-        if u not in tpl and u in manifest and u not in {photo_id(p[0]) for p in PHOTOS}:
-            del manifest[u]
-            print("прибрано стару картинку", u)
-
-    tpl_json = json.dumps(tpl, ensure_ascii=False).replace("</", "<\\/")
-    html = (html[:mm.start(2)] + json.dumps(manifest) + html[mm.end(2):tm.start(2)]
-            + tpl_json + html[tm.end(2):])
-    SRC.write_text(html)
+    SRC.write_text(tpl, encoding="utf-8")
     print("index.html: фото оновлено")
 
 

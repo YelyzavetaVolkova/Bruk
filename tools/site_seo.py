@@ -11,6 +11,7 @@
   budynky/<вулиця>/index.html           — будинки однієї вулиці
   budynky/<вулиця>/<номер>/index.html   — сторінка будинку
   sitemap.xml, robots.txt
+  map/data/pages.json                   — id будинку → адреса сторінки (для «Поділитися» на мапі)
 
 Дані — map/data/buildings.json (його оновлює tools/sync_map_data.py і потім кличе цей скрипт).
 Будинки без shortText пропускаємо: порожні сторінки шкодять сайту в пошуку.
@@ -144,6 +145,10 @@ def page(path, title, description, body, jsonld=None):
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(description)}">
 <meta property="og:url" content="{url}">
+<meta property="og:image" content="https://bruk.city/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#A20E00">
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -227,10 +232,10 @@ HOME_META = ('<meta name="description" content="BRUK — мапа центру �
 
 
 def patch_home():
-    """Опис і canonical у зовнішню оболонку index.html — їх бачить Google до розпакування бандла."""
+    """Опис і canonical у <head> головної (index.html), якщо їх там нема."""
     f = ROOT / "index.html"
     doc = f.read_text(encoding="utf-8")
-    if 'rel="canonical"' in doc.split("<script", 1)[0]:
+    if 'rel="canonical"' in doc.split("</head>", 1)[0]:
         return
     i = doc.index(HOME_TITLE) + len(HOME_TITLE)
     f.write_text(doc[:i] + "\n  " + HOME_META.rstrip("\n") + doc[i:], encoding="utf-8")
@@ -247,7 +252,7 @@ def main():
     for b in buildings:
         streets.setdefault(street_of(b["address"]), []).append(b)
     num = lambda b: [int(x) if x.isdigit() else x for x in re.split(r"(\d+)", number_of(b["address"]))]
-    used, urls = set(), []
+    used, urls, pages = set(), [], {}
 
     streets = OrderedDict((k, streets[k]) for k in sorted(streets, key=uk_key))
     for street in streets:
@@ -265,6 +270,7 @@ def main():
             nxt = (items[i + 1]["address"], paths[i + 1]) if i + 1 < len(items) else None
             building_page(b, paths[i], street, street_path, prev, nxt)
             urls.append((paths[i], b.get("factChecked")))
+            pages[b["id"]] = f"/{paths[i]}/"
         rows = "".join(f'<li><a href="/{p}/">{txt(b.get("cardHeading") or b["address"])}</a>'
                        f'<span>{txt(clip(b.get("shortText"), 120))}</span></li>' for b, p in zip(items, paths))
         n = len(items)
@@ -294,6 +300,8 @@ def main():
         mod = f"<lastmod>{checked}</lastmod>" if checked else ""
         lines.append(f"  <url><loc>{loc}</loc>{mod}</url>")
     lines.append("</urlset>")
+    # Адреси сторінок для кнопки «Поділитися» в картці на мапі (map/app.js).
+    (ROOT / "map" / "data" / "pages.json").write_text(json.dumps(pages, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     (ROOT / "sitemap.xml").write_text("\n".join(lines) + "\n", encoding="utf-8")
     (ROOT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {SITE}/sitemap.xml\n", encoding="utf-8")
     print(f"site_seo: {len(buildings)} будинків, {len(streets)} вулиць, sitemap — {len(head) + len(urls)} адрес")

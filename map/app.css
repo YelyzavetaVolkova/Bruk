@@ -419,3 +419,6 @@ hr.div { border: 0; border-top: 1px solid var(--line); }
   .walk-bottom { left: auto; right: 16px; margin: 0; width: 440px; }
   .walking .panel { bottom: 16px; }
 }
+
+/* Поділитися сторінкою будинку (app.js, shareBuilding) */
+.section.share { padding-top: 4px; }

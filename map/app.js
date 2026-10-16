@@ -29,6 +29,7 @@ const state = {
   noPhoto: false,          // фільтр «Без фото»: лише будинки, яким бракує фото
   wlm: new Set(),          // адреси карток, що є у списках «Вікі любить пам'ятки» (data/wlm.json)
   wlmOnly: false,          // фільтр «Вікі любить пам'ятки»
+  pages: {},               // id картки → сторінка /budynky/… (data/pages.json, tools/site_seo.py)
   selectedId: null,
   buildingsTarget: null,   // featureset будинків у стилі Mapbox Standard
   highlighted: new Set(),  // osm way id з highlight: true
@@ -175,6 +176,12 @@ async function loadData() {
   // Списки «Вікі любить пам'ятки» (tools/wlm_lists.py). Без них мапа працює, лише без цього фільтра.
   try {
     state.wlm = new Set(Object.keys((await get('wlm')).buildings));
+  } catch (e) {
+    console.warn(e);
+  }
+  // Сторінки будинків для «Поділитися»: без них кнопки просто нема.
+  try {
+    state.pages = await get('pages');
   } catch (e) {
     console.warn(e);
   }
@@ -700,6 +707,9 @@ function renderBuilding(b) {
     parts.push(`<div class="section"><h3>Функції</h3><dl class="facts-dl">${rows.join('')}</dl></div>`);
   }
   if (b.sources) parts.push(section('Джерела', richText(b.sources), 'sources small'));
+  if (state.pages[b.id]) {
+    parts.push(`<div class="section share"><a class="link-btn" id="share" href="${esc(state.pages[b.id])}" target="_top">Поділитися ↗</a></div>`);
+  }
 
   return parts.join('');
 }
@@ -722,10 +732,34 @@ function showBuilding(b, { fly = false, featureId = null } = {}) {
       $('extended').innerHTML = `<div class="text">${esc(b.extendedText)}</div>`;
     });
   }
+  const share = $('share');
+  if (share) share.addEventListener('click', (e) => shareBuilding(e, b, share));
   if (map && map.isStyleLoaded()) markSelected(featureId ? { osmID: `way/${featureId}` } : b);
   if (fly) flyTo(b);
   loadPhotos(b);
   history.replaceState(null, '', `#b=${encodeURIComponent(b.id)}`);
+}
+
+/** Ділимося сторінкою будинку (/budynky/…): у неї є назва й опис для прев'ю в месенджерах. */
+async function shareBuilding(e, b, link) {
+  const url = new URL(link.getAttribute('href'), location.origin).href;
+  const title = b.currentName ? `${b.currentName}, ${b.address}` : b.address;
+  if (navigator.share) {
+    e.preventDefault();
+    try { await navigator.share({ title: `${title} | BRUK`, url }); } catch (_) { /* закрили вікно */ }
+    return;
+  }
+  if (navigator.clipboard) {
+    e.preventDefault();
+    try {
+      await navigator.clipboard.writeText(url);
+      link.textContent = 'Посилання скопійовано ✓';
+      setTimeout(() => { link.textContent = 'Поділитися ↗'; }, 2000);
+    } catch (_) {
+      location.href = url;
+    }
+  }
+  // Інакше — звичайне посилання: відкриється сторінка будинку.
 }
 
 function showUnmapped(featureId, lngLat) {
