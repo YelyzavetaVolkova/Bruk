@@ -1,19 +1,17 @@
 #!/usr/bin/env python3
 """Збирає англомовну версію сайту: index.html → en/index.html.
 
-index.html — це «бандл»: зовнішня оболонка + сторінка в <script type="__bundler/template">
-+ картинки, шрифти й скрипт у <script type="__bundler/manifest">.
+index.html — звичайна HTML-сторінка; картинки — в assets/, шрифти — у fonts/,
+скрипт сторінки — assets/home.js (англійський — assets/home.en.js, його пише цей скрипт).
+До 16.10.2026 сторінка була «бандлом» з усім вшитим усередину (8 МБ), її розпакували.
 Скрипт:
   1. додає в українську сторінку перемикач мови «EN» і hreflang (якщо їх ще нема);
-  2. робить копію з англійськими текстами в en/index.html.
+  2. робить копію з англійськими текстами в en/index.html і assets/home.en.js.
 
 Запуск після БУДЬ-ЯКОЇ зміни index.html:  python3 tools/build_en.py
 Якщо український текст змінився, скрипт зупиниться й покаже, якого рядка не знайшов —
 тоді онови переклад у TRANSLATIONS нижче.
 """
-import base64
-import gzip
-import json
 import pathlib
 import re
 import sys
@@ -24,7 +22,8 @@ from site_typo import typo_html, uk_apos, untypo  # типографіка (tool
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SRC = ROOT / "index.html"
 DST = ROOT / "en" / "index.html"
-SCRIPT_UUID = "1e4d953e-ce13-424c-9286-e2a251a7a89f"  # JS сторінки в маніфесті
+JS_UK = ROOT / "assets" / "home.js"
+JS_EN = ROOT / "assets" / "home.en.js"
 
 CYRILLIC = re.compile(r"[Ѐ-ӿ]")
 
@@ -44,25 +43,19 @@ HREFLANG = ('<link rel="alternate" hreflang="uk" href="https://bruk.city/">\n'
             '<link rel="alternate" hreflang="x-default" href="https://bruk.city/">\n')
 
 # ---------- переклад ----------
-# Оболонка бандла (екран завантаження).
-SHELL = [
-    ("<!DOCTYPE html>\n<html>", '<!DOCTYPE html>\n<html lang="en">'),
-    ("<title>BRUK — Історія Києва, яка оживає</title>", "<title>BRUK — Kyiv's history, coming alive</title>"),
-    # опис і canonical для пошуковиків (tools/site_seo.py)
+# Опис і canonical для пошуковиків (tools/site_seo.py) і прев'ю в соцмережах.
+META = [
     ('content="BRUK — мапа центру Києва, де кожен будинок розповідає свою історію: хто його звів, хто в ньому жив і що з ним сталося. Коротко, тепло і з джерелами."',
      'content="BRUK is a map of central Kyiv where every building tells its story: who built it, who lived there and what happened to it. Short, warm and with sources."'),
     ('<link rel="canonical" href="https://bruk.city/">', '<link rel="canonical" href="https://bruk.city/en/">'),
     ('content="BRUK — Історія Києва, яка оживає"', 'content="BRUK — Kyiv\'s history, coming alive"'),
     ('content="Мапа центру Києва, де кожен будинок розповідає свою історію."', 'content="A map of central Kyiv where every building tells its story."'),
     ('<meta property="og:url" content="https://bruk.city/">', '<meta property="og:url" content="https://bruk.city/en/">'),
-    ("'помилка: бракує даних'", "'error: missing data'"),
-    ("'розпаковуємо ' + uuids.length + ' артефактів'", "'unpacking ' + uuids.length + ' assets'"),
-    ("'монтуємо сцену'", "'building the page'"),
-    ("'помилка: ' + err.message", "'error: ' + err.message"),
 ]
 
 # Сама сторінка. Вулиці — за українським стандартом транслітерації.
 PAGE = [
+    ('<li><a href="/budynky/">Усі будинки</a></li>', '<li><a href="/budynky/">All buildings</a></li>'),
     ('<html lang="uk">', '<html lang="en">'),
     ("<title>BRUK — Історія Києва, яка оживає</title>", "<title>BRUK — Kyiv's history, coming alive</title>"),
     ('aria-label="Головна навігація"', 'aria-label="Main navigation"'),
@@ -189,22 +182,6 @@ def translate(text, pairs, where):
     return text
 
 
-def block(html, kind):
-    m = re.search(r'(<script type="__bundler/%s">)(.*?)(</script>)' % kind, html, re.S)
-    if not m:
-        fail(f"нема блоку __bundler/{kind}")
-    return m
-
-
-def put_block(html, kind, content):
-    m = block(html, kind)
-    return html[:m.start(2)] + content + html[m.end(2):]
-
-
-def dump_template(tpl):
-    return json.dumps(tpl, ensure_ascii=False).replace("</", "<\\/")
-
-
 def add_switch(tpl, lang_link):
     if 'class="nav-lang"' not in tpl:
         if CTA not in tpl:
@@ -218,50 +195,38 @@ def add_switch(tpl, lang_link):
 
 
 def main():
-    html = SRC.read_text(encoding="utf-8")
+    page = SRC.read_text(encoding="utf-8")
+    if "__bundler/" in page:
+        fail("index.html знову бандл — його треба розпакувати (див. README, «Головна сторінка»)")
 
     # 1. Перемикач в українській версії.
-    tpl = json.loads(block(html, "template").group(2))
-    tpl_uk = add_switch(tpl, LANG_UK)
-    if tpl_uk != tpl:
-        html = put_block(html, "template", dump_template(tpl_uk))
-        SRC.write_text(html, encoding="utf-8")
+    page_uk = add_switch(page, LANG_UK)
+    if page_uk != page:
+        SRC.write_text(page_uk, encoding="utf-8")
         print("index.html: додано перемикач EN")
 
     # 2. Англійська версія.
-    tpl_en = untypo(tpl_uk).replace(LANG_UK, LANG_EN)
-    tpl_en = translate(tpl_en, PAGE, "сторінці")
-    i = tpl_en.find("<body")
-    tpl_en = tpl_en[:i] + typo_html(tpl_en[i:])
-    rest = CYRILLIC.findall(tpl_en.replace(LANG_EN, ""))
+    en = untypo(page_uk).replace(LANG_UK, LANG_EN)
+    en = translate(en, META, "описі для пошуковиків")
+    en = translate(en, PAGE, "сторінці")
+    if en.count('src="/assets/home.js"') != 1:
+        fail("не знайшла <script src=\"/assets/home.js\">")
+    en = en.replace('src="/assets/home.js"', 'src="/assets/home.en.js"')
+    i = en.find("<body")
+    en = en[:i] + typo_html(en[i:])
+    rest = CYRILLIC.search(en.replace(LANG_EN, ""))
     if rest:
-        i = CYRILLIC.search(tpl_en.replace(LANG_EN, "")).start()
-        fail("у сторінці лишився неперекладений текст: …" + tpl_en.replace(LANG_EN, "")[max(0, i - 60):i + 60])
+        i = rest.start()
+        fail("у сторінці лишився неперекладений текст: …" + en.replace(LANG_EN, "")[max(0, i - 60):i + 60])
 
-    manifest = json.loads(block(html, "manifest").group(2))
-    entry = manifest[SCRIPT_UUID]
-    js = base64.b64decode(entry["data"])
-    if entry.get("compressed"):
-        js = gzip.decompress(js)
-    js = translate(js.decode("utf-8"), SCRIPT, "скрипті")
+    js = translate(JS_UK.read_text(encoding="utf-8"), SCRIPT, "скрипті")
     if CYRILLIC.search(js):
         fail("у скрипті лишився неперекладений текст")
-    data = js.encode("utf-8")
-    if entry.get("compressed"):
-        data = gzip.compress(data, mtime=0)
-    manifest[SCRIPT_UUID] = dict(entry, data=base64.b64encode(data).decode("ascii"))
-
-    m = block(html, "template")
-    shell_head = translate(html[:block(html, "manifest").start()], SHELL, "оболонці")
-    out = shell_head + html[block(html, "manifest").start():]
-    out = put_block(out, "manifest", json.dumps(manifest))
-    out = put_block(out, "template", dump_template(tpl_en))
-    if CYRILLIC.search(out.replace(json.dumps(LANG_EN, ensure_ascii=False)[1:-1].replace("</", "<\\/"), "")):
-        fail("у en/index.html лишилася кирилиця")
+    JS_EN.write_text(js, encoding="utf-8")
 
     DST.parent.mkdir(exist_ok=True)
-    DST.write_text(out, encoding="utf-8")
-    print(f"{DST.relative_to(ROOT)}: готово ({len(out) // 1024} КБ)")
+    DST.write_text(en, encoding="utf-8")
+    print(f"{DST.relative_to(ROOT)}: готово ({len(en.encode()) // 1024} КБ)")
 
 
 if __name__ == "__main__":

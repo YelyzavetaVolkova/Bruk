@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BRUK — розкажи історію будинку</title>
 <meta name="description" content="Спогад, сімейна історія чи старе фото київського будинку. Редакція BRUK перевірить факти й додасть історію до картки.">
+<meta property="og:image" content="https://bruk.city/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#A20E00">
 <link rel="stylesheet" href="/fonts/fixel.css">
 <style>
@@ -112,7 +116,7 @@
     <h1 id="heading">Розкажи історію будинку</h1>
     <p class="lede" id="lede">Спогад, сімейна історія чи старе фото. Ми перевіримо факти й, якщо все підтвердиться, додамо історію до картки на мапі з твоїм підписом.</p>
     <ol class="steps" aria-label="Що далі">
-      <li class="now"><span class="n">1</span><div><b>Надсилаєш історію</b><span>Прямо з цієї сторінки</span></div></li>
+      <li class="now"><span class="n">1</span><div><b>Надсилаєш історію</b><span>Прямо з цієї сторінки</span></div></li>
       <li class="next"><span class="n">2</span><div><b>Перевіряємо факти</b><span>Можемо перепитати, якщо лишиш контакт</span></div></li>
       <li class="next"><span class="n">3</span><div><b>Додаємо до картки</b><span>У застосунку й на мапі сайту</span></div></li>
     </ol>
@@ -158,7 +162,7 @@
       <div class="field">
         <span class="label">Фото</span>
         <div class="photos-pick" id="thumbs"><label class="add" for="files" aria-label="Додати фото">+</label><input type="file" id="files" accept="image/*" multiple></div>
-        <p class="hint">До 5 фото. Лише твої власні: ми публікуємо їх під вільною ліцензією CC BY-SA 4.0 з твоїм ім’ям. Найкраще — сучасний знімок фасаду при денному світлі. Старе фото з родинного архіву теж надсилай і напиши, чиє воно і з якого року.</p>
+        <p class="hint">До 5 фото. Лише твої власні: ми публікуємо їх під вільною ліцензією CC BY-SA 4.0 з твоїм ім’ям. Найкраще — сучасний знімок фасаду при денному світлі. Старе фото з родинного архіву теж надсилай і напиши, чиє воно і з якого року.</p>
       </div>
 
       <div class="field">
@@ -167,7 +171,7 @@
       </div>
 
       <div class="field">
-        <label class="label" for="contact">Як з тобою зв’язатися (необов’язково)</label>
+        <label class="label" for="contact">Як з тобою зв’язатися (необов’язково)</label>
         <div class="line"><input id="contact" name="contact" placeholder="Пошта, телефон чи Telegram, щоб перепитати" autocomplete="email"></div>
       </div>
       <input class="trap" name="website" id="website" tabindex="-1" autocomplete="off" aria-hidden="true">
@@ -175,14 +179,14 @@
       <div class="checks">
         <label class="check"><input type="checkbox" id="agree"> Погоджуюсь, що редакція BRUK перевірить факти, може уточнити деталі й скоротити текст.</label>
         <label class="check"><input type="checkbox" id="sign" checked> Можна підписати історію моїм ім’ям у картці будинку.</label>
-        <label class="check" id="rights-row" hidden><input type="checkbox" id="rights"> Це моє фото. Дозволяю BRUK опублікувати його під вільною ліцензією CC BY-SA 4.0 з моїм ім’ям як автора.</label>
+        <label class="check" id="rights-row" hidden><input type="checkbox" id="rights"> Це моє фото. Дозволяю BRUK опублікувати його під вільною ліцензією CC BY-SA 4.0 з моїм ім’ям як автора.</label>
       </div>
 
 
       <div class="field">
         <button class="btn" type="submit" id="send" disabled>Надіслати на перевірку</button>
         <p class="err" id="error" hidden></p>
-        <p class="hint">Без перевірки нічого не публікуємо.</p>
+        <p class="hint">Без перевірки нічого не публікуємо.</p>
       </div>
     </form>
 
@@ -190,7 +194,7 @@
       <div class="badge"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
       <div>
         <h2>Історію отримали</h2>
-        <p style="margin-top:14px">Дякуємо! Ми перевіримо факти, і якщо все підтвердиться, вона з’явиться в картці будинку з твоїм підписом.</p>
+        <p style="margin-top:14px">Дякуємо! Ми перевіримо факти, і якщо все підтвердиться, вона з’явиться в картці будинку з твоїм підписом.</p>
       </div>
       <div class="buttons">
         <a class="btn" href="/map/">Повернутися до мапи</a>

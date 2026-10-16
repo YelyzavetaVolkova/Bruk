@@ -10,11 +10,10 @@
   • останнє слово абзацу, заголовка чи пункту списку не лишається на рядку саме.
 Мова визначається для кожного шматка тексту: є кирилиця — українські правила.
 
-Обробляє index.html (шаблон бандла), story.html, privacy.html; en/index.html —
+Обробляє index.html, story.html, privacy.html; en/index.html —
 build_en.py викликає typo_html() сам. Повторний запуск нічого не змінює.
 Після запуску: python3 tools/build_en.py
 """
-import json
 import pathlib
 import re
 
@@ -71,19 +70,8 @@ def uk_apos(s):
     return UK_APOS.sub("’", s)
 
 
-def bundle_body(html, fn):
-    m = re.search(r'(<script type="__bundler/template">)(.*?)(</script>)', html, re.S)
-    tpl = json.loads(m.group(2))
-    i = tpl.find("<body")
-    tpl = tpl[:i] + fn(tpl[i:])
-    data = json.dumps(tpl, ensure_ascii=False).replace("</", "<\\/")
-    return html[:m.start(2)] + data + html[m.end(2):]
-
-
 def main():
-    p = ROOT / "index.html"
-    p.write_text(bundle_body(p.read_text(), typo_html))
-    for name in ("story.html", "privacy.html"):
+    for name in ("index.html", "story.html", "privacy.html", "404.html"):
         p = ROOT / name
         html = p.read_text()
         i = html.find("<body")
