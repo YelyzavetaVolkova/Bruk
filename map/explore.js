@@ -236,19 +236,7 @@ function startWalk(w) {
   closePanel();
   explore.walk = { walk: w, stops, index: 0, markers: [] };
   document.body.classList.add('walking');
-  const line = { type: 'Feature', geometry: { type: 'LineString', coordinates: stops.map((b) => [b.longitude, b.latitude]) } };
-  // Лінія маршруту — шар стилю; якщо стиль ще вантажиться, малюємо її після завантаження.
-  const drawLine = () => {
-    if (!explore.walk) return;
-    if (map.getSource('bruk-walk')) { map.getSource('bruk-walk').setData(line); return; }
-    map.addSource('bruk-walk', { type: 'geojson', data: line });
-    map.addLayer({
-      id: 'bruk-walk', type: 'line', source: 'bruk-walk',
-      layout: { 'line-cap': 'round', 'line-join': 'round' },
-      paint: { 'line-color': '#A20E00', 'line-width': 4, 'line-opacity': 0.75, 'line-dasharray': [0.2, 2] },
-    });
-  };
-  if (map.isStyleLoaded()) drawLine(); else map.once('load', drawLine);
+  // Лінії між зупинками на мапі немає — лише номерні піни (рішення авторки 16.10.2026).
   explore.walk.markers = stops.map((b, i) => {
     const el = document.createElement('button');
     el.type = 'button';
@@ -298,7 +286,6 @@ function stopWalk() {
   const wk = explore.walk;
   if (!wk) return;
   wk.markers.forEach((m) => m.remove());
-  if (map && map.isStyleLoaded() && map.getLayer('bruk-walk')) { map.removeLayer('bruk-walk'); map.removeSource('bruk-walk'); }
   explore.walk = null;
   document.body.classList.remove('walking');
   $('walk-ui').hidden = true;
