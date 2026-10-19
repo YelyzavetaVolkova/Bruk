@@ -121,13 +121,13 @@
   }
  },
  {
-  "id": "osm:way/31823032",
+  "id": "osm:way/31823031",
   "uk": {
-   "address": "Городецького, 7",
+   "address": "Городецького, 5",
    "text": "29 квітня 1918 року в цирку Крутикова Павла Скоропадського обрали гетьманом України."
   },
   "en": {
-   "address": "Horodetskoho, 7",
+   "address": "Horodetskoho, 5",
    "text": "On 29 April 1918, Pavlo Skoropadskyi was elected Hetman of Ukraine in Krutikov’s circus."
   }
  },
@@ -157,11 +157,11 @@
   "id": "osm:way/30643028",
   "uk": {
    "address": "Інститутська, 4",
-   "text": "До війни на Інститутській стояв 12-поверховий хмарочос Гінзбурга — найвищий будинок дорадянського Києва."
+   "text": "До війни на Інститутській стояв хмарочос будівельного підрядника Лева Гінзбурга — найвищий будинок дорадянського Києва."
   },
   "en": {
    "address": "Instytutska, 4",
-   "text": "Before the war, Ginzburg’s 12-storey skyscraper stood on Instytutska Street — the tallest building of pre-Soviet Kyiv."
+   "text": "Before the war, the skyscraper of building contractor Lev Ginzburg stood on Instytutska Street — the tallest building of pre-Soviet Kyiv."
   }
  },
  {
