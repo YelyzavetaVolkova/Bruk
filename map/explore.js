@@ -154,7 +154,7 @@ function renderWalks() {
       ${w.figures.length ? `<span class="walk-figures">${w.figures.map((f) => esc(f.name)).join(' · ')}</span>` : ''}</span>
     </button>`;
   }).join('');
-  return `<p class="muted lead">Готові маршрути на годину пішки. Кожна зупинка — будинок з перевіреною історією.</p>
+  return `<p class="muted lead">Готові маршрути на годину пішки. Кожна зупинка: будинок з перевіреною історією.</p>
     <div class="walk-rows">${rows}</div>`;
 }
 
@@ -175,7 +175,7 @@ function renderWalk(w) {
       <p>${esc(w.intro)}</p>
     </div>
     ${figures ? `<h3 class="list-title">Постаті маршруту</h3><div class="rows">${figures}</div>
-      <p class="muted small foot">Торкнися імені — відкриється будинок, де ця людина жила, працювала чи бувала.</p>` : ''}
+      <p class="muted small foot">Торкнися імені, і відкриється будинок, де ця людина жила, працювала чи бувала.</p>` : ''}
     <h3 class="list-title">Зупинки</h3><div class="rows">${rows}</div>
     <div class="sticky-cta"><button class="btn primary wide" data-start>Почати прогулянку</button></div>`;
 }
@@ -208,13 +208,13 @@ function locateForNearby() {
       .slice(0, 30);
     if (!near.length) {
       box().outerHTML = `<div class="empty-state"><div class="empty-icon">${ICONS.near}</div><b>Поруч поки нічого</b>
-        <p class="muted">У радіусі ${NEARBY_RADIUS_M} м немає будинків з історією. BRUK зараз описує центр Києва — від Подолу й Хрещатика до Золотих воріт, Липок і Великої Васильківської.</p></div>`;
+        <p class="muted">У радіусі ${NEARBY_RADIUS_M} м немає будинків з історією. BRUK зараз описує центр Києва: від Подолу й Хрещатика до Золотих воріт, Липок і Великої Васильківської.</p></div>`;
       return;
     }
     box().outerHTML = `<h3 class="list-title">Будинки з історією в радіусі ${NEARBY_RADIUS_M} м</h3>
       <div class="rows">${near.map(({ b, d }) => buildingRow(b, distanceLabel(d))).join('')}</div>`;
   }, (err) => {
-    if (err.code === 1) fail('Геолокацію вимкнено', 'Без неї ми не покажемо, що поруч. Дозволь її в налаштуваннях сайту — а мапа й пошук працюють і так.');
+    if (err.code === 1) fail('Геолокацію вимкнено', 'Без неї ми не покажемо, що поруч. Дозволь її в налаштуваннях сайту, а мапа й пошук працюють і так.');
     else fail('Не вдалося визначити, де ти', 'Спробуй ще раз, краще на вулиці.');
   }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 });
 }

@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Покровська: історії будинків | BRUK</title>
-<meta name="description" content="Покровська, Київ: 7 будинків з історіями — хто їх звів, хто в них жив і що з ними сталося. Тексти BRUK із джерелами.">
+<meta name="description" content="Покровська, Київ: 7 будинків з історіями: хто їх звів, хто в них жив і що з ними сталося. Тексти BRUK із джерелами.">
 <link rel="canonical" href="https://bruk.city/budynky/pokrovska/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="BRUK">
 <meta property="og:locale" content="uk_UA">
 <meta property="og:title" content="Покровська: історії будинків | BRUK">
-<meta property="og:description" content="Покровська, Київ: 7 будинків з історіями — хто їх звів, хто в них жив і що з ними сталося. Тексти BRUK із джерелами.">
+<meta property="og:description" content="Покровська, Київ: 7 будинків з історіями: хто їх звів, хто в них жив і що з ними сталося. Тексти BRUK із джерелами.">
 <meta property="og:url" content="https://bruk.city/budynky/pokrovska/">
 <meta property="og:image" content="https://bruk.city/assets/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -28,7 +28,7 @@
 body { background:var(--bg); color:var(--ink); font:400 17px/1.6 var(--f); -webkit-font-smoothing:antialiased; }
 a { color:inherit; }
 .top { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px clamp(16px,4vw,56px); }
-.brand { font-weight:700; letter-spacing:.18em; color:var(--red); text-decoration:none; font-size:18px; }
+.brand { font-weight:700; letter-spacing:.18em; color:var(--red); text-decoration:none; font-size:18px; } .brand img { display:block; height:20px; width:auto; }
 .top nav a { font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; margin-left:18px; }
 main { max-width:760px; margin:0 auto; padding:16px clamp(16px,4vw,32px) 80px; }
 .crumbs { font-size:14px; color:var(--muted); margin-bottom:20px; }
@@ -54,15 +54,38 @@ h2 { font-family:"Fixel Display",var(--f); font-size:22px; margin:40px 0 12px; }
 .streets li { padding:6px 0; break-inside:avoid; }
 .near { display:flex; justify-content:space-between; gap:16px; margin-top:48px; font-size:15px; }
 .near a { text-decoration:none; } .near a:hover { color:var(--red); }
+.photos { display:flex; gap:10px; overflow-x:auto; margin:24px -4px 0; padding:0 4px 6px; scroll-snap-type:x mandatory; }
+.photos:empty { display:none; }
+.photos figure { flex:0 0 auto; width:min(82%,420px); scroll-snap-align:start; }
+.photos img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:14px; background:var(--soft); }
+.photos figcaption { font-size:12px; color:var(--muted); margin-top:6px; }
+.photos figcaption a { text-decoration:none; }
+.cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; margin-top:12px; }
+.cards a { display:block; background:var(--soft); border-radius:14px; padding:14px 16px; text-decoration:none; font-weight:600; line-height:1.35; }
+.cards a:hover { color:var(--red); }
+.cards span { display:block; font-weight:400; font-size:14px; color:var(--muted); margin-top:6px; }
+.chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.chips a { background:var(--soft); border-radius:999px; padding:8px 14px; font-size:15px; text-decoration:none; font-weight:600; }
+.chips a:hover { color:var(--red); }
+.intro { margin-top:18px; }
+button.btn { border:0; font:inherit; font-weight:600; font-size:14px; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
+.dyk { margin-top:40px; border-left:4px solid var(--red); padding:4px 0 4px 18px; }
+.dyk b { font-family:"Fixel Display",var(--f); font-size:18px; }
+.dyk p { margin:6px 0 8px; }
+.dyk a { font-weight:600; text-decoration:none; font-size:15px; } .dyk a:hover { color:var(--red); }
+.rand { margin-top:32px; } .rand a { font-weight:600; text-decoration:none; } .rand a:hover { color:var(--red); }
+.intro p + p { margin-top:10px; }
+@media (max-width:520px) { .top nav a { margin-left:12px; font-size:12px; letter-spacing:.04em; } }
 footer { max-width:760px; margin:0 auto; padding:0 clamp(16px,4vw,32px) 48px; font-size:14px; color:var(--muted); }
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Будинки", "item": "https://bruk.city/budynky/"}, {"@type": "ListItem", "position": 2, "name": "Покровська", "item": "https://bruk.city/budynky/pokrovska/"}]}</script>
+<script data-goatcounter="https://bruk.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
-<header class="top"><a class="brand" href="/">BRUK</a><nav><a href="/budynky/">Будинки</a><a href="/map/">Мапа</a></nav></header>
+<header class="top"><a class="brand" href="/"><img src="/assets/logo-red.svg" alt="BRUK" width="80" height="20"></a><nav><a href="/budynky/">Будинки</a><a href="/prohulianky/">Прогулянки</a><a href="/map/">Мапа</a></nav></header>
 <main>
-<nav class="crumbs"><a href="/budynky/">Будинки</a> › Покровська</nav><h1>Покровська</h1><p class="meta">7 будинків з історіями · <a href="/map/">відкрити мапу</a></p><ul class="list"><li><a href="/budynky/pokrovska/1-1/">Покровська, 1/1 — «Будинок для вдів» Дегтерьових</a><span>29 листопада 1892 року цей будинок освятили й поселили перших мешканок: бідних вдів з дітьми, які жили тут безкоштовно.…</span></li><li><a href="/budynky/pokrovska/4/">Покровська, 4 — старий Контрактовий будинок</a><span>На межі XVIII–XIX століть сюди з’їжджалися місцеві купці й поміщики, а також гості з Австрії, Греції, Данії, Італії…</span></li><li><a href="/budynky/pokrovska/5/">Покровська, 5 — дім золотаря Самсона Стрельбицького</a><span>Цей будинок, імовірно, спроєктував міський архітектор А. Меленський для золотаря Самсона Стрельбицького, представника…</span></li><li><a href="/budynky/pokrovska/6/">Покровська, 6 — дзвіниця церкви Миколи Доброго</a><span>Від церкви Миколи Доброго лишилася тільки дзвіниця, зате яка: 28 метрів, шатро з люкарнами й аркада на другому ярусі.…</span></li><li><a href="/budynky/pokrovska/7/">Покровська, 7 — Покровська церква Григоровича-Барського</a><span>Під Покровською церквою археологи знайшли рештки давнішого храму — вірменської церкви Різдва Богородиці XIV–XV століття…</span></li><li><a href="/budynky/pokrovska/9/">Покровська, 9 — садиба Кукуніна</a><span>Після пожежі 1811 року на Подолі від цієї садиби лишився хіба цегляний льох. Його разом із ділянкою купив М. Кукунін і…</span></li><li><a href="/budynky/pokrovska/11/">Покровська, 11 — дім богослова Маккавейського</a><span>Наприкінці XIX століття й до 1906 року тут жив Никола Маккавейський, богослов і педагог, професор Київської духовної…</span></li></ul>
+<nav class="crumbs"><a href="/budynky/">Будинки</a> › Покровська</nav><h1>Покровська</h1><p class="meta">7 будинків з історіями · <a href="/map/">відкрити мапу</a></p><div class="intro"><p>Серед описаних будинків, де відомий рік, найстаріший: <a href="#pending_pokrovska_6">Покровська, 6</a> (1716), наймолодший зведено 1892 року.</p><p>Тут будували: <a href="/liudy/i-hryhorovych/">І. Григорович-</a>, <a href="/liudy/a-melenskyi/">А. Меленський</a>, <a href="/liudy/s-rykachov/">С. Рикачов</a>, <a href="/liudy/m-p-samonov/">М. П. Самонов</a>.</p><p>Тут жили й працювали: <a href="/liudy/samson-strelbytskyi/">Самсон Стрельбицький</a>.</p><div class="chips"><a href="/prohulianky/podil/">Поділ: срібло, ліки й цукати</a></div></div><ul class="list"><li id="pending_pokrovska_1-1"><a href="/budynky/pokrovska/1-1/">Покровська, 1/1: «Будинок для вдів» Дегтерьових</a><span>29 листопада 1892 року цей будинок освятили й поселили перших мешканок: бідних вдів з дітьми, які жили тут безкоштовно.…</span></li><li id="pending_pokrovska_4"><a href="/budynky/pokrovska/4/">Покровська, 4: старий Контрактовий будинок</a><span>На межі XVIII–XIX століть сюди з’їжджалися місцеві купці й поміщики, а також гості з Австрії, Греції, Данії, Італії…</span></li><li id="pending_pokrovska_5"><a href="/budynky/pokrovska/5/">Покровська, 5: дім золотаря Самсона Стрельбицького</a><span>Цей будинок, імовірно, спроєктував міський архітектор А. Меленський для золотаря Самсона Стрельбицького, представника…</span></li><li id="pending_pokrovska_6"><a href="/budynky/pokrovska/6/">Покровська, 6: дзвіниця церкви Миколи Доброго</a><span>Від церкви Миколи Доброго лишилася тільки дзвіниця, зате яка: 28 метрів, шатро з люкарнами й аркада на другому ярусі.…</span></li><li id="pending_pokrovska_7"><a href="/budynky/pokrovska/7/">Покровська, 7: Покровська церква Григоровича-Барського</a><span>Під Покровською церквою археологи знайшли рештки давнішого храму — вірменської церкви Різдва Богородиці XIV–XV століття…</span></li><li id="pending_pokrovska_9"><a href="/budynky/pokrovska/9/">Покровська, 9: садиба Кукуніна</a><span>Після пожежі 1811 року на Подолі від цієї садиби лишився хіба цегляний льох. Його разом із ділянкою купив М. Кукунін і…</span></li><li id="pending_pokrovska_11"><a href="/budynky/pokrovska/11/">Покровська, 11: дім богослова Маккавейського</a><span>Наприкінці XIX століття й до 1906 року тут жив Никола Маккавейський, богослов і педагог, професор Київської духовної…</span></li></ul>
 </main>
-<footer>BRUK — історії київських будинків: хто їх звів, хто в них жив і що з ними сталося. Кожен факт — з джерелом.</footer>
+<footer>BRUK: історії київських будинків. Хто їх звів, хто в них жив і що з ними сталося. Кожен факт з джерелом.</footer>
 </body>
 </html>

@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Івана Франка: історії будинків | BRUK</title>
-<meta name="description" content="Івана Франка, Київ: 13 будинків з історіями — хто їх звів, хто в них жив і що з ними сталося. Тексти BRUK із джерелами.">
+<meta name="description" content="Івана Франка, Київ: 13 будинків з історіями: хто їх звів, хто в них жив і що з ними сталося. Тексти BRUK із джерелами.">
 <link rel="canonical" href="https://bruk.city/budynky/ivana-franka/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="BRUK">
 <meta property="og:locale" content="uk_UA">
 <meta property="og:title" content="Івана Франка: історії будинків | BRUK">
-<meta property="og:description" content="Івана Франка, Київ: 13 будинків з історіями — хто їх звів, хто в них жив і що з ними сталося. Тексти BRUK із джерелами.">
+<meta property="og:description" content="Івана Франка, Київ: 13 будинків з історіями: хто їх звів, хто в них жив і що з ними сталося. Тексти BRUK із джерелами.">
 <meta property="og:url" content="https://bruk.city/budynky/ivana-franka/">
 <meta property="og:image" content="https://bruk.city/assets/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -28,7 +28,7 @@
 body { background:var(--bg); color:var(--ink); font:400 17px/1.6 var(--f); -webkit-font-smoothing:antialiased; }
 a { color:inherit; }
 .top { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px clamp(16px,4vw,56px); }
-.brand { font-weight:700; letter-spacing:.18em; color:var(--red); text-decoration:none; font-size:18px; }
+.brand { font-weight:700; letter-spacing:.18em; color:var(--red); text-decoration:none; font-size:18px; } .brand img { display:block; height:20px; width:auto; }
 .top nav a { font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; margin-left:18px; }
 main { max-width:760px; margin:0 auto; padding:16px clamp(16px,4vw,32px) 80px; }
 .crumbs { font-size:14px; color:var(--muted); margin-bottom:20px; }
@@ -54,15 +54,38 @@ h2 { font-family:"Fixel Display",var(--f); font-size:22px; margin:40px 0 12px; }
 .streets li { padding:6px 0; break-inside:avoid; }
 .near { display:flex; justify-content:space-between; gap:16px; margin-top:48px; font-size:15px; }
 .near a { text-decoration:none; } .near a:hover { color:var(--red); }
+.photos { display:flex; gap:10px; overflow-x:auto; margin:24px -4px 0; padding:0 4px 6px; scroll-snap-type:x mandatory; }
+.photos:empty { display:none; }
+.photos figure { flex:0 0 auto; width:min(82%,420px); scroll-snap-align:start; }
+.photos img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:14px; background:var(--soft); }
+.photos figcaption { font-size:12px; color:var(--muted); margin-top:6px; }
+.photos figcaption a { text-decoration:none; }
+.cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; margin-top:12px; }
+.cards a { display:block; background:var(--soft); border-radius:14px; padding:14px 16px; text-decoration:none; font-weight:600; line-height:1.35; }
+.cards a:hover { color:var(--red); }
+.cards span { display:block; font-weight:400; font-size:14px; color:var(--muted); margin-top:6px; }
+.chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.chips a { background:var(--soft); border-radius:999px; padding:8px 14px; font-size:15px; text-decoration:none; font-weight:600; }
+.chips a:hover { color:var(--red); }
+.intro { margin-top:18px; }
+button.btn { border:0; font:inherit; font-weight:600; font-size:14px; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
+.dyk { margin-top:40px; border-left:4px solid var(--red); padding:4px 0 4px 18px; }
+.dyk b { font-family:"Fixel Display",var(--f); font-size:18px; }
+.dyk p { margin:6px 0 8px; }
+.dyk a { font-weight:600; text-decoration:none; font-size:15px; } .dyk a:hover { color:var(--red); }
+.rand { margin-top:32px; } .rand a { font-weight:600; text-decoration:none; } .rand a:hover { color:var(--red); }
+.intro p + p { margin-top:10px; }
+@media (max-width:520px) { .top nav a { margin-left:12px; font-size:12px; letter-spacing:.04em; } }
 footer { max-width:760px; margin:0 auto; padding:0 clamp(16px,4vw,32px) 48px; font-size:14px; color:var(--muted); }
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Будинки", "item": "https://bruk.city/budynky/"}, {"@type": "ListItem", "position": 2, "name": "Івана Франка", "item": "https://bruk.city/budynky/ivana-franka/"}]}</script>
+<script data-goatcounter="https://bruk.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
-<header class="top"><a class="brand" href="/">BRUK</a><nav><a href="/budynky/">Будинки</a><a href="/map/">Мапа</a></nav></header>
+<header class="top"><a class="brand" href="/"><img src="/assets/logo-red.svg" alt="BRUK" width="80" height="20"></a><nav><a href="/budynky/">Будинки</a><a href="/prohulianky/">Прогулянки</a><a href="/map/">Мапа</a></nav></header>
 <main>
-<nav class="crumbs"><a href="/budynky/">Будинки</a> › Івана Франка</nav><h1>Івана Франка</h1><p class="meta">13 будинків з історіями · <a href="/map/">відкрити мапу</a></p><ul class="list"><li><a href="/budynky/ivana-franka/4/">Івана Франка, 4 — особняк Кащенко, де жив історик права Окіншевич</a><span>Спершу це був двоповерховий цегляний особняк у стилі неоренесансу з шатром над центральною віссю, укритим цинковою…</span></li><li><a href="/budynky/ivana-franka/5/">Івана Франка, 5 — садиба Ващенка</a><span>Раніше на цій ділянці стояв дерев’яний двоповерховий будинок на чотири квартири, дерев’яний флігель, навіси для дров і…</span></li><li><a href="/budynky/ivana-franka/9/">Івана Франка, 9 — будинок працівників Наркомзему</a><span>Складний рельєф довго тримав цю ділянку незабудованою. У XIX столітті садиба № 9 належала родині О. Шатька, потім Є.…</span></li><li><a href="/budynky/ivana-franka/12/">Івана Франка, 12 — прибутковий будинок Змієвських</a><span>Тут усе почалося з дерев’яного будинку на червоній лінії вулиці, який 1874 року замінили іншим дерев’яним — уже на…</span></li><li><a href="/budynky/ivana-franka/17-a/">Івана Франка, 17-а — прибутковий будинок Другого Київського товариства</a><span>Шість поверхів, водогін, каналізація, електрика, водяне опалення і ліфт — для 1915 року це майже розкіш. Будинок…</span></li><li><a href="/budynky/ivana-franka/18/">Івана Франка, 18 — будинок диригента Воячека</a><span>Задумувалося велике: проєкт арх. А.-Ф. Краусса передбачав забудувати весь фронт ділянки з центральним ризалітом, але…</span></li><li><a href="/budynky/ivana-franka/19/">Івана Франка, 19 — садиба цивільного інженера Познякова</a><span>До 1898 року на цій ділянці було розважальне місце: 1895-го тут влаштували ландшафтний «англійський сад» для…</span></li><li><a href="/budynky/ivana-franka/20/">Івана Франка, 20 — прибутковий будинок Камоцького</a><span>Ця садиба жила під іншою адресою — № 22, а ділянка була частиною великого домоволодіння київського міщанина Г.…</span></li><li><a href="/budynky/ivana-franka/25-40/">Івана Франка, 25/40 — наріжний прибутковий будинок з банею</a><span>Кутовий будинок із зрізаним наріжжям і пишною банею (первісне завершення якої втрачено) звели 1900–1901 на замовлення…</span></li><li><a href="/budynky/ivana-franka/26-a/">Івана Франка, 26-а — будинок агрохіміка Душечкіна</a><span>Чотириповерховий мурований будинок на цокольному напівповерсі, у плані Т-подібний, з гранітними сходами та керамічною…</span></li><li><a href="/budynky/ivana-franka/31/">Івана Франка, 31 — флігель садиби поруч із Володимирським собором</a><span>Садиба біля Володимирського собору змінила кількох власників: спершу О. Таргоні замовив 1875-го головний будинок, а…</span></li><li><a href="/budynky/ivana-franka/36/">Івана Франка, 36 — міська садиба 1870-х, нині посольство Аргентини</a><span>Первісно це був двоповерховий будинок 1870-х років з виразним центром: колони коринфського ордера по боках балкона на…</span></li><li><a href="/budynky/ivana-franka/42/">Івана Франка, 42 — садиба, де жили піаніст Пухальський і співак Шуйський</a><span>Першим господарем був професор Київського університету М. Ващенко-Захарченко, і його 1873–1874 будинок виглядав доволі…</span></li></ul>
+<nav class="crumbs"><a href="/budynky/">Будинки</a> › Івана Франка</nav><h1>Івана Франка</h1><p class="meta">13 будинків з історіями · <a href="/map/">відкрити мапу</a></p><div class="intro"><p>Серед описаних будинків, де відомий рік, найстаріший: <a href="#pending_ivana-franka_18">Івана Франка, 18</a> (1889), наймолодший зведено 1937 року.</p><p>Тут будували: <a href="/liudy/a-f-hekker/">А.-Ф. Геккер</a>, <a href="/liudy/a-f-krauss/">А.-Ф. Краусс</a>, <a href="/liudy/v-rykov/">В. Риков</a>, <a href="/liudy/m-yaskevych/">М. Яскевич</a>.</p><p>Тут жили й працювали: <a href="/liudy/bohumyl-voiachek/">Богумил Воячек</a>, <a href="/liudy/dmytro-revutskyi/">Дмитро Ревуцький</a>.</p><div class="chips"><a href="/prohulianky/music/">Київ музичний</a></div></div><ul class="list"><li id="pending_ivana-franka_4"><a href="/budynky/ivana-franka/4/">Івана Франка, 4: особняк Кащенко, де жив історик права Окіншевич</a><span>Спершу це був двоповерховий цегляний особняк у стилі неоренесансу з шатром над центральною віссю, укритим цинковою…</span></li><li id="pending_ivana-franka_5"><a href="/budynky/ivana-franka/5/">Івана Франка, 5: садиба Ващенка</a><span>Раніше на цій ділянці стояв дерев’яний двоповерховий будинок на чотири квартири, дерев’яний флігель, навіси для дров і…</span></li><li id="pending_ivana-franka_9"><a href="/budynky/ivana-franka/9/">Івана Франка, 9: будинок працівників Наркомзему</a><span>Складний рельєф довго тримав цю ділянку незабудованою. У XIX столітті садиба № 9 належала родині О. Шатька, потім Є.…</span></li><li id="pending_ivana-franka_12"><a href="/budynky/ivana-franka/12/">Івана Франка, 12: прибутковий будинок Змієвських</a><span>Тут усе почалося з дерев’яного будинку на червоній лінії вулиці, який 1874 року замінили іншим дерев’яним — уже на…</span></li><li id="pending_ivana-franka_17-а"><a href="/budynky/ivana-franka/17-a/">Івана Франка, 17-а: прибутковий будинок Другого Київського товариства</a><span>Шість поверхів, водогін, каналізація, електрика, водяне опалення і ліфт — для 1915 року це майже розкіш. Будинок…</span></li><li id="pending_ivana-franka_18"><a href="/budynky/ivana-franka/18/">Івана Франка, 18: будинок диригента Воячека</a><span>Задумувалося велике: проєкт арх. А.-Ф. Краусса передбачав забудувати весь фронт ділянки з центральним ризалітом, але…</span></li><li id="pending_ivana-franka_19"><a href="/budynky/ivana-franka/19/">Івана Франка, 19: садиба цивільного інженера Познякова</a><span>До 1898 року на цій ділянці було розважальне місце: 1895-го тут влаштували ландшафтний «англійський сад» для…</span></li><li id="pending_ivana-franka_20"><a href="/budynky/ivana-franka/20/">Івана Франка, 20: прибутковий будинок Камоцького</a><span>Ця садиба жила під іншою адресою — № 22, а ділянка була частиною великого домоволодіння київського міщанина Г.…</span></li><li id="pending_ivana-franka_25-40"><a href="/budynky/ivana-franka/25-40/">Івана Франка, 25/40: наріжний прибутковий будинок з банею</a><span>Кутовий будинок із зрізаним наріжжям і пишною банею (первісне завершення якої втрачено) звели 1900–1901 на замовлення…</span></li><li id="pending_ivana-franka_26-а"><a href="/budynky/ivana-franka/26-a/">Івана Франка, 26-а: будинок агрохіміка Душечкіна</a><span>Чотириповерховий мурований будинок на цокольному напівповерсі, у плані Т-подібний, з гранітними сходами та керамічною…</span></li><li id="pending_ivana-franka_31"><a href="/budynky/ivana-franka/31/">Івана Франка, 31: флігель садиби поруч із Володимирським собором</a><span>Садиба біля Володимирського собору змінила кількох власників: спершу О. Таргоні замовив 1875-го головний будинок, а…</span></li><li id="pending_ivana-franka_36"><a href="/budynky/ivana-franka/36/">Івана Франка, 36: міська садиба 1870-х, нині посольство Аргентини</a><span>Первісно це був двоповерховий будинок 1870-х років з виразним центром: колони коринфського ордера по боках балкона на…</span></li><li id="pending_ivana-franka_42"><a href="/budynky/ivana-franka/42/">Івана Франка, 42: садиба, де жили піаніст Пухальський і співак Шуйський</a><span>Першим господарем був професор Київського університету М. Ващенко-Захарченко, і його 1873–1874 будинок виглядав доволі…</span></li></ul>
 </main>
-<footer>BRUK — історії київських будинків: хто їх звів, хто в них жив і що з ними сталося. Кожен факт — з джерелом.</footer>
+<footer>BRUK: історії київських будинків. Хто їх звів, хто в них жив і що з ними сталося. Кожен факт з джерелом.</footer>
 </body>
 </html>
