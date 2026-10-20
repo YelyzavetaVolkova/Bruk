@@ -16,7 +16,7 @@
 body { background:#fff; color:var(--ink); font:400 17px/1.6 var(--f); -webkit-font-smoothing:antialiased; }
 a { color:inherit; }
 .top { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px clamp(16px,4vw,56px); }
-.brand { font-weight:700; letter-spacing:.18em; color:var(--red); text-decoration:none; font-size:18px; }
+.brand { font-weight:700; letter-spacing:.18em; color:var(--red); text-decoration:none; font-size:18px; } .brand img { display:block; height:20px; width:auto; }
 .top nav a { font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; margin-left:18px; }
 main { max-width:760px; margin:0 auto; padding:12vh clamp(16px,4vw,32px) 80px; }
 .k { color:var(--red); font-weight:700; letter-spacing:.18em; font-size:14px; }
@@ -25,10 +25,12 @@ p { font-size:19px; margin-top:18px; color:var(--muted); }
 .btns { display:flex; flex-wrap:wrap; gap:10px; margin-top:28px; }
 .btn { display:inline-block; text-decoration:none; font-weight:600; font-size:14px; letter-spacing:.08em; text-transform:uppercase; padding:14px 22px; border-radius:999px; background:var(--soft); }
 .btn.primary { background:var(--red); color:#fff; }
+.rand { margin-top:28px; } .rand a { font-weight:600; text-decoration:none; color:var(--ink); } .rand a:hover { color:var(--red); }
 </style>
+<!-- goatcounter --><script data-goatcounter="https://bruk.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
-<header class="top"><a class="brand" href="/">BRUK</a><nav><a href="/budynky/">Будинки</a><a href="/map/">Мапа</a></nav></header>
+<header class="top"><a class="brand" href="/"><img src="/assets/logo-red.svg" alt="BRUK" width="80" height="20"></a><nav><a href="/budynky/">Будинки</a><a href="/map/">Мапа</a></nav></header>
 <main>
 <div class="k">404</div>
 <h1>Цього будинку на мапі ще немає</h1>

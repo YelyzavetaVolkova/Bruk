@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Костянтинівська: історії будинків | BRUK</title>
-<meta name="description" content="Костянтинівська, Київ: 10 будинків з історіями — хто їх звів, хто в них жив і що з ними сталося. Тексти BRUK із джерелами.">
+<meta name="description" content="Костянтинівська, Київ: 10 будинків з історіями: хто їх звів, хто в них жив і що з ними сталося. Тексти BRUK із джерелами.">
 <link rel="canonical" href="https://bruk.city/budynky/kostiantynivska/">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="BRUK">
 <meta property="og:locale" content="uk_UA">
 <meta property="og:title" content="Костянтинівська: історії будинків | BRUK">
-<meta property="og:description" content="Костянтинівська, Київ: 10 будинків з історіями — хто їх звів, хто в них жив і що з ними сталося. Тексти BRUK із джерелами.">
+<meta property="og:description" content="Костянтинівська, Київ: 10 будинків з історіями: хто їх звів, хто в них жив і що з ними сталося. Тексти BRUK із джерелами.">
 <meta property="og:url" content="https://bruk.city/budynky/kostiantynivska/">
 <meta property="og:image" content="https://bruk.city/assets/og.jpg">
 <meta property="og:image:width" content="1200">
@@ -28,7 +28,7 @@
 body { background:var(--bg); color:var(--ink); font:400 17px/1.6 var(--f); -webkit-font-smoothing:antialiased; }
 a { color:inherit; }
 .top { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:20px clamp(16px,4vw,56px); }
-.brand { font-weight:700; letter-spacing:.18em; color:var(--red); text-decoration:none; font-size:18px; }
+.brand { font-weight:700; letter-spacing:.18em; color:var(--red); text-decoration:none; font-size:18px; } .brand img { display:block; height:20px; width:auto; }
 .top nav a { font-size:13px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; margin-left:18px; }
 main { max-width:760px; margin:0 auto; padding:16px clamp(16px,4vw,32px) 80px; }
 .crumbs { font-size:14px; color:var(--muted); margin-bottom:20px; }
@@ -54,15 +54,38 @@ h2 { font-family:"Fixel Display",var(--f); font-size:22px; margin:40px 0 12px; }
 .streets li { padding:6px 0; break-inside:avoid; }
 .near { display:flex; justify-content:space-between; gap:16px; margin-top:48px; font-size:15px; }
 .near a { text-decoration:none; } .near a:hover { color:var(--red); }
+.photos { display:flex; gap:10px; overflow-x:auto; margin:24px -4px 0; padding:0 4px 6px; scroll-snap-type:x mandatory; }
+.photos:empty { display:none; }
+.photos figure { flex:0 0 auto; width:min(82%,420px); scroll-snap-align:start; }
+.photos img { display:block; width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:14px; background:var(--soft); }
+.photos figcaption { font-size:12px; color:var(--muted); margin-top:6px; }
+.photos figcaption a { text-decoration:none; }
+.cards { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px; margin-top:12px; }
+.cards a { display:block; background:var(--soft); border-radius:14px; padding:14px 16px; text-decoration:none; font-weight:600; line-height:1.35; }
+.cards a:hover { color:var(--red); }
+.cards span { display:block; font-weight:400; font-size:14px; color:var(--muted); margin-top:6px; }
+.chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.chips a { background:var(--soft); border-radius:999px; padding:8px 14px; font-size:15px; text-decoration:none; font-weight:600; }
+.chips a:hover { color:var(--red); }
+.intro { margin-top:18px; }
+button.btn { border:0; font:inherit; font-weight:600; font-size:14px; letter-spacing:.08em; text-transform:uppercase; cursor:pointer; }
+.dyk { margin-top:40px; border-left:4px solid var(--red); padding:4px 0 4px 18px; }
+.dyk b { font-family:"Fixel Display",var(--f); font-size:18px; }
+.dyk p { margin:6px 0 8px; }
+.dyk a { font-weight:600; text-decoration:none; font-size:15px; } .dyk a:hover { color:var(--red); }
+.rand { margin-top:32px; } .rand a { font-weight:600; text-decoration:none; } .rand a:hover { color:var(--red); }
+.intro p + p { margin-top:10px; }
+@media (max-width:520px) { .top nav a { margin-left:12px; font-size:12px; letter-spacing:.04em; } }
 footer { max-width:760px; margin:0 auto; padding:0 clamp(16px,4vw,32px) 48px; font-size:14px; color:var(--muted); }
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Будинки", "item": "https://bruk.city/budynky/"}, {"@type": "ListItem", "position": 2, "name": "Костянтинівська", "item": "https://bruk.city/budynky/kostiantynivska/"}]}</script>
+<script data-goatcounter="https://bruk.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
-<header class="top"><a class="brand" href="/">BRUK</a><nav><a href="/budynky/">Будинки</a><a href="/map/">Мапа</a></nav></header>
+<header class="top"><a class="brand" href="/"><img src="/assets/logo-red.svg" alt="BRUK" width="80" height="20"></a><nav><a href="/budynky/">Будинки</a><a href="/prohulianky/">Прогулянки</a><a href="/map/">Мапа</a></nav></header>
 <main>
-<nav class="crumbs"><a href="/budynky/">Будинки</a> › Костянтинівська</nav><h1>Костянтинівська</h1><p class="meta">10 будинків з історіями · <a href="/map/">відкрити мапу</a></p><ul class="list"><li><a href="/budynky/kostiantynivska/1/">Костянтинівська, 1 — прибутковий модерн біля Контрактової площі</a><span>З 1890 року ділянка на розі Костянтинівської та Контрактової площі належала Т. Губанову, і вже на початку ХХ століття…</span></li><li><a href="/budynky/kostiantynivska/5/">Костянтинівська, 5 — семінарія, де вчився Нечуй-Левицький</a><span>Київська духовна семінарія переїхала сюди 1828 року — у садибу Петропавлівського монастиря, що згорів іще 1811-го.…</span></li><li><a href="/budynky/kostiantynivska/6-8/">Костянтинівська, 6/8 — найдавніший збережений житловий будинок Києва</a><span>Цей будинок стоїть під кутом до сучасних вулиць, бо пам’ятає Поділ ще до пожежі 1811 року. Звід називає його…</span></li><li><a href="/budynky/kostiantynivska/7/">Костянтинівська, 7 — будинок купчихи Кислової, що виріс на поверх</a><span>Цей будинок мав бути скромним: одноповерховий, з крамницями внизу та житловою мансардою. Але власниця садиби, дружина…</span></li><li><a href="/budynky/kostiantynivska/9/">Костянтинівська, 9 — садиба першої київської недільної школи</a><span>11 жовтня 1859 року в цьому будинку відкрили першу безкоштовну недільну школу для робітників, ремісників і селян.…</span></li><li><a href="/budynky/kostiantynivska/16/">Костянтинівська, 16 — вензель із датою на фасаді</a><span>Цей чотириповерховий цегляний будинок 1899 року розповідає про себе просто на фасаді. По центральній осі, у нішах…</span></li><li><a href="/budynky/kostiantynivska/18/">Костянтинівська, 18 — пізній класицизм із миловарнею на подвір’ї</a><span>Цей будинок виріс, як дерево, кільцями. Спершу, у середині XIX століття, тут стояв одноповерховий дерев’яний будинок на…</span></li><li><a href="/budynky/kostiantynivska/19/">Костянтинівська, 19 — купецька еклектика С. Капника</a><span>Купець першої гільдії С. Капник 1898 року замінив на своїй ділянці дерев’яний будинок на триповерховий цегляний, і…</span></li><li><a href="/budynky/kostiantynivska/21-12/">Костянтинівська, 21/12 — один із найдавніших будинків цієї частини вулиці</a><span>Будинок 1858 року — один із найдавніших у цій частині Костянтинівської, і що приємно, він добре зберіг свій первісний…</span></li><li><a href="/budynky/kostiantynivska/23-15/">Костянтинівська, 23/15 — розкішний ріг Карла Шимана</a><span>Підприємець Г. Зівала замовив цей будинок 1897 року архітекторові Карлу Шиману, а будівництво велося за участю…</span></li></ul>
+<nav class="crumbs"><a href="/budynky/">Будинки</a> › Костянтинівська</nav><h1>Костянтинівська</h1><p class="meta">10 будинків з історіями · <a href="/map/">відкрити мапу</a></p><div class="intro"><p>Серед описаних будинків, де відомий рік, найстаріший: <a href="#pending_kostiantynivska_5">Костянтинівська, 5</a> (1828), наймолодший зведено 1899 року.</p><p>Тут будували: <a href="/liudy/f-holovanov/">Ф. Голованов</a>, <a href="/liudy/m-kazanskyi/">М. Казанський</a>, <a href="/liudy/s-rykachov/">С. Рикачов</a>.</p><div class="chips"><a href="/prohulianky/podil/">Поділ: срібло, ліки й цукати</a></div></div><ul class="list"><li id="pending_kostiantynivska_1"><a href="/budynky/kostiantynivska/1/">Костянтинівська, 1: прибутковий модерн біля Контрактової площі</a><span>З 1890 року ділянка на розі Костянтинівської та Контрактової площі належала Т. Губанову, і вже на початку ХХ століття…</span></li><li id="pending_kostiantynivska_5"><a href="/budynky/kostiantynivska/5/">Костянтинівська, 5: семінарія, де вчився Нечуй-Левицький</a><span>Київська духовна семінарія переїхала сюди 1828 року — у садибу Петропавлівського монастиря, що згорів іще 1811-го.…</span></li><li id="pending_kostiantynivska_6-8"><a href="/budynky/kostiantynivska/6-8/">Костянтинівська, 6/8: найдавніший збережений житловий будинок Києва</a><span>Цей будинок стоїть під кутом до сучасних вулиць, бо пам’ятає Поділ ще до пожежі 1811 року. Звід називає його…</span></li><li id="pending_kostiantynivska_7"><a href="/budynky/kostiantynivska/7/">Костянтинівська, 7: будинок купчихи Кислової, що виріс на поверх</a><span>Цей будинок мав бути скромним: одноповерховий, з крамницями внизу та житловою мансардою. Але власниця садиби, дружина…</span></li><li id="pending_kostiantynivska_9"><a href="/budynky/kostiantynivska/9/">Костянтинівська, 9: садиба першої київської недільної школи</a><span>11 жовтня 1859 року в цьому будинку відкрили першу безкоштовну недільну школу для робітників, ремісників і селян.…</span></li><li id="pending_kostiantynivska_16"><a href="/budynky/kostiantynivska/16/">Костянтинівська, 16: вензель із датою на фасаді</a><span>Цей чотириповерховий цегляний будинок 1899 року розповідає про себе просто на фасаді. По центральній осі, у нішах…</span></li><li id="pending_kostiantynivska_18"><a href="/budynky/kostiantynivska/18/">Костянтинівська, 18: пізній класицизм із миловарнею на подвір’ї</a><span>Цей будинок виріс, як дерево, кільцями. Спершу, у середині XIX століття, тут стояв одноповерховий дерев’яний будинок на…</span></li><li id="pending_kostiantynivska_19"><a href="/budynky/kostiantynivska/19/">Костянтинівська, 19: купецька еклектика С. Капника</a><span>Купець першої гільдії С. Капник 1898 року замінив на своїй ділянці дерев’яний будинок на триповерховий цегляний, і…</span></li><li id="pending_kostiantynivska_21-12"><a href="/budynky/kostiantynivska/21-12/">Костянтинівська, 21/12: один із найдавніших будинків цієї частини вулиці</a><span>Будинок 1858 року — один із найдавніших у цій частині Костянтинівської, і що приємно, він добре зберіг свій первісний…</span></li><li id="pending_kostiantynivska_23-15"><a href="/budynky/kostiantynivska/23-15/">Костянтинівська, 23/15: розкішний ріг Карла Шимана</a><span>Підприємець Г. Зівала замовив цей будинок 1897 року архітекторові Карлу Шиману, а будівництво велося за участю…</span></li></ul>
 </main>
-<footer>BRUK — історії київських будинків: хто їх звів, хто в них жив і що з ними сталося. Кожен факт — з джерелом.</footer>
+<footer>BRUK: історії київських будинків. Хто їх звів, хто в них жив і що з ними сталося. Кожен факт з джерелом.</footer>
 </body>
 </html>
