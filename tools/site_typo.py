@@ -10,7 +10,7 @@
   • останнє слово абзацу, заголовка чи пункту списку не лишається на рядку саме.
 Мова визначається для кожного шматка тексту: є кирилиця — українські правила.
 
-Обробляє index.html, story.html, privacy.html; en/index.html —
+Обробляє index.html, story.html, privacy.html, metodolohiia.html, 404.html; en/index.html —
 build_en.py викликає typo_html() сам. Повторний запуск нічого не змінює.
 Після запуску: python3 tools/build_en.py
 """
@@ -71,7 +71,7 @@ def uk_apos(s):
 
 
 def main():
-    for name in ("index.html", "story.html", "privacy.html", "404.html"):
+    for name in ("index.html", "story.html", "privacy.html", "metodolohiia.html", "404.html"):
         p = ROOT / name
         html = p.read_text()
         i = html.find("<body")

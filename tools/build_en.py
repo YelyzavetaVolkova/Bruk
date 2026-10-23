@@ -17,6 +17,7 @@ import re
 import sys
 
 from site_photos import PHOTOS  # підписи фото в каруселі
+from site_seo import STATS  # підписи цифр на головній
 from site_typo import typo_html, uk_apos, untypo  # типографіка (tools/site_typo.py)
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -94,6 +95,7 @@ PAGE = [
      "Not an encyclopedia. Not a guidebook. A living archive that wakes up at your touch."),
     ('title="BRUK: 1 місце на Hatathon 6.0 (House of Europe), 2025"',
      'title="BRUK: 1st place at Hatathon 6.0 (House of Europe), 2025"'),
+    (">1 місце · Hatathon House of Europe<", ">1st place · Hatathon House of Europe<"),
     (">Подивитись у додатку<", ">See it in the app<"),
     (">Стежити в Instagram<", ">Follow on Instagram<"),
     ('<div class="map-chip tl">Київ · Центр</div>', '<div class="map-chip tl">Kyiv · City centre</div>'),
@@ -148,8 +150,10 @@ PAGE = [
     ("<p>Місто, що говорить через будинки.</p>", "<p>A city that speaks through its buildings.</p>"),
     ("<h5>Проєкт</h5>", "<h5>Project</h5>"),
     ('href="#about">Про BRUK<', 'href="#about">About BRUK<'),
+    ('<li><a href="/metodolohiia.html">Як ми працюємо</a></li>', '<li><a href="/metodolohiia.html#en">How we work</a></li>'),
     ('<div class="k">Співпраця та партнерство</div>', '<div class="k">Collaboration and partnerships</div>'),
-    (">Написати в Instagram →<", ">Message us on Instagram →<"),
+    (">Написати листа →<", ">Email us →<"),
+    ('<div>Тексти: <a href="/metodolohiia.html#license"', '<div>Texts: <a href="/metodolohiia.html#en"'),
     ('<a href="/privacy.html" style="text-decoration:underline;">Політика конфіденційності</a>',
      '<a href="/privacy.html#en" style="text-decoration:underline;">Privacy policy</a>'),
     ("<div>Зроблено в Києві, для Києва</div>", "<div>Made in Kyiv, for Kyiv</div>"),
@@ -166,6 +170,21 @@ SCRIPT = [
     ('"Вас додано ✓"', '"You’re on the list ✓"'),
     ('"Приєднатися"', '"Join"'),
 ]
+
+
+STAT_TILE = re.compile(r'(<a class="stat" href="([^"]+)"><div class="k">(\d+)</div><div class="l">)([^<]*)(</div>)')
+
+
+def translate_stats(text):
+    """Цифри пише tools/site_seo.py, і форма слова залежить від числа, тому перекладаємо за STATS."""
+    tiles = STAT_TILE.findall(text)
+    if len(tiles) != len(STATS):
+        fail(f"на головній {len(tiles)} цифр замість {len(STATS)} (запусти python3 tools/site_seo.py)")
+    for (head, href, n, uk, tail), (s_href, s_uk, (one, many)) in zip(tiles, STATS):
+        if href != s_href or uk not in s_uk:
+            fail(f"цифра «{n} {uk}» не збігається з STATS у tools/site_seo.py")
+        text = text.replace(head + uk + tail, head + (one if n == "1" else many) + tail, 1)
+    return text
 
 
 def fail(msg):
@@ -209,6 +228,7 @@ def main():
     en = untypo(page_uk).replace(LANG_UK, LANG_EN)
     en = translate(en, META, "описі для пошуковиків")
     en = translate(en, PAGE, "сторінці")
+    en = translate_stats(en)
     if en.count('src="/assets/home.js"') != 1:
         fail("не знайшла <script src=\"/assets/home.js\">")
     en = en.replace('src="/assets/home.js"', 'src="/assets/home.en.js"')
