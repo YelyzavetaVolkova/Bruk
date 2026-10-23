@@ -2006,6 +2006,9 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
 .sol-stats a.stat .k { transition: color .2s; }
 .sol-stats a.stat:hover .k { color: var(--accent-warm); }
 .footer-partner .v { overflow-wrap: anywhere; }
+.footer-acts { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn-ink-ghost { color: #fff; border: 1px solid rgba(255,255,255,0.35); }
+.btn-ink-ghost:hover { background: rgba(255,255,255,0.1); }
 @media (max-width: 640px) { .footer-partner .v { font-size: 17px; } }
 /* /bruk-stats */
 </style>
@@ -2056,8 +2059,8 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
   </a>
   <ul class="nav-links">
     <li><a href="#about">Про проєкт</a></li>
-    <li><a href="#solution">Мапа</a></li>
-    <li><a href="#app">Додаток</a></li>
+    <li><a href="/map/">Мапа</a></li>
+    <li><a href="#app">Застосунок</a></li>
     <li><a href="#values">Цінності</a></li>
     <li><a href="/story.html">Розповісти історію</a></li>
   </ul>
@@ -2145,7 +2148,7 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
       <p class="reveal d3" style="margin-top:16px; color:var(--muted); font-size:14px; max-width:44ch;">Не енциклопедія. Не путівник. Живий архів, який прокидається від дотику.</p>
 
       <div style="margin-top:40px; display:flex; gap:12px; flex-wrap:wrap;">
-        <a href="#app" class="btn btn-primary">Подивитись у додатку</a>
+        <a href="#app" class="btn btn-primary">Подивитись у застосунку</a>
         <a href="https://www.instagram.com/bruk.kyiv/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Стежити в Instagram</a>
       </div>
     </div>
@@ -2338,8 +2341,8 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
       <h5>Проєкт</h5>
       <ul>
         <li><a href="#about">Про BRUK</a></li>
-        <li><a href="#solution">Мапа</a></li>
-        <li><a href="#app">Додаток</a></li>
+        <li><a href="/map/">Мапа</a></li>
+        <li><a href="#app">Застосунок</a></li>
         <li><a href="#values">Цінності</a></li>
         <li><a href="/story.html">Розповісти історію</a></li>
         <li><a href="/budynky/">Усі будинки</a></li>
@@ -2351,7 +2354,10 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
         <div class="k">Співпраця та партнерство</div>
         <div class="v"><a href="mailto:yelyzaveta.volkova@bruk.city">yelyzaveta.volkova@bruk.city</a></div>
       </div>
-      <a href="mailto:yelyzaveta.volkova@bruk.city" class="btn btn-ink">Написати листа →</a>
+      <div class="footer-acts">
+        <a href="mailto:yelyzaveta.volkova@bruk.city" class="btn btn-ink">Написати листа →</a>
+        <a href="https://www.instagram.com/bruk.kyiv/" target="_blank" rel="noopener noreferrer" class="btn btn-ink-ghost">Instagram →</a>
+      </div>
     </div>
   </div>
 
