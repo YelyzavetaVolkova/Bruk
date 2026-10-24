@@ -143,17 +143,18 @@ PAGE = [
     # 06 team
     ('href="#team">Команда<', 'href="#team">Team<'),
     ("06 · Команда", "06 · Team"),
-    ("Зроблено <em>киянами.</em>", "Made by <em>Kyivans.</em>"),
+    ('<span class="small">Невелика команда,</span><span class="big">велике<br>місто.</span>',
+     '<span class="small">A small team,</span><span class="big">a big<br>city.</span>'),
+    ('alt="Єлизавета Волкова"', 'alt="Yelyzaveta Volkova"'),
+    ("<b>Єлизавета Волкова</b><span>Фаундерка і дизайнерка</span>", "<b>Yelyzaveta Volkova</b><span>Founder and designer</span>"),
+    ("<span class=\"plus\">+</span>Тут може бути<br>твоє фото", "<span class=\"plus\">+</span>Your photo<br>could be here"),
+    ("<span class=\"plus\">+</span>Шукаємо<br>волонтерів →", "<span class=\"plus\">+</span>We need<br>volunteers →"),
     ("Ми народилися й виросли в Києві і робимо BRUK, бо любимо це місто.",
      "We were born and raised in Kyiv, and we make BRUK because we love this city."),
     ('<div class="place">1 місце</div>', '<div class="place">1st place</div>'),
     ('<div class="title">Hatathon 6.0 від House of Europe</div>', '<div class="title">Hatathon 6.0 by House of Europe</div>'),
     ('<div class="meta">2025 · з цього хакатону почався BRUK</div>', '<div class="meta">2025 · the hackathon where BRUK began</div>'),
     ('<div class="more">Про хакатон ↗</div>', '<div class="more">About the hackathon ↗</div>'),
-    ('<div class="name">Єлизавета Волкова</div>', '<div class="name">Yelyzaveta Volkova</div>'),
-    ('<div class="role">Засновниця й керівниця проєкту</div>', '<div class="role">Founder and project lead</div>'),
-    (">Тут може бути твоє ім'я →<", ">Your name could be here →<"),
-    ('<div class="role">Шукаємо волонтерів</div>', '<div class="role">We’re looking for volunteers</div>'),
     # Посилання на форму історії (story.html — українською)
     ('href="/story.html">Розповісти історію<', 'href="/story.html" hreflang="uk">Share a story<'),
     # footer
