@@ -62,7 +62,6 @@ PAGE = [
     ('aria-label="Головна навігація"', 'aria-label="Main navigation"'),
     ('href="#about">Про проєкт<', 'href="#about">About<'),
     ('href="/map/">Мапа<', 'href="/map/">Map<'),
-    ('href="#app">Застосунок<', 'href="#app">App<'),
     ('href="#values">Цінності<', 'href="#values">Values<'),
     # hero
     ("Історія Києва,<br>яка оживає.", "Kyiv's history,<br>coming alive."),
