@@ -1994,7 +1994,6 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
 .since-badge { display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px;
   background: #fff; color: #0e0e0e; font-size: 13px; font-weight: 600; letter-spacing: .1em;
   text-transform: uppercase; line-height: 1; white-space: nowrap; transition: background .2s; }
-.since-badge:hover { background: rgba(255,255,255,.85); }
 /* eyebrow next to the badge: more visible */
 .hero-topline .eyebrow.on-dark { font-size: 13px !important; letter-spacing: .1em !important;
   color: #fff !important; opacity: 1 !important; font-weight: 600; text-shadow: 0 1px 8px rgba(0,0,0,.45); }
@@ -2034,6 +2033,17 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
   .team-row { grid-template-columns: 1fr; gap: 8px; padding: 22px 0; }
   .team-row .idx { display: none; }
   .team-row .role { text-align: left; }
+}
+.team-award { display: grid; grid-template-columns: auto 1fr auto; gap: 16px 40px; align-items: center;
+  margin-bottom: 56px; padding: 32px 40px; border-radius: var(--r-card); background: var(--bg-soft);
+  color: inherit; text-decoration: none; transition: background .25s; }
+.team-award:hover { background: #efede8; }
+.team-award .place { font-family: var(--f-display); font-weight: 700; font-size: clamp(36px, 4vw, 64px); line-height: 1; color: var(--muted); }
+.team-award .title { font-family: var(--f-display); font-weight: 700; font-size: clamp(18px, 1.6vw, 24px); line-height: 1.2; }
+.team-award .meta { margin-top: 6px; font-size: 14.5px; color: var(--ink-2); }
+.team-award .more { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+@media (max-width: 640px) {
+  .team-award { grid-template-columns: 1fr; gap: 10px; padding: 24px 20px; margin-bottom: 40px; }
 }
 /* /bruk-team */
 </style>
@@ -2106,7 +2116,7 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
 
     <div class="hero-content">
       <div class="hero-topline reveal in">
-        <div class="eyebrow on-dark">BRUK · Cultural Platform</div><a class="since-badge" href="https://hatathon.houseofeurope.org.ua/en-2025" target="_blank" rel="noopener noreferrer" title="BRUK: 1 місце на Hatathon 6.0 (House of Europe), 2025">1 місце · Hatathon House of Europe</a>
+        <div class="eyebrow on-dark">BRUK · Cultural Platform</div><span class="since-badge">Since 2025</span>
       </div>
 
       <div class="hero-headline-wrap">
@@ -2362,8 +2372,17 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
       <div class="eyebrow">06 · Команда</div>
       <h2 class="display-l">Зроблено <em>киянами.</em></h2>
     </div>
-    <p class="lede reveal d1">Ми народилися й виросли в Києві і робимо BRUK, бо любимо це місто. Проєкт почався на Hatathon 6.0 від House of Europe у 2025 році й посів там перше місце.</p>
+    <p class="lede reveal d1">Ми народилися й виросли в Києві і робимо BRUK, бо любимо це місто.</p>
   </div>
+
+  <a class="team-award reveal" href="https://hatathon.houseofeurope.org.ua/en-2025" target="_blank" rel="noopener noreferrer">
+    <div class="place">1 місце</div>
+    <div class="what">
+      <div class="title">Hatathon 6.0 від House of Europe</div>
+      <div class="meta">2025 · з цього хакатону почався BRUK</div>
+    </div>
+    <div class="more">Про хакатон ↗</div>
+  </a>
 
   <div class="team-list">
     <div class="team-row reveal">
