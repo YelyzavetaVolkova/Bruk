@@ -2011,6 +2011,20 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
 .btn-ink-ghost:hover { background: rgba(255,255,255,0.1); }
 @media (max-width: 640px) { .footer-partner .v { font-size: 17px; } }
 /* /bruk-stats */
+/* bruk-volunteer: volunteer card under the stats (24.10.2026) */
+.solution .volunteer { margin-top: 56px; padding-top: 0; border-top: 0; display: block; max-width: 1600px; margin-inline: auto; }
+.solution .volunteer-inner { max-width: none; display: grid; grid-template-columns: 1fr auto; gap: 28px 64px; align-items: center;
+  text-align: left; background: var(--bg); border: 1px solid var(--line-soft); border-radius: 28px; padding: 48px 56px; }
+.solution .volunteer-title { margin-bottom: 14px; }
+.solution .volunteer-desc { text-align: left; margin: 0; max-width: 58ch; }
+.volunteer-acts { display: flex; flex-direction: column; gap: 10px; }
+.solution .volunteer-cta.ghost { background: transparent; color: var(--ink) !important; border: 1px solid var(--ink); }
+.solution .volunteer-cta.ghost:hover { background: var(--ink); color: #fff !important; }
+@media (max-width: 900px) {
+  .solution .volunteer-inner { grid-template-columns: 1fr; padding: 32px 24px; border-radius: 24px; }
+  .solution .volunteer-cta { width: 100%; max-width: none; }
+}
+/* /bruk-volunteer */
 </style>
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -2148,7 +2162,7 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
       <p class="reveal d3" style="margin-top:16px; color:var(--muted); font-size:14px; max-width:44ch;">Not an encyclopedia. Not a guidebook. A living archive that wakes up at your touch.</p>
 
       <div style="margin-top:40px; display:flex; gap:12px; flex-wrap:wrap;">
-        <a href="#app" class="btn btn-primary">See it in the app</a>
+        <a href="/map/" class="btn btn-primary">See the map</a>
         <a href="https://www.instagram.com/bruk.kyiv/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Follow on Instagram</a>
       </div>
     </div>
@@ -2180,10 +2194,15 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
 
   <div class="volunteer reveal">
     <div class="volunteer-inner">
+      <div class="volunteer-text">
       <div class="volunteer-eyebrow">Join us</div>
       <h3 class="volunteer-title">We’re looking for <em>volunteers</em><br>to build this together.</h3>
       <p class="volunteer-desc">Developers, history researchers, copywriters, photographers, architects: if Kyiv matters to you, we’ll find something to work on together.</p>
-      <a href="https://www.instagram.com/bruk.kyiv/" target="_blank" rel="noopener noreferrer" class="volunteer-cta">Message us on Instagram →</a>
+      </div>
+      <div class="volunteer-acts">
+        <a href="https://www.instagram.com/bruk.kyiv/" target="_blank" rel="noopener noreferrer" class="volunteer-cta">Message us on Instagram →</a>
+        <a href="mailto:yelyzaveta.volkova@bruk.city" class="volunteer-cta ghost">Email us →</a>
+      </div>
     </div>
   </div>
 </section>

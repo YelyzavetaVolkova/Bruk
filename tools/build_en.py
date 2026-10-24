@@ -96,7 +96,6 @@ PAGE = [
     ('title="BRUK: 1 місце на Hatathon 6.0 (House of Europe), 2025"',
      'title="BRUK: 1st place at Hatathon 6.0 (House of Europe), 2025"'),
     (">1 місце · Hatathon House of Europe<", ">1st place · Hatathon House of Europe<"),
-    (">Подивитись у застосунку<", ">See it in the app<"),
     (">Стежити в Instagram<", ">Follow on Instagram<"),
     ('<div class="map-chip tl">Київ · Центр</div>', '<div class="map-chip tl">Kyiv · City centre</div>'),
     ("№ 001 · Хрещатик", "No. 001 · Khreshchatyk"),
