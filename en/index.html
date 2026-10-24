@@ -2011,20 +2011,31 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
 .btn-ink-ghost:hover { background: rgba(255,255,255,0.1); }
 @media (max-width: 640px) { .footer-partner .v { font-size: 17px; } }
 /* /bruk-stats */
-/* bruk-volunteer: volunteer card under the stats (24.10.2026) */
-.solution .volunteer { margin-top: 56px; padding-top: 0; border-top: 0; display: block; max-width: 1600px; margin-inline: auto; }
-.solution .volunteer-inner { max-width: none; display: grid; grid-template-columns: 1fr auto; gap: 28px 64px; align-items: center;
-  text-align: left; background: var(--bg); border: 1px solid var(--line-soft); border-radius: 28px; padding: 48px 56px; }
-.solution .volunteer-title { margin-bottom: 14px; }
-.solution .volunteer-desc { text-align: left; margin: 0; max-width: 58ch; }
-.volunteer-acts { display: flex; flex-direction: column; gap: 10px; }
-.solution .volunteer-cta.ghost { background: transparent; color: var(--ink) !important; border: 1px solid var(--ink); }
-.solution .volunteer-cta.ghost:hover { background: var(--ink); color: #fff !important; }
-@media (max-width: 900px) {
-  .solution .volunteer-inner { grid-template-columns: 1fr; padding: 32px 24px; border-radius: 24px; }
-  .solution .volunteer-cta { width: 100%; max-width: none; }
-}
+/* bruk-volunteer: after the stats the volunteer block needs air, not a second rule (24.10.2026) */
+.sol-stats + .volunteer { margin-top: 120px; padding-top: 0; border-top: 0; }
+@media (max-width: 640px) { .sol-stats + .volunteer { margin-top: 72px; } }
 /* /bruk-volunteer */
+/* bruk-team: section 06, same grid as Values */
+.team { padding-block: 0 140px; }
+.team .section-top .lede { color: var(--ink-2); max-width: 46ch; }
+.team-list { border-top: 1px solid var(--line); }
+.team-row { display: grid; grid-template-columns: 80px 1fr auto; gap: 32px; align-items: baseline;
+  padding: 30px 0; border-bottom: 1px solid var(--line); }
+.team-row .idx, .team-row .role { font-family: var(--f-mono); font-size: 11px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--muted); }
+.team-row .role { text-align: right; }
+.team-row .name { font-family: var(--f-display); font-weight: 700; font-size: clamp(24px, 2.6vw, 40px); line-height: 1.05; }
+.team-row.join .name { color: var(--muted); font-weight: 500; }
+.team-row.join a { color: inherit; text-decoration: none; transition: color .2s; }
+.team-row.join a:hover { color: var(--ink); }
+@media (max-width: 900px) { .team .section-top { grid-template-columns: 1fr; gap: 24px; margin-bottom: 40px; } }
+@media (max-width: 640px) {
+  .team { padding-block: 0 72px; }
+  .team-row { grid-template-columns: 1fr; gap: 8px; padding: 22px 0; }
+  .team-row .idx { display: none; }
+  .team-row .role { text-align: left; }
+}
+/* /bruk-team */
 </style>
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -2192,17 +2203,12 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
   </div>
   <!-- /bruk-stats -->
 
-  <div class="volunteer reveal">
+  <div class="volunteer reveal" id="join">
     <div class="volunteer-inner">
-      <div class="volunteer-text">
       <div class="volunteer-eyebrow">Join us</div>
       <h3 class="volunteer-title">We’re looking for <em>volunteers</em><br>to build this together.</h3>
       <p class="volunteer-desc">Developers, history researchers, copywriters, photographers, architects: if Kyiv matters to you, we’ll find something to work on together.</p>
-      </div>
-      <div class="volunteer-acts">
-        <a href="https://www.instagram.com/bruk.kyiv/" target="_blank" rel="noopener noreferrer" class="volunteer-cta">Message us on Instagram →</a>
-        <a href="mailto:yelyzaveta.volkova@bruk.city" class="volunteer-cta ghost">Email us →</a>
-      </div>
+      <a href="https://www.instagram.com/bruk.kyiv/" target="_blank" rel="noopener noreferrer" class="volunteer-cta">Message us on Instagram →</a>
     </div>
   </div>
 </section>
@@ -2349,6 +2355,31 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
   </div>
 </section>
 
+<!-- ========== TEAM ========== -->
+<section class="values team" id="team">
+  <div class="section-top">
+    <div class="left reveal">
+      <div class="eyebrow">06 · Team</div>
+      <h2 class="display-l">Made by <em>Kyivans.</em></h2>
+    </div>
+    <p class="lede reveal d1">We were born and raised in Kyiv, and we make BRUK because we love this city. The project started at Hatathon 6.0 by House of Europe in 2025, where it took first place.</p>
+  </div>
+
+  <div class="team-list">
+    <div class="team-row reveal">
+      <div class="idx">I</div>
+      <div class="name">Yelyzaveta Volkova</div>
+      <div class="role">Founder and project lead</div>
+    </div>
+
+    <div class="team-row join reveal">
+      <div class="idx">+</div>
+      <div class="name"><a href="#join">Your name could be here →</a></div>
+      <div class="role">We’re looking for volunteers</div>
+    </div>
+  </div>
+</section>
+
 <!-- ========== FOOTER ========== -->
 <footer class="footer">
   <div class="footer-top">
@@ -2362,6 +2393,7 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
         <li><a href="#about">About BRUK</a></li>
         <li><a href="/map/">Map</a></li>
         <li><a href="#values">Values</a></li>
+        <li><a href="#team">Team</a></li>
         <li><a href="/story.html" hreflang="uk">Share a story</a></li>
         <li><a href="/budynky/">All buildings</a></li>
         <li><a href="/metodolohiia.html#en">How we work</a></li>

@@ -143,6 +143,16 @@ PAGE = [
     ('<div class="name">Ненудна освіта</div>', '<div class="name">Learning that isn’t boring</div>'),
     ('<div class="name">Малі історії мають значення</div>', '<div class="name">Small stories matter</div>'),
     ('<div class="name">Нове українське бачення</div>', '<div class="name">A new Ukrainian vision</div>'),
+    # 06 team
+    ('href="#team">Команда<', 'href="#team">Team<'),
+    ("06 · Команда", "06 · Team"),
+    ("Зроблено <em>киянами.</em>", "Made by <em>Kyivans.</em>"),
+    ("Ми народилися й виросли в Києві і робимо BRUK, бо любимо це місто. Проєкт почався на Hatathon 6.0 від House of Europe у 2025 році й посів там перше місце.",
+     "We were born and raised in Kyiv, and we make BRUK because we love this city. The project started at Hatathon 6.0 by House of Europe in 2025, where it took first place."),
+    ('<div class="name">Єлизавета Волкова</div>', '<div class="name">Yelyzaveta Volkova</div>'),
+    ('<div class="role">Засновниця й керівниця проєкту</div>', '<div class="role">Founder and project lead</div>'),
+    (">Тут може бути твоє ім'я →<", ">Your name could be here →<"),
+    ('<div class="role">Шукаємо волонтерів</div>', '<div class="role">We’re looking for volunteers</div>'),
     # Посилання на форму історії (story.html — українською)
     ('href="/story.html">Розповісти історію<', 'href="/story.html" hreflang="uk">Share a story<'),
     # footer
