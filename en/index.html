@@ -2001,6 +2001,16 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
 @media (max-width: 640px) { .hero-topline .eyebrow.on-dark { font-size: 11px !important; } }
 @media (max-width: 640px) { .since-badge { font-size: 11.5px; padding: 7px 12px; } }
 /* /bruk-since */
+/* bruk-stats: tools/site_seo.py */
+.sol-stats a.stat { color: inherit; text-decoration: none; }
+.sol-stats a.stat .k { transition: color .2s; }
+.sol-stats a.stat:hover .k { color: var(--accent-warm); }
+.footer-partner .v { overflow-wrap: anywhere; }
+.footer-acts { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn-ink-ghost { color: #fff; border: 1px solid rgba(255,255,255,0.35); }
+.btn-ink-ghost:hover { background: rgba(255,255,255,0.1); }
+@media (max-width: 640px) { .footer-partner .v { font-size: 17px; } }
+/* /bruk-stats */
 </style>
 <link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
@@ -2049,7 +2059,7 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
   </a>
   <ul class="nav-links">
     <li><a href="#about">About</a></li>
-    <li><a href="#solution">Map</a></li>
+    <li><a href="/map/">Map</a></li>
     <li><a href="#app">App</a></li>
     <li><a href="#values">Values</a></li>
     <li><a href="/story.html" hreflang="uk">Share a story</a></li>
@@ -2071,7 +2081,7 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
 
     <div class="hero-content">
       <div class="hero-topline reveal in">
-        <div class="eyebrow on-dark">BRUK · Cultural Platform</div><a class="since-badge" href="https://hatathon.houseofeurope.org.ua/en-2025" target="_blank" rel="noopener noreferrer" title="BRUK: 1st place at Hatathon 6.0 (House of Europe), 2025">Since 2025</a>
+        <div class="eyebrow on-dark">BRUK · Cultural Platform</div><a class="since-badge" href="https://hatathon.houseofeurope.org.ua/en-2025" target="_blank" rel="noopener noreferrer" title="BRUK: 1st place at Hatathon 6.0 (House of Europe), 2025">1st place · Hatathon House of Europe</a>
       </div>
 
       <div class="hero-headline-wrap">
@@ -2158,6 +2168,15 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
       </div>
     </div>
   </div>
+
+<!-- bruk-stats: tools/site_seo.py -->
+  <div class="sol-stats reveal">
+    <a class="stat" href="/budynky/"><div class="k">852</div><div class="l">buildings with stories</div></a>
+    <a class="stat" href="/budynky/"><div class="k">58</div><div class="l">streets in central Kyiv</div></a>
+    <a class="stat" href="/prohulianky/"><div class="k">14</div><div class="l">city walks</div></a>
+    <a class="stat" href="/liudy/"><div class="k">125</div><div class="l">people in the buildings’ stories</div></a>
+  </div>
+  <!-- /bruk-stats -->
 
   <div class="volunteer reveal">
     <div class="volunteer-inner">
@@ -2322,26 +2341,30 @@ body, .map-card-float h4, .sol-stats .stat .k, .phone-sheet h5, .phone-section .
       <h5>Project</h5>
       <ul>
         <li><a href="#about">About BRUK</a></li>
-        <li><a href="#solution">Map</a></li>
+        <li><a href="/map/">Map</a></li>
         <li><a href="#app">App</a></li>
         <li><a href="#values">Values</a></li>
         <li><a href="/story.html" hreflang="uk">Share a story</a></li>
         <li><a href="/budynky/">All buildings</a></li>
+        <li><a href="/metodolohiia.html#en">How we work</a></li>
       </ul>
     </div>
     <div class="footer-partner">
       <div>
         <div class="k">Collaboration and partnerships</div>
-        <div class="v">@bruk.kyiv</div>
+        <div class="v"><a href="mailto:yelyzaveta.volkova@bruk.city">yelyzaveta.volkova@bruk.city</a></div>
       </div>
-      <a href="https://www.instagram.com/bruk.kyiv/" target="_blank" rel="noopener noreferrer" class="btn btn-ink">Message us on Instagram →</a>
+      <div class="footer-acts">
+        <a href="mailto:yelyzaveta.volkova@bruk.city" class="btn btn-ink">Email us →</a>
+        <a href="https://www.instagram.com/bruk.kyiv/" target="_blank" rel="noopener noreferrer" class="btn btn-ink-ghost">Instagram →</a>
+      </div>
     </div>
   </div>
 
   <div class="footer-bottom">
     <div>© 2026 BRUK · Kyiv · <a href="/privacy.html#en" style="text-decoration:underline;">Privacy policy</a></div>
     <div>Made in Kyiv, for Kyiv</div>
-    <div>v 0.1</div>
+    <div>Texts: <a href="/metodolohiia.html#en" style="text-decoration:underline;">CC BY-SA 4.0</a></div>
   </div>
 
   <img class="lg" src="/assets/logo.svg" alt="" aria-hidden="true">

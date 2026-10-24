@@ -14,6 +14,7 @@
   liudy/, liudy/<ім'я>/                 — люди з прогулянок і архітектори (2+ будинки)
   assets/budynok.js                     — фото з Commons на сторінці будинку (у браузері)
   sitemap.xml, robots.txt
+  index.html, блок цифр між <!-- bruk-stats --> і <!-- /bruk-stats --> (будинки, вулиці, прогулянки, люди)
   map/data/pages.json                   — id будинку → адреса сторінки (для «Поділитися» на мапі)
 
 Дані — map/data/buildings.json (його оновлює tools/sync_map_data.py і потім кличе цей скрипт).
@@ -197,7 +198,7 @@ def page(path, title, description, body, jsonld=None):
 <main>
 {body}
 </main>
-<footer>BRUK: історії київських будинків. Хто їх звів, хто в них жив і що з ними сталося. Кожен факт з джерелом.</footer>
+<footer>BRUK: історії київських будинків. Хто їх звів, хто в них жив і що з ними сталося. Кожен факт з джерелом: <a href="/metodolohiia.html">як ми працюємо</a>. Тексти: <a href="/metodolohiia.html#license">CC BY-SA 4.0</a>.</footer>
 </body>
 </html>
 """
@@ -456,6 +457,38 @@ HOME_META = ('<meta name="description" content="BRUK: мапа центру Ки
              '  <meta property="og:type" content="website">\n')
 
 
+# Цифри на головній (index.html, розділ «Рішення»): посилання, форми слова для 1 / 2–4 / 5+ і англійські —
+# їх бере tools/build_en.py.
+STATS = [
+    ("/budynky/", ("будинок з історією", "будинки з історіями", "будинків з історіями"),
+     ("building with a story", "buildings with stories")),
+    ("/budynky/", ("вулиця центру Києва", "вулиці центру Києва", "вулиць центру Києва"),
+     ("street in central Kyiv", "streets in central Kyiv")),
+    ("/prohulianky/", ("прогулянка містом", "прогулянки містом", "прогулянок містом"),
+     ("city walk", "city walks")),
+    ("/liudy/", ("людина в історіях будинків", "людини в історіях будинків", "людей в історіях будинків"),
+     ("person in the buildings’ stories", "people in the buildings’ stories")),
+]
+STATS_START, STATS_END = "<!-- bruk-stats: tools/site_seo.py -->", "<!-- /bruk-stats -->"
+
+
+def patch_home_stats(counts):
+    """Цифри в index.html між STATS_START і STATS_END; після зміни — python3 tools/build_en.py."""
+    f = ROOT / "index.html"
+    doc = f.read_text(encoding="utf-8")
+    if STATS_START not in doc or STATS_END not in doc:
+        print("site_seo: у index.html нема місця для цифр (<!-- bruk-stats -->), пропускаю")
+        return
+    tiles = "".join(f'\n    <a class="stat" href="{href}"><div class="k">{n}</div><div class="l">{plural(n, *uk)}</div></a>'
+                    for n, (href, uk, _) in zip(counts, STATS))
+    block = typo_html(f'{STATS_START}\n  <div class="sol-stats reveal">{tiles}\n  </div>\n  {STATS_END}')
+    a, rest = doc.split(STATS_START, 1)
+    new = a + block + rest.split(STATS_END, 1)[1]
+    if new != doc:
+        f.write_text(new, encoding="utf-8")
+        print("site_seo: index.html — оновлено цифри, тепер запусти python3 tools/build_en.py")
+
+
 def patch_home():
     """Опис і canonical у <head> головної (index.html), якщо їх там нема."""
     f = ROOT / "index.html"
@@ -555,7 +588,9 @@ def main():
          f"<h2>Вулиці</h2><ul class=\"streets\">{rows}</ul>")
     urls.insert(0, ("budynky", None))
 
-    head = [("", None), ("en", None), ("map", None), ("story.html", None)]
+    patch_home_stats([len(buildings), len(streets), len(walks), len(people)])
+
+    head = [("", None), ("en", None), ("map", None), ("story.html", None), ("metodolohiia.html", None)]
     lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for p, checked in head + urls:
         loc = f"{SITE}/{p}" + ("/" if p and not p.endswith(".html") else "")
