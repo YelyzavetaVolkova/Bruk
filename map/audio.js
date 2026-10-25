@@ -1,6 +1,7 @@
-// BRUK — аудіогід (спроба, 25.10.2026): картку будинку читає вголос голос самого
-// пристрою (Web Speech API), окремих аудіофайлів немає. Український голос є на iPhone,
-// Mac (Леся), в Android з Google TTS і в Edge; де його немає, кнопок «Слухати» не видно.
+// BRUK — аудіогід (спроба, 25.10.2026). Якщо будинок озвучено в ElevenLabs
+// (tools/audio_elevenlabs.py → data/audio.json, audio/*.mp3), грає запис. Інакше картку читає
+// голос самого пристрою (Web Speech API): український є на iPhone, Mac (Леся), в Android
+// з Google TTS і в Edge; де його немає й запису теж, кнопки «Слухати» не видно.
 // У прогулянці — режим аудіогіда: зупинка звучить сама, а коли ти підходиш
 // до наступної (геолокація), гід переходить до неї.
 // Підключається після app.js і explore.js, користується їхніми esc, state, explore, goToStop.
@@ -12,7 +13,8 @@ const CHARS_PER_MIN = 800;  // приблизна швидкість голос�
 const guide = {
   voice: null,
   key: null,          // що звучить: 'b:<id>'
-  parts: [],          // речення
+  parts: [],          // фрагменти: { url } — mp3, { text } — речення для голосу пристрою
+  title: '',
   index: 0,
   state: 'idle',      // idle | playing | paused
   gen: 0,             // захист від onend скасованих фраз (Chrome кличе його й після cancel)
@@ -120,32 +122,68 @@ function sentences(text) {
   return out.flatMap(shorten).map((x) => x.replace(/․/g, '.'));
 }
 
-function buildingScript(b, { before = '', after = '' } = {}) {
-  const head = b.currentName ? `${b.address}. ${b.currentName}.` : `${b.address}.`;
-  const body = [b.shortText || b.keyFacts, b.extendedText].filter(Boolean).join('\n');
-  return sentences([before, head, body, after].filter(Boolean).map(spoken).join('\n'));
+// MARK: - Озвучка ElevenLabs (tools/audio_elevenlabs.py → data/audio.json, audio/*.mp3)
+
+const files = { buildings: {}, walks: {} };
+
+const buildingFile = (b) => files.buildings[b.id];
+const canSpeak = () => !!guide.voice;
+
+/** Фрагменти для програвання: { url } — готовий mp3, { text } — речення для голосу пристрою. */
+const said = (text) => (canSpeak() ? sentences(spoken(text)).map((t) => ({ text: t })) : []);
+
+function buildingScript(b, { before = '', after = null } = {}) {
+  const file = buildingFile(b);
+  // Є запис — тоді «Зупинка 2 з 5» не кажемо: інший голос посеред гарного запису звучить чужо.
+  const main = file ? [{ url: file.file }] : said([before, b.currentName ? `${b.address}. ${b.currentName}.` : `${b.address}.`,
+    [b.shortText || b.keyFacts, b.extendedText].filter(Boolean).join('\n')].filter(Boolean).join('\n'));
+  if (!main.length) return [];
+  return [...main, ...(after ? (after.url ? [after] : said(after.text)) : [])];
 }
 
 function listenMinutes(b) {
+  const file = buildingFile(b);
+  if (file && file.seconds) return Math.max(1, Math.round(file.seconds / 60));
   const len = (b.shortText || b.keyFacts || '').length + (b.extendedText || '').length;
   return Math.max(1, Math.round(len / CHARS_PER_MIN));
 }
 
+const canListen = (b) => !!(b.shortText || b.keyFacts) && (!!buildingFile(b) || canSpeak());
+
 // MARK: - Програвання
 
-function speakCurrent() {
+const player = new Audio();
+player.preload = 'auto';
+
+function playCurrent() {
   const gen = ++guide.gen;
-  const u = new SpeechSynthesisUtterance(guide.parts[guide.index]);
-  u.voice = guide.voice;
-  u.lang = guide.voice.lang;
-  u.rate = 0.95;
-  u.onend = () => {
+  const seg = guide.parts[guide.index];
+  const next = () => {
     if (gen !== guide.gen) return;
     guide.index += 1;
-    if (guide.index < guide.parts.length) speakCurrent();
+    if (guide.index < guide.parts.length) playCurrent();
     else finish();
     syncListen();
   };
+  if (seg.url) {
+    const url = new URL(seg.url, location.href).href;
+    if (player.src !== url) player.src = url; // той самий файл — продовжуємо з паузи
+    player.onended = next;
+    player.onerror = () => { if (gen === guide.gen) { console.warn('audio guide: файл не відкрився', url); next(); } };
+    player.play().catch((e) => {
+      if (gen !== guide.gen) return;
+      console.warn('audio guide', e); // напр. iPhone не дав грати без дотику — чекаємо на кнопку
+      guide.state = 'paused';
+      syncListen();
+    });
+    setMediaSession();
+    return;
+  }
+  const u = new SpeechSynthesisUtterance(seg.text);
+  u.voice = guide.voice;
+  u.lang = guide.voice.lang;
+  u.rate = 0.95;
+  u.onend = next;
   u.onerror = (e) => {
     if (gen !== guide.gen || e.error === 'interrupted' || e.error === 'canceled') return;
     console.warn('audio guide', e.error);
@@ -154,47 +192,61 @@ function speakCurrent() {
   speechSynthesis.speak(u);
 }
 
-function playParts(key, parts, onFinish = null) {
-  if (!guide.voice || !parts.length) return;
+function silence() {
   guide.gen += 1;
-  speechSynthesis.cancel();
-  Object.assign(guide, { key, parts, index: 0, state: 'playing', onFinish });
-  // Safari іноді губить фразу, сказану одразу після cancel.
-  setTimeout(() => { if (guide.key === key && guide.state === 'playing') speakCurrent(); }, 60);
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+  player.pause();
+}
+
+function playParts(key, parts, onFinish = null, title = '') {
+  if (!parts.length) return;
+  silence();
+  player.removeAttribute('src'); // новий запис — з початку
+  Object.assign(guide, { key, parts, index: 0, state: 'playing', onFinish, title });
+  // Safari іноді губить фразу, сказану одразу після cancel; mp3 запускаємо одразу — iPhone пускає звук лише в дотику.
+  if (parts[0].url) playCurrent();
+  else setTimeout(() => { if (guide.key === key && guide.state === 'playing') playCurrent(); }, 60);
   syncListen();
 }
 
-// Паузу робимо через cancel: pause() в Android Chrome не працює, а так продовжимо з речення.
+// Пауза голосу пристрою — через cancel: pause() в Android Chrome не працює, тож продовжимо з речення.
+// mp3 ставимо на паузу як є й продовжуємо з того самого місця.
 function pauseListening() {
-  guide.gen += 1;
-  speechSynthesis.cancel();
+  silence();
   guide.state = 'paused';
   syncListen();
 }
 
 function resumeListening() {
   guide.state = 'playing';
-  speakCurrent();
+  playCurrent();
   syncListen();
 }
 
 function stopListening() {
-  guide.gen += 1;
-  if ('speechSynthesis' in window) speechSynthesis.cancel();
-  Object.assign(guide, { key: null, parts: [], index: 0, state: 'idle', onFinish: null });
+  silence();
+  Object.assign(guide, { key: null, parts: [], index: 0, state: 'idle', onFinish: null, title: '' });
   syncListen();
 }
 
 function finish() {
   const done = guide.onFinish;
-  Object.assign(guide, { key: null, parts: [], index: 0, state: 'idle', onFinish: null });
+  Object.assign(guide, { key: null, parts: [], index: 0, state: 'idle', onFinish: null, title: '' });
   if (done) done();
 }
 
-function toggleListening(key, makeParts, onFinish) {
+function toggleListening(key, makeParts, onFinish, title) {
   if (guide.key === key && guide.state === 'playing') pauseListening();
   else if (guide.key === key && guide.state === 'paused') resumeListening();
-  else playParts(key, makeParts(), onFinish);
+  else playParts(key, makeParts(), onFinish, title);
+}
+
+/** Назва й кнопки на заблокованому екрані телефона, поки грає запис. */
+function setMediaSession() {
+  if (!('mediaSession' in navigator) || !window.MediaMetadata) return;
+  navigator.mediaSession.metadata = new MediaMetadata({ title: guide.title || 'BRUK', artist: 'BRUK · аудіогід' });
+  navigator.mediaSession.setActionHandler('play', () => { if (guide.state === 'paused') resumeListening(); });
+  navigator.mediaSession.setActionHandler('pause', () => { if (guide.state === 'playing') pauseListening(); });
 }
 
 // MARK: - Кнопки
@@ -202,10 +254,10 @@ function toggleListening(key, makeParts, onFinish) {
 const PLAY_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>';
 const PAUSE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>';
 
-/** Кнопка «Слухати» для картки (renderBuilding у app.js). */
+/** Кнопка «Слухати» для картки (renderBuilding у app.js). Без запису її видно лише з українським голосом (.can-listen). */
 function listenButton(b) {
   if (!(b.shortText || b.keyFacts)) return '';
-  return `<button class="listen" type="button" data-listen="b:${esc(b.id)}" data-minutes="${listenMinutes(b)}">
+  return `<button class="listen${buildingFile(b) ? ' has-file' : ''}" type="button" data-listen="b:${esc(b.id)}" data-minutes="${listenMinutes(b)}">
     <span class="listen-icon"></span><span class="listen-label"></span><span class="listen-bar"><i></i></span>
   </button>`;
 }
@@ -216,8 +268,15 @@ function bindListen(b) {
   // Інший будинок — історія попереднього замовкає (у прогулянці гід керує сам).
   if (guide.key && guide.key !== `b:${b.id}` && !walkAudioOn()) stopListening();
   if (!btn) return;
-  btn.addEventListener('click', () => toggleListening(`b:${b.id}`, () => buildingScript(b)));
+  btn.addEventListener('click', () => toggleListening(`b:${b.id}`, () => buildingScript(b), null, b.cardHeading || b.address));
   syncListen();
+}
+
+function progress() {
+  if (!guide.parts.length) return 0;
+  const seg = guide.parts[guide.index];
+  const inside = seg && seg.url && player.duration ? player.currentTime / player.duration : 0;
+  return Math.min(1, (guide.index + inside) / guide.parts.length);
 }
 
 function syncListen() {
@@ -233,7 +292,7 @@ function syncListen() {
     }
     btn.setAttribute('aria-label', playing ? 'Пауза' : mine ? 'Продовжити слухати' : 'Слухати історію');
     const bar = btn.querySelector('.listen-bar i');
-    if (bar) bar.style.width = mine && guide.parts.length ? `${(guide.index / guide.parts.length) * 100}%` : '0';
+    if (bar) bar.style.width = mine ? `${progress() * 100}%` : '0';
   });
   syncWalkAudio();
 }
@@ -253,18 +312,24 @@ function spokenDistance(m) {
 function stopScript(wk, i) {
   const b = wk.stops[i];
   const next = wk.stops[i + 1];
-  const before = `Зупинка ${i + 1} з ${wk.stops.length}.`;
-  const after = next
+  // Хвіст «Далі — …» — той самий текст, що озвучує tools/audio_elevenlabs.py (next_text).
+  const clip = (files.walks[wk.walk.id] || [])[i];
+  const text = next
     ? `Далі — зупинка ${i + 2}: ${next.address}, приблизно ${spokenDistance(metres(b, next))}. Коли дійдеш, я продовжу.`
     : `Це остання зупинка прогулянки «${wk.walk.title}». Дякуємо, що гуляєш з BRUK.`;
-  return buildingScript(b, { before, after });
+  return buildingScript(b, { before: `Зупинка ${i + 1} з ${wk.stops.length}.`, after: clip ? { url: clip.file } : { text } });
+}
+
+function walkHasAudio(wk) {
+  return wk.stops.some(canListen);
 }
 
 function playWalkStop() {
   const wk = explore.walk;
   if (!wk) return;
   const i = wk.index;
-  playParts(`b:${wk.stops[i].id}`, stopScript(wk, i), () => { syncListen(); checkArrival(); });
+  const b = wk.stops[i];
+  playParts(`b:${b.id}`, stopScript(wk, i), () => { syncListen(); checkArrival(); }, b.cardHeading || b.address);
 }
 
 function startWalkAudio() {
@@ -305,6 +370,7 @@ function syncWalkAudio() {
   const btn = document.getElementById('walk-audio');
   if (!btn) return;
   const wk = typeof explore !== 'undefined' && explore.walk;
+  document.body.classList.toggle('walk-has-audio', !!(wk && walkHasAudio(wk)));
   const mine = wk && guide.key === `b:${wk.stops[wk.index].id}`;
   const playing = mine && guide.state === 'playing';
   btn.classList.toggle('on', walkAudio.on);
@@ -317,10 +383,26 @@ function syncWalkAudio() {
 
 // MARK: - Старт
 
+async function loadAudioFiles() {
+  try {
+    const r = await fetch('data/audio.json', { cache: 'no-cache' });
+    if (!r.ok) return;
+    const data = await r.json();
+    files.buildings = data.buildings || {};
+    files.walks = data.walks || {};
+  } catch (e) { /* записів ще немає — читає голос пристрою */ }
+}
+
 function setupAudio() {
-  if (!('speechSynthesis' in window)) return;
-  pickVoice();
-  speechSynthesis.addEventListener?.('voiceschanged', pickVoice);
+  if ('speechSynthesis' in window) {
+    pickVoice();
+    speechSynthesis.addEventListener?.('voiceschanged', () => { pickVoice(); syncWalkAudio(); });
+  }
+  loadAudioFiles().then(syncWalkAudio);
+  player.addEventListener('timeupdate', () => {
+    const bar = guide.key && document.querySelector(`[data-listen="${CSS.escape(guide.key)}"] .listen-bar i`);
+    if (bar) bar.style.width = `${progress() * 100}%`;
+  });
   // Закрили картку — історія замовкає (крім прогулянки з гідом).
   new MutationObserver(() => { if ($('panel').hidden && !walkAudioOn() && guide.key) stopListening(); })
     .observe($('panel'), { attributes: true, attributeFilter: ['hidden'] });
@@ -336,7 +418,7 @@ function setupAudio() {
     else if (guide.key === key && guide.state === 'paused') resumeListening();
     else playWalkStop();
   });
-  // Сторінку сховали (заблокований екран) — більшість браузерів голос усе одно глушить.
+  // Сторінку закрили — замовкаємо. (mp3 на заблокованому екрані грає далі: pagehide тоді не настає.)
   window.addEventListener('pagehide', stopListening);
 }
 

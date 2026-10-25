@@ -2,7 +2,7 @@
 // і щоб оболонка з даними відкривалась навіть зі слабким інтернетом.
 // Дані будинків завжди беремо з мережі, кеш — лише запас без інтернету.
 // Змінюючи app.js, explore.js, audio.js, app.css чи mapbox-gl, підніми номер версії.
-const CACHE = 'bruk-map-v21';
+const CACHE = 'bruk-map-v22';
 const SHELL = [
   './', 'index.html', 'app.css', 'app.js', 'explore.js', 'audio.js', 'manifest.webmanifest',
   'config.js', 'vendor/mapbox-gl.js', 'vendor/mapbox-gl.css', 'icons/icon-192.png',
@@ -23,6 +23,8 @@ self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
   // Тайли Mapbox і фото Commons не чіпаємо: їх кешує сам браузер.
   if (event.request.method !== 'GET' || url.origin !== location.origin) return;
+  // mp3 аудіогіда браузер тягне шматками (Range); через кеш iPhone їх не програє — хай іде повз нас.
+  if (url.pathname.includes('/audio/')) return;
   event.respondWith(
     fetch(event.request)
       .then((response) => {

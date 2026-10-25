@@ -399,7 +399,7 @@ hr.div { border: 0; border-top: 1px solid var(--line); }
 
 /* ---------- Аудіогід (audio.js): видно лише там, де є український голос ---------- */
 .listen, .walk-audio { display: none; }
-.can-listen .listen {
+.can-listen .listen, .listen.has-file {
   position: relative; display: inline-flex; align-items: center; gap: 8px; margin-top: 12px;
   height: 36px; padding: 0 16px 0 10px; border: 0; border-radius: 999px; overflow: hidden;
   background: var(--red-soft); color: var(--red); font-size: 14px; font-weight: 600;
@@ -415,8 +415,8 @@ hr.div { border: 0; border-top: 1px solid var(--line); }
 .listen.active .listen-bar i { background: #fff; }
 
 .walk-stop-wrap { position: relative; display: flex; flex-direction: column; }
-.can-listen .walk-stop { padding-right: 72px; }
-.can-listen .walk-audio {
+.can-listen .walk-stop, .walk-has-audio .walk-stop { padding-right: 72px; }
+.can-listen .walk-audio, .walk-has-audio .walk-audio {
   pointer-events: auto; position: absolute; top: 14px; right: 14px; display: grid; place-items: center;
   width: 46px; height: 46px; border: 0; border-radius: 50%; background: var(--red);
   box-shadow: 0 2px 6px rgba(162,14,0,.3);
