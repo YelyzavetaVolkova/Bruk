@@ -397,6 +397,36 @@ hr.div { border: 0; border-top: 1px solid var(--line); }
 .walk-controls button:disabled { color: #c7c7cc; cursor: default; }
 .walking .panel { z-index: 4; }
 
+/* ---------- Аудіогід (audio.js): видно лише там, де є український голос ---------- */
+.listen, .walk-audio { display: none; }
+.can-listen .listen {
+  position: relative; display: inline-flex; align-items: center; gap: 8px; margin-top: 12px;
+  height: 36px; padding: 0 16px 0 10px; border: 0; border-radius: 999px; overflow: hidden;
+  background: var(--red-soft); color: var(--red); font-size: 14px; font-weight: 600;
+}
+.listen-icon { display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: var(--red); }
+.listen svg, .walk-audio svg { width: 12px; height: 12px; fill: #fff; }
+.listen-bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; }
+.listen-bar i { display: block; height: 100%; width: 0; background: var(--red); transition: width .4s; }
+.listen.active { background: var(--red); color: #fff; }
+.listen.active .listen-icon { background: #fff; }
+.listen.active svg { fill: var(--red); }
+.listen.active .listen-bar { background: rgba(255,255,255,.3); }
+.listen.active .listen-bar i { background: #fff; }
+
+.walk-stop-wrap { position: relative; display: flex; flex-direction: column; }
+.can-listen .walk-stop { padding-right: 72px; }
+.can-listen .walk-audio {
+  pointer-events: auto; position: absolute; top: 14px; right: 14px; display: grid; place-items: center;
+  width: 46px; height: 46px; border: 0; border-radius: 50%; background: var(--red);
+  box-shadow: 0 2px 6px rgba(162,14,0,.3);
+}
+.walk-audio svg { width: 18px; height: 18px; }
+.walk-audio.playing { animation: listen-pulse 1.6s ease-in-out infinite; }
+@keyframes listen-pulse { 50% { box-shadow: 0 0 0 8px var(--red-soft); } }
+.walk-audio-hint { font-size: 13px; line-height: 1.35; color: var(--red); }
+@media (prefers-reduced-motion: reduce) { .walk-audio.playing { animation: none; } }
+
 .walk-pin { border: 0; background: none; padding: 0; display: flex; flex-direction: column; align-items: center; cursor: pointer; }
 .walk-pin .head {
   width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center;

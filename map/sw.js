@@ -1,10 +1,10 @@
 // Сервіс-воркер BRUK: щоб мапу можна було встановити на телефон
 // і щоб оболонка з даними відкривалась навіть зі слабким інтернетом.
 // Дані будинків завжди беремо з мережі, кеш — лише запас без інтернету.
-// Змінюючи app.js, app.css чи mapbox-gl, підніми номер версії.
-const CACHE = 'bruk-map-v20';
+// Змінюючи app.js, explore.js, audio.js, app.css чи mapbox-gl, підніми номер версії.
+const CACHE = 'bruk-map-v21';
 const SHELL = [
-  './', 'index.html', 'app.css', 'app.js', 'explore.js', 'manifest.webmanifest',
+  './', 'index.html', 'app.css', 'app.js', 'explore.js', 'audio.js', 'manifest.webmanifest',
   'config.js', 'vendor/mapbox-gl.js', 'vendor/mapbox-gl.css', 'icons/icon-192.png',
   'data/buildings.json', 'data/facts.json', 'data/filters.json', 'data/wlm.json', 'data/walks.json', 'data/pages.json',
 ];

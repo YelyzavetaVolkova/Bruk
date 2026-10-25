@@ -663,6 +663,7 @@ function renderBuilding(b) {
     <div class="eyebrow">${esc(b.address)}</div>
     ${b.currentName ? `<h1 class="title" id="panel-title">${esc(b.currentName)}</h1>` : `<h1 class="title" id="panel-title">${esc(b.address)}</h1>`}
     ${badges.length ? `<div class="badges">${badges.join('')}</div>` : ''}
+    ${typeof listenButton === 'function' ? listenButton(b) : ''}
   </div>`);
   parts.push('<hr class="div">');
 
@@ -734,6 +735,8 @@ function showBuilding(b, { fly = false, featureId = null } = {}) {
   }
   const share = $('share');
   if (share) share.addEventListener('click', (e) => shareBuilding(e, b, share));
+  // Аудіогід (audio.js): кнопка «Слухати».
+  if (typeof bindListen === 'function') bindListen(b);
   if (map && map.isStyleLoaded()) markSelected(featureId ? { osmID: `way/${featureId}` } : b);
   if (fly) flyTo(b);
   loadPhotos(b);

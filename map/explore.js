@@ -268,6 +268,8 @@ function goToStop(i) {
   $('walk-next').disabled = wk.index === wk.stops.length - 1;
   if (!$('panel').hidden) showBuilding(b);
   flyTo(b);
+  // Аудіогід (audio.js): у його режимі нова зупинка звучить сама.
+  if (typeof onWalkStop === 'function') onWalkStop();
 }
 
 function overviewWalk() {

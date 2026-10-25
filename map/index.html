@@ -146,11 +146,15 @@
       </div>
     </div>
     <div class="walk-bottom">
-      <button id="walk-card" class="walk-stop" type="button">
-        <span id="walk-stop-label" class="label"></span>
-        <span id="walk-stop-title" class="title"></span>
-        <span id="walk-stop-teaser" class="teaser"></span>
-      </button>
+      <div class="walk-stop-wrap">
+        <button id="walk-card" class="walk-stop" type="button">
+          <span id="walk-stop-label" class="label"></span>
+          <span id="walk-stop-title" class="title"></span>
+          <span id="walk-stop-teaser" class="teaser"></span>
+          <span id="walk-audio-hint" class="walk-audio-hint" hidden>Аудіогід увімкнено: дійди до наступної зупинки, і вона зазвучить сама. Або натисни стрілку.</span>
+        </button>
+        <button id="walk-audio" class="walk-audio" type="button" aria-label="Увімкнути аудіогід"></button>
+      </div>
       <div class="walk-controls">
         <button id="walk-prev" class="seg-icon" aria-label="Попередня зупинка"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
         <button id="walk-overview" class="seg dark">Маршрут</button>
@@ -166,5 +170,6 @@
   <script src="config.js"></script>
   <script src="app.js"></script>
   <script src="explore.js"></script>
+  <script src="audio.js"></script>
 </body>
 </html>
