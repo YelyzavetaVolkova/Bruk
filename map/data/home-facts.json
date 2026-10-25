@@ -592,5 +592,49 @@
    "address": "Yaroslaviv Val, 32",
    "text": "After their wedding in 1907, Lesia Ukrainka and Klyment Kvitka lived for two weeks in the outbuilding at Yaroslaviv Val, 32."
   }
+ },
+ {
+  "id": "pending_bratska_2",
+  "uk": {
+   "address": "Братська, 2",
+   "text": "Зерносховище на Братській, 2 стоїть під гострим кутом до вулиці, бо його звели ще до пожежі 1811 року, коли вулиці Подолу йшли інакше."
+  },
+  "en": {
+   "address": "Bratska, 2",
+   "text": "The granary at Bratska, 2 stands at a sharp angle to the street because it was built before the fire of 1811, when Podil’s streets ran differently."
+  }
+ },
+ {
+  "id": "pending_andriivska_19",
+  "uk": {
+   "address": "Андріївська, 19",
+   "text": "У машинній залі електростанції на Андріївській, 19 досі стоїть мостовий кран, зроблений 1898 року спеціально для неї."
+  },
+  "en": {
+   "address": "Andriivska, 19",
+   "text": "The machine hall of the power station at Andriivska, 19 still has its overhead crane, made in 1898 especially for this station."
+  }
+ },
+ {
+  "id": "pending_naberezhno-khreshchatytska_27",
+  "uk": {
+   "address": "Набережно-Хрещатицька, 27",
+   "text": "Бурсу Київської академії на Набережно-Хрещатицькій, 27 після пожежі 1775 року відбудували коштом збору по всій митрополії."
+  },
+  "en": {
+   "address": "Naberezhno-Khreshchatytska, 27",
+   "text": "After the fire of 1775, the Kyiv Academy’s bursa at Naberezhno-Khreshchatytska, 27 was rebuilt with money collected across the whole metropolis."
+  }
+ },
+ {
+  "id": "pending_ihorivska_14",
+  "uk": {
+   "address": "Ігорівська, 14",
+   "text": "Учні ремісничого училища на Ігорівській, 14 самі розробили шкільну парту власного типу."
+  },
+  "en": {
+   "address": "Ihorivska, 14",
+   "text": "Students of the craft school at Ihorivska, 14 designed a school desk of their own."
+  }
  }
 ]
