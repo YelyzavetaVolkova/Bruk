@@ -3,11 +3,11 @@
   "id": "147322969",
   "uk": {
    "address": "Хрещатик, 2",
-   "text": "Перший у Києві театр був дерев'яним і стояв на початку Хрещатика — вулиця тоді навіть звалася Театральною."
+   "text": "Перший у Києві театр був дерев'яним і стояв на початку Хрещатика, а вулиця тоді навіть звалася Театральною."
   },
   "en": {
    "address": "Khreshchatyk, 2",
-   "text": "Kyiv’s first theatre was a wooden one at the top of Khreshchatyk — back then the street was even called Teatralna (Theatre Street)."
+   "text": "Kyiv’s first theatre was a wooden one at the top of Khreshchatyk; back then the street was even called Teatralna (Theatre Street)."
   }
  },
  {
@@ -25,18 +25,18 @@
   "id": "27829825",
   "uk": {
    "address": "Хрещатик, 12",
-   "text": "Усередині Хрещатика, 12 сховане двоповерхове ядро 1840-х — єдиний уцілілий зразок ранньої забудови вулиці."
+   "text": "Усередині Хрещатика, 12 сховане двоповерхове ядро 1840-х, єдиний уцілілий зразок ранньої забудови вулиці."
   },
   "en": {
    "address": "Khreshchatyk, 12",
-   "text": "Hidden inside Khreshchatyk, 12 is a two-storey core from the 1840s — the only surviving example of the street’s early buildings."
+   "text": "Hidden inside Khreshchatyk, 12 is a two-storey core from the 1840s, the only surviving example of the street’s early buildings."
   }
  },
  {
   "id": "osm:way/260794544",
   "uk": {
    "address": "Хрещатик, 18/2",
-   "text": "Вежу Міської думи на Думській площі вінчав архангел Михаїл — покровитель Києва."
+   "text": "Вежу Міської думи на Думській площі вінчав архангел Михаїл, покровитель Києва."
   },
   "en": {
    "address": "Khreshchatyk, 18/2",
@@ -91,11 +91,11 @@
   "id": "osm:way/47172525",
   "uk": {
    "address": "Хрещатик, 13/2",
-   "text": "На фотовиставці 1908 року в Біржі нагороду взяла Анна Шлейфер — за знімки, зроблені Х-променями."
+   "text": "На фотовиставці 1908 року в Біржі нагороду взяла Анна Шлейфер: за знімки, зроблені Х-променями."
   },
   "en": {
    "address": "Khreshchatyk, 13/2",
-   "text": "At the 1908 photo exhibition in the Exchange, the award went to Anna Shleifer — for pictures taken with X-rays."
+   "text": "At the 1908 photo exhibition in the Exchange, the award went to Anna Shleifer, for pictures taken with X-rays."
   }
  },
  {
@@ -157,11 +157,11 @@
   "id": "osm:way/30643028",
   "uk": {
    "address": "Інститутська, 4",
-   "text": "До війни на Інститутській стояв хмарочос будівельного підрядника Лева Гінзбурга — найвищий будинок дорадянського Києва."
+   "text": "До війни на Інститутській стояв хмарочос будівельного підрядника Лева Гінзбурга, найвищий будинок дорадянського Києва."
   },
   "en": {
    "address": "Instytutska, 4",
-   "text": "Before the war, the skyscraper of building contractor Lev Ginzburg stood on Instytutska Street — the tallest building of pre-Soviet Kyiv."
+   "text": "Before the war, the skyscraper of building contractor Lev Ginzburg stood on Instytutska Street, the tallest building of pre-Soviet Kyiv."
   }
  },
  {
@@ -289,7 +289,7 @@
   "id": "osm:way/46994910",
   "uk": {
    "address": "Прорізна, 9",
-   "text": "Будинок Шіле на Прорізній, 9 — один із двох будинків нижньої Прорізної, що пережили пожежу 1941 року."
+   "text": "Будинок Шіле на Прорізній, 9 є одним із двох будинків нижньої Прорізної, що пережили пожежу 1941 року."
   },
   "en": {
    "address": "Prorizna, 9",
@@ -304,7 +304,7 @@
   },
   "en": {
    "address": "Prorizna, 17",
-   "text": "In 1918–1919, Les Kurbas’s Young Theatre worked at Prorizna, 17 — the starting point of the Ukrainian theatre avant-garde."
+   "text": "In 1918–1919, Les Kurbas’s Young Theatre worked at Prorizna, 17, the starting point of the Ukrainian theatre avant-garde."
   }
  },
  {
@@ -322,11 +322,11 @@
   "id": "osm:way/31823034",
   "uk": {
    "address": "Банкова, 2",
-   "text": "Цукровий магнат Ліберман зробив у своєму палаці кімнату з розсувною стелею — щоб на Суккот милуватися зоряним небом."
+   "text": "Цукровий магнат Ліберман зробив у своєму палаці кімнату з розсувною стелею, щоб на Суккот милуватися зоряним небом."
   },
   "en": {
    "address": "Bankova, 2",
-   "text": "Sugar magnate Liberman built a room with a sliding ceiling in his palace — to admire the starry sky during Sukkot."
+   "text": "Sugar magnate Liberman built a room with a sliding ceiling in his palace to admire the starry sky during Sukkot."
   }
  },
  {
@@ -355,11 +355,11 @@
   "id": "osm:way/152028455",
   "uk": {
    "address": "Бессарабська площа, 2",
-   "text": "Критий Бессарабський ринок звели в 1908–1912 роках — і він стоїть на тому самому місці досі."
+   "text": "Критий Бессарабський ринок звели в 1908–1912 роках, і він стоїть на тому самому місці досі."
   },
   "en": {
    "address": "Bessarabska Sq, 2",
-   "text": "The covered Bessarabka Market was built in 1908–1912 — and it still stands on the very same spot."
+   "text": "The covered Bessarabka Market was built in 1908–1912, and it still stands on the very same spot."
   }
  },
  {
@@ -377,11 +377,11 @@
   "id": "osm:way/71517799",
   "uk": {
    "address": "Євгена Чикаленка, 17",
-   "text": "Іван Нечуй-Левицький прожив на теперішній Чикаленка понад двадцять років — з 1889 по 1910-й."
+   "text": "Іван Нечуй-Левицький прожив на теперішній Чикаленка понад двадцять років: з 1889 по 1910-й."
   },
   "en": {
    "address": "Yevhena Chykalenka, 17",
-   "text": "Ivan Nechui-Levytskyi lived on what is now Chykalenka Street for more than twenty years — from 1889 to 1910."
+   "text": "Ivan Nechui-Levytskyi lived on what is now Chykalenka Street for more than twenty years, from 1889 to 1910."
   }
  },
  {
@@ -454,11 +454,11 @@
   "id": "osm:way/43383147",
   "uk": {
    "address": "бульвар Шевченка, 20",
-   "text": "Володимирський собор будували 34 роки — з 1862 по 1896-й."
+   "text": "Володимирський собор будували 34 роки: з 1862 по 1896-й."
   },
   "en": {
    "address": "Shevchenka Blvd, 20",
-   "text": "St Volodymyr’s Cathedral took 34 years to build — from 1862 to 1896."
+   "text": "St Volodymyr’s Cathedral took 34 years to build, from 1862 to 1896."
   }
  },
  {
@@ -531,11 +531,11 @@
   "id": "osm:relation/1846058",
   "uk": {
    "address": "Богдана Хмельницького, 32",
-   "text": "Архітектор Кароль Іваницький сам оселився у своєму будинку на Богдана Хмельницького, 32 — у квартирі № 10 на шостому поверсі."
+   "text": "Архітектор Кароль Іваницький сам оселився у своєму будинку на Богдана Хмельницького, 32, у квартирі № 10 на шостому поверсі."
   },
   "en": {
    "address": "Bohdana Khmelnytskoho, 32",
-   "text": "Architect Karol Ivanytskyi moved into his own building at Bohdana Khmelnytskoho, 32 himself — apartment No. 10 on the sixth floor."
+   "text": "Architect Karol Ivanytskyi moved into his own building at Bohdana Khmelnytskoho, 32 himself, in apartment No. 10 on the sixth floor."
   }
  },
  {
@@ -591,6 +591,39 @@
   "en": {
    "address": "Yaroslaviv Val, 32",
    "text": "After their wedding in 1907, Lesia Ukrainka and Klyment Kvitka lived for two weeks in the outbuilding at Yaroslaviv Val, 32."
+  }
+ },
+ {
+  "id": "pending_yaroslaviv-val_12",
+  "uk": {
+   "address": "Ярославів Вал, 12",
+   "text": "У 1920-х на Ярославовому Валу, 12 в одному будинку жили професори Академії мистецтв: Михайло Бойчук, Софія Налепинська-Бойчук і брати Кричевські."
+  },
+  "en": {
+   "address": "Yaroslaviv Val, 12",
+   "text": "In the 1920s Academy of Arts professors lived together in one house at Yaroslaviv Val, 12: Mykhailo Boichuk, Sofiia Nalepynska-Boichuk and the Krychevskyi brothers."
+  }
+ },
+ {
+  "id": "pending_yaroslaviv-val_14-б",
+  "uk": {
+   "address": "Ярославів Вал, 14-Б",
+   "text": "Реставруючи Ярославів Вал, 14-Б, під дерев'яними панелями знайшли стіни, обклеєні театральними афішами 1908 року. Тепер тут театр «Сузір'я»."
+  },
+  "en": {
+   "address": "Yaroslaviv Val, 14-B",
+   "text": "While restoring Yaroslaviv Val, 14-B, builders found walls covered in 1908 theatre posters under wooden panels. Today the Suzirya theatre is here."
+  }
+ },
+ {
+  "id": "pending_andriivskyi_18",
+  "uk": {
+   "address": "Андріївський узвіз, 18",
+   "text": "На Андріївському узвозі, 18 ювелір Йосип Ребенок успадкував майстерню свого господаря Івана Ярославського і одружився з його вдовою."
+  },
+  "en": {
+   "address": "Andriivskyi Descent, 18",
+   "text": "At Andriivskyi Descent, 18 the jeweller Yosyp Rebenok inherited the workshop of his master Ivan Yaroslavskyi and married his widow."
   }
  },
  {
