@@ -55,6 +55,7 @@
   <url><loc>https://bruk.city/budynky/bankova/5-7-korpus-2/</loc></url>
   <url><loc>https://bruk.city/budynky/bankova/8/</loc></url>
   <url><loc>https://bruk.city/budynky/bankova/10/</loc></url>
+  <url><loc>https://bruk.city/budynky/bankova/11/</loc></url>
   <url><loc>https://bruk.city/budynky/bankova/</loc></url>
   <url><loc>https://bruk.city/budynky/baseina/5a/</loc><lastmod>2026-10-06</lastmod></url>
   <url><loc>https://bruk.city/budynky/baseina/6/</loc><lastmod>2026-10-06</lastmod></url>
@@ -128,6 +129,7 @@
   <url><loc>https://bruk.city/budynky/bohdana-khmelnytskoho/84/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/bohdana-khmelnytskoho/94/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/bohdana-khmelnytskoho/</loc></url>
+  <url><loc>https://bruk.city/budynky/borysohlibska/6/</loc></url>
   <url><loc>https://bruk.city/budynky/borysohlibska/15a/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/borysohlibska/15b/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/borysohlibska/</loc></url>
@@ -144,6 +146,7 @@
   <url><loc>https://bruk.city/budynky/bratska/1-9/</loc><lastmod>2026-10-25</lastmod></url>
   <url><loc>https://bruk.city/budynky/bratska/2/</loc><lastmod>2026-10-25</lastmod></url>
   <url><loc>https://bruk.city/budynky/bratska/4/</loc><lastmod>2026-10-25</lastmod></url>
+  <url><loc>https://bruk.city/budynky/bratska/7/</loc></url>
   <url><loc>https://bruk.city/budynky/bratska/14/</loc><lastmod>2026-10-25</lastmod></url>
   <url><loc>https://bruk.city/budynky/bratska/</loc></url>
   <url><loc>https://bruk.city/budynky/bulvarno-kudriavska/2/</loc><lastmod>2026-10-14</lastmod></url>
@@ -164,6 +167,7 @@
   <url><loc>https://bruk.city/budynky/bulvarno-kudriavska/38/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/bulvarno-kudriavska/51/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/bulvarno-kudriavska/</loc></url>
+  <url><loc>https://bruk.city/budynky/velyka-vasylkivska/1/</loc></url>
   <url><loc>https://bruk.city/budynky/velyka-vasylkivska/6/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://bruk.city/budynky/velyka-vasylkivska/10/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://bruk.city/budynky/velyka-vasylkivska/12/</loc><lastmod>2026-10-06</lastmod></url>
@@ -207,7 +211,7 @@
   <url><loc>https://bruk.city/budynky/velyka-vasylkivska/67/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://bruk.city/budynky/velyka-vasylkivska/69/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://bruk.city/budynky/velyka-vasylkivska/71-6/</loc><lastmod>2026-10-08</lastmod></url>
-  <url><loc>https://bruk.city/budynky/velyka-vasylkivska/75/</loc><lastmod>2026-10-08</lastmod></url>
+  <url><loc>https://bruk.city/budynky/velyka-vasylkivska/75/</loc></url>
   <url><loc>https://bruk.city/budynky/velyka-vasylkivska/85-87/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://bruk.city/budynky/velyka-vasylkivska/90/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/velyka-vasylkivska/92/</loc><lastmod>2026-10-08</lastmod></url>
@@ -220,12 +224,22 @@
   <url><loc>https://bruk.city/budynky/velyka-vasylkivska/</loc></url>
   <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/2/</loc><lastmod>2026-10-06</lastmod></url>
   <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/6/</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/8-a/</loc></url>
+  <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/8-b/</loc></url>
   <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/9/</loc><lastmod>2026-10-06</lastmod></url>
   <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/10/</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/12/</loc></url>
   <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/13/</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/15/</loc></url>
+  <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/17-2/</loc></url>
+  <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/18/</loc></url>
+  <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/19/</loc></url>
   <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/20/</loc><lastmod>2026-10-06</lastmod></url>
   <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/23/</loc><lastmod>2026-10-06</lastmod></url>
   <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/25-2/</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/28/</loc></url>
+  <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/32/</loc></url>
+  <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/34/</loc></url>
   <url><loc>https://bruk.city/budynky/velyka-zhytomyrska/</loc></url>
   <url><loc>https://bruk.city/budynky/verkhnii-val/4/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/verkhnii-val/16/</loc><lastmod>2026-10-06</lastmod></url>
@@ -250,6 +264,7 @@
   <url><loc>https://bruk.city/budynky/volodymyrska/16/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://bruk.city/budynky/volodymyrska/18-2/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://bruk.city/budynky/volodymyrska/20-1a/</loc><lastmod>2026-10-08</lastmod></url>
+  <url><loc>https://bruk.city/budynky/volodymyrska/21-20/</loc></url>
   <url><loc>https://bruk.city/budynky/volodymyrska/22/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://bruk.city/budynky/volodymyrska/23-27/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/volodymyrska/28/</loc><lastmod>2026-10-04</lastmod></url>
@@ -274,6 +289,7 @@
   <url><loc>https://bruk.city/budynky/volodymyrska/51-53/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/volodymyrska/54/</loc><lastmod>2026-10-04</lastmod></url>
   <url><loc>https://bruk.city/budynky/volodymyrska/57/</loc><lastmod>2026-10-14</lastmod></url>
+  <url><loc>https://bruk.city/budynky/volodymyrska/58-17/</loc></url>
   <url><loc>https://bruk.city/budynky/volodymyrska/60/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/volodymyrska/61-b/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/volodymyrska/61-11/</loc><lastmod>2026-10-14</lastmod></url>
@@ -300,6 +316,11 @@
   <url><loc>https://bruk.city/budynky/vyacheslava-lypynskoho/13/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/vyacheslava-lypynskoho/16/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/vyacheslava-lypynskoho/</loc></url>
+  <url><loc>https://bruk.city/budynky/hetmana-pavla-skoropadskoho/1/</loc></url>
+  <url><loc>https://bruk.city/budynky/hetmana-pavla-skoropadskoho/5/</loc></url>
+  <url><loc>https://bruk.city/budynky/hetmana-pavla-skoropadskoho/7/</loc></url>
+  <url><loc>https://bruk.city/budynky/hetmana-pavla-skoropadskoho/9/</loc></url>
+  <url><loc>https://bruk.city/budynky/hetmana-pavla-skoropadskoho/</loc></url>
   <url><loc>https://bruk.city/budynky/horodetskoho/1-3-11/</loc></url>
   <url><loc>https://bruk.city/budynky/horodetskoho/4/</loc></url>
   <url><loc>https://bruk.city/budynky/horodetskoho/5/</loc></url>
@@ -342,6 +363,10 @@
   <url><loc>https://bruk.city/budynky/hrushevskoho/34-a/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/hrushevskoho/34-1/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/hrushevskoho/</loc></url>
+  <url><loc>https://bruk.city/budynky/desiatynna/8/</loc></url>
+  <url><loc>https://bruk.city/budynky/desiatynna/9/</loc></url>
+  <url><loc>https://bruk.city/budynky/desiatynna/14/</loc></url>
+  <url><loc>https://bruk.city/budynky/desiatynna/</loc></url>
   <url><loc>https://bruk.city/budynky/dilova/6/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/dilova/</loc></url>
   <url><loc>https://bruk.city/budynky/esplanadna/1/</loc><lastmod>2026-10-06</lastmod></url>
@@ -420,9 +445,16 @@
   <url><loc>https://bruk.city/budynky/zankovetskoi/8/</loc></url>
   <url><loc>https://bruk.city/budynky/zankovetskoi/10/</loc></url>
   <url><loc>https://bruk.city/budynky/zankovetskoi/</loc></url>
+  <url><loc>https://bruk.city/budynky/zolotovoritska/3/</loc></url>
   <url><loc>https://bruk.city/budynky/zolotovoritska/4/</loc><lastmod>2026-10-06</lastmod></url>
   <url><loc>https://bruk.city/budynky/zolotovoritska/6/</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://bruk.city/budynky/zolotovoritska/11/</loc></url>
   <url><loc>https://bruk.city/budynky/zolotovoritska/</loc></url>
+  <url><loc>https://bruk.city/budynky/ivana-mazepy/1/</loc></url>
+  <url><loc>https://bruk.city/budynky/ivana-mazepy/11/</loc></url>
+  <url><loc>https://bruk.city/budynky/ivana-mazepy/15/</loc></url>
+  <url><loc>https://bruk.city/budynky/ivana-mazepy/18-29/</loc></url>
+  <url><loc>https://bruk.city/budynky/ivana-mazepy/</loc></url>
   <url><loc>https://bruk.city/budynky/ivana-franka/4/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/ivana-franka/5/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/ivana-franka/9/</loc><lastmod>2026-10-14</lastmod></url>
@@ -442,6 +474,7 @@
   <url><loc>https://bruk.city/budynky/ihorivska/12/</loc><lastmod>2026-10-25</lastmod></url>
   <url><loc>https://bruk.city/budynky/ihorivska/14/</loc><lastmod>2026-10-25</lastmod></url>
   <url><loc>https://bruk.city/budynky/ihorivska/</loc></url>
+  <url><loc>https://bruk.city/budynky/illinska/14-6/</loc></url>
   <url><loc>https://bruk.city/budynky/illinska/20/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://bruk.city/budynky/illinska/22/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://bruk.city/budynky/illinska/</loc></url>
@@ -474,6 +507,7 @@
   <url><loc>https://bruk.city/budynky/kontraktova-ploshcha/7/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://bruk.city/budynky/kontraktova-ploshcha/8/</loc><lastmod>2026-10-06</lastmod></url>
   <url><loc>https://bruk.city/budynky/kontraktova-ploshcha/10a/</loc><lastmod>2026-10-08</lastmod></url>
+  <url><loc>https://bruk.city/budynky/kontraktova-ploshcha/12/</loc></url>
   <url><loc>https://bruk.city/budynky/kontraktova-ploshcha/</loc></url>
   <url><loc>https://bruk.city/budynky/kostolna/3/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://bruk.city/budynky/kostolna/4/</loc><lastmod>2026-10-08</lastmod></url>
@@ -496,6 +530,20 @@
   <url><loc>https://bruk.city/budynky/kostiantynivska/21-12/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/kostiantynivska/23-15/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/kostiantynivska/</loc></url>
+  <url><loc>https://bruk.city/budynky/kruhlouniversytetska/6/</loc></url>
+  <url><loc>https://bruk.city/budynky/kruhlouniversytetska/7/</loc></url>
+  <url><loc>https://bruk.city/budynky/kruhlouniversytetska/10/</loc></url>
+  <url><loc>https://bruk.city/budynky/kruhlouniversytetska/12/</loc></url>
+  <url><loc>https://bruk.city/budynky/kruhlouniversytetska/14/</loc></url>
+  <url><loc>https://bruk.city/budynky/kruhlouniversytetska/15/</loc></url>
+  <url><loc>https://bruk.city/budynky/kruhlouniversytetska/</loc></url>
+  <url><loc>https://bruk.city/budynky/lypska/2/</loc></url>
+  <url><loc>https://bruk.city/budynky/lypska/4/</loc></url>
+  <url><loc>https://bruk.city/budynky/lypska/10/</loc></url>
+  <url><loc>https://bruk.city/budynky/lypska/16/</loc></url>
+  <url><loc>https://bruk.city/budynky/lypska/18-5/</loc></url>
+  <url><loc>https://bruk.city/budynky/lypska/</loc></url>
+  <url><loc>https://bruk.city/budynky/liuteranska/3/</loc></url>
   <url><loc>https://bruk.city/budynky/liuteranska/6/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/liuteranska/6b/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/liuteranska/8/</loc><lastmod>2026-10-01</lastmod></url>
@@ -508,7 +556,9 @@
   <url><loc>https://bruk.city/budynky/liuteranska/21-12/</loc></url>
   <url><loc>https://bruk.city/budynky/liuteranska/22/</loc></url>
   <url><loc>https://bruk.city/budynky/liuteranska/23/</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://bruk.city/budynky/liuteranska/25/</loc></url>
   <url><loc>https://bruk.city/budynky/liuteranska/27-29/</loc></url>
+  <url><loc>https://bruk.city/budynky/liuteranska/28-19/</loc></url>
   <url><loc>https://bruk.city/budynky/liuteranska/32a/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/liuteranska/33/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/liuteranska/</loc></url>
@@ -560,6 +610,9 @@
   <url><loc>https://bruk.city/budynky/mezhyhirska/32a/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/mezhyhirska/33-19/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/mezhyhirska/</loc></url>
+  <url><loc>https://bruk.city/budynky/mykilsko-botanichna/10/</loc></url>
+  <url><loc>https://bruk.city/budynky/mykilsko-botanichna/11-a/</loc></url>
+  <url><loc>https://bruk.city/budynky/mykilsko-botanichna/</loc></url>
   <url><loc>https://bruk.city/budynky/mykhailivska/1-3/</loc></url>
   <url><loc>https://bruk.city/budynky/mykhailivska/6/</loc><lastmod>2026-10-08</lastmod></url>
   <url><loc>https://bruk.city/budynky/mykhailivska/7/</loc><lastmod>2026-10-01</lastmod></url>
@@ -584,6 +637,10 @@
   <url><loc>https://bruk.city/budynky/mykhailivska/24-zh/</loc></url>
   <url><loc>https://bruk.city/budynky/mykhailivska/24-11/</loc></url>
   <url><loc>https://bruk.city/budynky/mykhailivska/</loc></url>
+  <url><loc>https://bruk.city/budynky/mykhailivskyi-provulok/9-a/</loc></url>
+  <url><loc>https://bruk.city/budynky/mykhailivskyi-provulok/9-b/</loc></url>
+  <url><loc>https://bruk.city/budynky/mykhailivskyi-provulok/14/</loc></url>
+  <url><loc>https://bruk.city/budynky/mykhailivskyi-provulok/</loc></url>
   <url><loc>https://bruk.city/budynky/naberezhno-khreshchatytska/1a/</loc><lastmod>2026-10-25</lastmod></url>
   <url><loc>https://bruk.city/budynky/naberezhno-khreshchatytska/27/</loc><lastmod>2026-10-25</lastmod></url>
   <url><loc>https://bruk.city/budynky/naberezhno-khreshchatytska/</loc></url>
@@ -604,9 +661,18 @@
   <url><loc>https://bruk.city/budynky/nyzhnii-val/61/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/nyzhnii-val/</loc></url>
   <url><loc>https://bruk.city/budynky/olesia-honchara/12/</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://bruk.city/budynky/olesia-honchara/33/</loc></url>
+  <url><loc>https://bruk.city/budynky/olesia-honchara/55-a/</loc></url>
+  <url><loc>https://bruk.city/budynky/olesia-honchara/60/</loc></url>
   <url><loc>https://bruk.city/budynky/olesia-honchara/</loc></url>
+  <url><loc>https://bruk.city/budynky/pankivska/2/</loc></url>
+  <url><loc>https://bruk.city/budynky/pankivska/8/</loc></url>
+  <url><loc>https://bruk.city/budynky/pankivska/9/</loc></url>
+  <url><loc>https://bruk.city/budynky/pankivska/</loc></url>
   <url><loc>https://bruk.city/budynky/petra-sahaidachnoho/6/</loc><lastmod>2026-10-06</lastmod></url>
   <url><loc>https://bruk.city/budynky/petra-sahaidachnoho/8/</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://bruk.city/budynky/petra-sahaidachnoho/10/</loc></url>
+  <url><loc>https://bruk.city/budynky/petra-sahaidachnoho/12/</loc></url>
   <url><loc>https://bruk.city/budynky/petra-sahaidachnoho/16-5/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/petra-sahaidachnoho/16b/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/petra-sahaidachnoho/19/</loc><lastmod>2026-10-14</lastmod></url>
@@ -619,6 +685,11 @@
   <url><loc>https://bruk.city/budynky/petra-sahaidachnoho/29-3/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/petra-sahaidachnoho/35/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/petra-sahaidachnoho/</loc></url>
+  <url><loc>https://bruk.city/budynky/pylypa-orlyka/3/</loc></url>
+  <url><loc>https://bruk.city/budynky/pylypa-orlyka/4/</loc></url>
+  <url><loc>https://bruk.city/budynky/pylypa-orlyka/8/</loc></url>
+  <url><loc>https://bruk.city/budynky/pylypa-orlyka/12/</loc></url>
+  <url><loc>https://bruk.city/budynky/pylypa-orlyka/</loc></url>
   <url><loc>https://bruk.city/budynky/pokrovska/1-1/</loc><lastmod>2026-10-06</lastmod></url>
   <url><loc>https://bruk.city/budynky/pokrovska/4/</loc><lastmod>2026-10-06</lastmod></url>
   <url><loc>https://bruk.city/budynky/pokrovska/5/</loc><lastmod>2026-10-14</lastmod></url>
@@ -639,6 +710,7 @@
   <url><loc>https://bruk.city/budynky/prorizna/4/</loc></url>
   <url><loc>https://bruk.city/budynky/prorizna/6/</loc></url>
   <url><loc>https://bruk.city/budynky/prorizna/7/</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://bruk.city/budynky/prorizna/8/</loc></url>
   <url><loc>https://bruk.city/budynky/prorizna/9/</loc></url>
   <url><loc>https://bruk.city/budynky/prorizna/10/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/prorizna/13/</loc><lastmod>2026-10-01</lastmod></url>
@@ -662,6 +734,7 @@
   <url><loc>https://bruk.city/budynky/reitarska/20-24/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/reitarska/22/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/reitarska/24-27/</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://bruk.city/budynky/reitarska/28/</loc></url>
   <url><loc>https://bruk.city/budynky/reitarska/29/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/reitarska/31-16/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/reitarska/35-a/</loc><lastmod>2026-10-01</lastmod></url>
@@ -674,6 +747,7 @@
   <url><loc>https://bruk.city/budynky/rohnidynska/</loc></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/2-34/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/6/</loc><lastmod>2026-10-06</lastmod></url>
+  <url><loc>https://bruk.city/budynky/saksahanskoho/12/</loc></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/13-42/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/15/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/15b/</loc><lastmod>2026-10-14</lastmod></url>
@@ -713,6 +787,7 @@
   <url><loc>https://bruk.city/budynky/saksahanskoho/89/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/91/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/92/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://bruk.city/budynky/saksahanskoho/93/</loc></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/93b/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/95b/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/96/</loc><lastmod>2026-10-09</lastmod></url>
@@ -722,6 +797,7 @@
   <url><loc>https://bruk.city/budynky/saksahanskoho/103/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/104/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/107-47/</loc><lastmod>2026-10-09</lastmod></url>
+  <url><loc>https://bruk.city/budynky/saksahanskoho/108-18/</loc></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/109-20/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/110/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/111/</loc><lastmod>2026-10-09</lastmod></url>
@@ -737,6 +813,11 @@
   <url><loc>https://bruk.city/budynky/saksahanskoho/143/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/147-5/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/saksahanskoho/</loc></url>
+  <url><loc>https://bruk.city/budynky/symona-petliury/8/</loc></url>
+  <url><loc>https://bruk.city/budynky/symona-petliury/10/</loc></url>
+  <url><loc>https://bruk.city/budynky/symona-petliury/12/</loc></url>
+  <url><loc>https://bruk.city/budynky/symona-petliury/14/</loc></url>
+  <url><loc>https://bruk.city/budynky/symona-petliury/</loc></url>
   <url><loc>https://bruk.city/budynky/sofiiska/1-a/</loc></url>
   <url><loc>https://bruk.city/budynky/sofiiska/1-2/</loc></url>
   <url><loc>https://bruk.city/budynky/sofiiska/2/</loc></url>
@@ -783,6 +864,7 @@
   <url><loc>https://bruk.city/budynky/tarasivska/40-52/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/tarasivska/</loc></url>
   <url><loc>https://bruk.city/budynky/tereshchenkivska/3/</loc><lastmod>2026-10-14</lastmod></url>
+  <url><loc>https://bruk.city/budynky/tereshchenkivska/4/</loc></url>
   <url><loc>https://bruk.city/budynky/tereshchenkivska/5/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/tereshchenkivska/7/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/tereshchenkivska/9/</loc><lastmod>2026-10-14</lastmod></url>
@@ -795,6 +877,7 @@
   <url><loc>https://bruk.city/budynky/tereshchenkivska/</loc></url>
   <url><loc>https://bruk.city/budynky/trokhsviatytelska/3/</loc></url>
   <url><loc>https://bruk.city/budynky/trokhsviatytelska/4/</loc></url>
+  <url><loc>https://bruk.city/budynky/trokhsviatytelska/5-1-a/</loc></url>
   <url><loc>https://bruk.city/budynky/trokhsviatytelska/6/</loc></url>
   <url><loc>https://bruk.city/budynky/trokhsviatytelska/8/</loc></url>
   <url><loc>https://bruk.city/budynky/trokhsviatytelska/9/</loc><lastmod>2026-10-01</lastmod></url>
@@ -828,6 +911,7 @@
   <url><loc>https://bruk.city/budynky/khreshchatyk/16/</loc></url>
   <url><loc>https://bruk.city/budynky/khreshchatyk/17/</loc></url>
   <url><loc>https://bruk.city/budynky/khreshchatyk/18-2/</loc></url>
+  <url><loc>https://bruk.city/budynky/khreshchatyk/19-a/</loc></url>
   <url><loc>https://bruk.city/budynky/khreshchatyk/21/</loc></url>
   <url><loc>https://bruk.city/budynky/khreshchatyk/22/</loc></url>
   <url><loc>https://bruk.city/budynky/khreshchatyk/23/</loc></url>
@@ -835,6 +919,7 @@
   <url><loc>https://bruk.city/budynky/khreshchatyk/25/</loc></url>
   <url><loc>https://bruk.city/budynky/khreshchatyk/26/</loc></url>
   <url><loc>https://bruk.city/budynky/khreshchatyk/27/</loc></url>
+  <url><loc>https://bruk.city/budynky/khreshchatyk/27a/</loc></url>
   <url><loc>https://bruk.city/budynky/khreshchatyk/28/</loc></url>
   <url><loc>https://bruk.city/budynky/khreshchatyk/29-1/</loc></url>
   <url><loc>https://bruk.city/budynky/khreshchatyk/30-1/</loc></url>
@@ -852,7 +937,7 @@
   <url><loc>https://bruk.city/budynky/khreshchatyk/</loc></url>
   <url><loc>https://bruk.city/budynky/bulvar-shevchenka/1/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/bulvar-shevchenka/1-b/</loc><lastmod>2026-10-01</lastmod></url>
-  <url><loc>https://bruk.city/budynky/bulvar-shevchenka/2/</loc><lastmod>2026-10-01</lastmod></url>
+  <url><loc>https://bruk.city/budynky/bulvar-shevchenka/2/</loc></url>
   <url><loc>https://bruk.city/budynky/bulvar-shevchenka/3/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/bulvar-shevchenka/4/</loc></url>
   <url><loc>https://bruk.city/budynky/bulvar-shevchenka/5-7/</loc></url>
@@ -890,6 +975,15 @@
   <url><loc>https://bruk.city/budynky/bulvar-shevchenka/60/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/bulvar-shevchenka/62/</loc><lastmod>2026-10-01</lastmod></url>
   <url><loc>https://bruk.city/budynky/bulvar-shevchenka/</loc></url>
+  <url><loc>https://bruk.city/budynky/shovkovychna/1-15/</loc></url>
+  <url><loc>https://bruk.city/budynky/shovkovychna/2/</loc></url>
+  <url><loc>https://bruk.city/budynky/shovkovychna/14/</loc></url>
+  <url><loc>https://bruk.city/budynky/shovkovychna/16-a/</loc></url>
+  <url><loc>https://bruk.city/budynky/shovkovychna/16-b/</loc></url>
+  <url><loc>https://bruk.city/budynky/shovkovychna/17-2/</loc></url>
+  <url><loc>https://bruk.city/budynky/shovkovychna/19/</loc></url>
+  <url><loc>https://bruk.city/budynky/shovkovychna/36-7/</loc></url>
+  <url><loc>https://bruk.city/budynky/shovkovychna/</loc></url>
   <url><loc>https://bruk.city/budynky/shota-rustaveli/9/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/shota-rustaveli/12/</loc><lastmod>2026-10-09</lastmod></url>
   <url><loc>https://bruk.city/budynky/shota-rustaveli/13/</loc><lastmod>2026-10-06</lastmod></url>
@@ -916,6 +1010,7 @@
   <url><loc>https://bruk.city/budynky/shchekavytska/29/</loc><lastmod>2026-10-14</lastmod></url>
   <url><loc>https://bruk.city/budynky/shchekavytska/</loc></url>
   <url><loc>https://bruk.city/budynky/yaroslaviv-val/1/</loc><lastmod>2026-10-03</lastmod></url>
+  <url><loc>https://bruk.city/budynky/yaroslaviv-val/2-40/</loc></url>
   <url><loc>https://bruk.city/budynky/yaroslaviv-val/3/</loc><lastmod>2026-10-03</lastmod></url>
   <url><loc>https://bruk.city/budynky/yaroslaviv-val/4/</loc><lastmod>2026-10-03</lastmod></url>
   <url><loc>https://bruk.city/budynky/yaroslaviv-val/5/</loc><lastmod>2026-10-03</lastmod></url>
@@ -1043,6 +1138,7 @@
   <url><loc>https://bruk.city/liudy/d-bohuslavskyi/</loc></url>
   <url><loc>https://bruk.city/liudy/e-bradtman/</loc></url>
   <url><loc>https://bruk.city/liudy/o-verbytskyi/</loc></url>
+  <url><loc>https://bruk.city/liudy/m-vyshnevskyi/</loc></url>
   <url><loc>https://bruk.city/liudy/o-vlasov/</loc></url>
   <url><loc>https://bruk.city/liudy/ya-f-volman/</loc></url>
   <url><loc>https://bruk.city/liudy/m-hardenin/</loc></url>
@@ -1065,21 +1161,26 @@
   <url><loc>https://bruk.city/liudy/y-zektser/</loc></url>
   <url><loc>https://bruk.city/liudy/m-ikonnykov/</loc></url>
   <url><loc>https://bruk.city/liudy/m-kazanskyi/</loc></url>
+  <url><loc>https://bruk.city/liudy/v-katerynych/</loc></url>
   <url><loc>https://bruk.city/liudy/m-kluh/</loc></url>
   <url><loc>https://bruk.city/liudy/o-kobeliev/</loc></url>
+  <url><loc>https://bruk.city/liudy/s-kovnir/</loc></url>
   <url><loc>https://bruk.city/liudy/yu-korbin/</loc></url>
   <url><loc>https://bruk.city/liudy/ya-krasnyi/</loc></url>
   <url><loc>https://bruk.city/liudy/a-f-krauss/</loc></url>
   <url><loc>https://bruk.city/liudy/o-kryvosheiev/</loc></url>
   <url><loc>https://bruk.city/liudy/v-kulykovskyi/</loc></url>
+  <url><loc>https://bruk.city/liudy/i-ledokhovskyi/</loc></url>
   <url><loc>https://bruk.city/liudy/o-lynetskyi/</loc></url>
   <url><loc>https://bruk.city/liudy/v-maksymov/</loc></url>
   <url><loc>https://bruk.city/liudy/o-malynovskyi/</loc></url>
   <url><loc>https://bruk.city/liudy/a-melenskyi/</loc></url>
+  <url><loc>https://bruk.city/liudy/r-f-meltser/</loc></url>
   <url><loc>https://bruk.city/liudy/v-nikolaiev/</loc></url>
   <url><loc>https://bruk.city/liudy/i-nikolaiev/</loc></url>
   <url><loc>https://bruk.city/liudy/f-oltarzhevskyi/</loc></url>
   <url><loc>https://bruk.city/liudy/v-onashchenko/</loc></url>
+  <url><loc>https://bruk.city/liudy/v-osmak/</loc></url>
   <url><loc>https://bruk.city/liudy/b-pryimak/</loc></url>
   <url><loc>https://bruk.city/liudy/v-prokhorov/</loc></url>
   <url><loc>https://bruk.city/liudy/s-rykachov/</loc></url>
@@ -1102,6 +1203,7 @@
   <url><loc>https://bruk.city/liudy/k-shyman/</loc></url>
   <url><loc>https://bruk.city/liudy/o-shile/</loc></url>
   <url><loc>https://bruk.city/liudy/h-shleifer/</loc></url>
+  <url><loc>https://bruk.city/liudy/p-shleifer/</loc></url>
   <url><loc>https://bruk.city/liudy/i-shtrom/</loc></url>
   <url><loc>https://bruk.city/liudy/m-yaskevych/</loc></url>
 </urlset>
