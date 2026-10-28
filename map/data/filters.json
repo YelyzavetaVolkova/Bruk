@@ -9,6 +9,8 @@
   {"group": "Що тут було", "groupEn": "What was here", "title": "Банки й біржі", "titleEn": "Banks & exchanges", "words": ["банк", "біржа", "біржі"]},
   {"group": "Що тут було", "groupEn": "What was here", "title": "Освіта", "titleEn": "Education", "words": ["гімназі", "училищ", "колегі", "університет", "курси"]},
   {"group": "Що тут було", "groupEn": "What was here", "title": "Газети й друкарні", "titleEn": "Newspapers & printers", "words": ["редакці", "газет", "журнал", "друкарн", "видавництв"]},
+  {"group": "Що тут було", "groupEn": "What was here", "title": "Книгарні й видавці", "titleEn": "Bookshops & publishers", "words": ["книгарн", "видавц", "видавництв", "бібліотек"]},
+  {"group": "Що тут було", "groupEn": "What was here", "title": "Фотоательє", "titleEn": "Photo studios", "words": ["фотоательє", "фотограф", "фотосалон", "світлин"]},
   {"group": "Що тут було", "groupEn": "What was here", "title": "Медицина", "titleEn": "Medicine", "words": ["лікар", "лікарн", "клінік"]},
 
   {"group": "Люди й події", "groupEn": "People & events", "title": "Революція 1917–1921", "titleEn": "Revolution 1917–1921", "words": ["унр", "центральної ради", "центральна рада", "гетьман", "директорі", "української держави"]},
